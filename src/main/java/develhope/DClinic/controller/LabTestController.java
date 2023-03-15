@@ -1,7 +1,11 @@
 package develhope.DClinic.controller;
 
-import develhope.DClinic.entity.LabTestDTO;
+import develhope.DClinic.domain.LabTest;
+import develhope.DClinic.domain.LabTestDTO;
+import develhope.DClinic.service.LabTestService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 /**
  * @author Luca Giorgi
@@ -11,25 +15,27 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("d_clinic/laboratory_test")
 public class LabTestController {
 
-    //autowired ---> labTestService
+    private LabTestService labTestService;
 
     @PostMapping
     public void create(@RequestBody LabTestDTO labTestDTO){
-
+        labTestService.save(labTestDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id_labtest){
-
+    public void delete(@PathVariable long id_labTest){
+        labTestService.deleteByID(id_labTest);
     }
 
     @PutMapping
     public LabTestDTO update(@RequestBody LabTestDTO labTestDTO) {
-        return null;
+        return labTestService.save(labTestDTO);
     }
 
     @GetMapping("/{id}")
-    public LabTestDTO getLabTestByIdPatient(){return null;}
+    public Optional<LabTestDTO> getLabTestByIdTest(long id_test){
+        return labTestService.getByID(id_test);
+    }
 
 
 }
