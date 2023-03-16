@@ -1,12 +1,11 @@
 package develhope.DClinic.services;
 
-import develhope.DClinic.controllers.repositories.MedicalRecordsRepo;
-import develhope.DClinic.controllers.repositories.PatientRepo;
+import develhope.DClinic.repositories.MedicalRecordsRepo;
+import develhope.DClinic.repositories.PatientRepo;
 import develhope.DClinic.domain.MedicalRecord;
 import develhope.DClinic.domain.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

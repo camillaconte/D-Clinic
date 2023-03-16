@@ -1,4 +1,4 @@
-package develhope.DClinic.controllers.repositories;
+package develhope.DClinic.repositories;
 
 import develhope.DClinic.domain.MedicalRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
