@@ -17,13 +17,13 @@ public class LabTestController {
 
     private LabTestService labTestService;
 
-    @PostMapping
+    @PostMapping("")
     public void create(@RequestBody LabTestDTO labTestDTO){
         labTestService.save(labTestDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id_labTest){
+    public void delete(@PathVariable long id_labTest) throws Exception {
         labTestService.deleteByID(id_labTest);
     }
 
@@ -33,7 +33,7 @@ public class LabTestController {
     }
 
     @GetMapping("/{id}")
-    public Optional<LabTestDTO> getLabTestByIdTest(long id_test){
+    public Optional<LabTestDTO> getLabTestByIdTest(long id_test) throws Exception {
         return labTestService.getByID(id_test);
     }
 

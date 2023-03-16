@@ -11,10 +11,10 @@ public class LabTestDTO {
 
     public LabTestDTO() {}
 
-    public LabTestDTO(long id, long id_patient_fk, String result, String description) {
+    public LabTestDTO(long id, long id_patient_fk, LocalDateTime date, String result, String description) {
         this.id = id;
         this.id_patient_fk = id_patient_fk;
-        this.date = LocalDateTime.now();
+        this.date = date;
         this.result = result;
         this.description = description;
     }

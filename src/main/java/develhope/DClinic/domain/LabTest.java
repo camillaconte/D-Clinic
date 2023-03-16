@@ -14,11 +14,11 @@ import java.time.LocalDateTime;
 public class LabTest {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_labtest")
-    private long id_labtest;
+    @Column(name = "id_test")
+    private long id_test;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_patient_fk", referencedColumnName = "id_utente")
+    @JoinColumn(name = "id_patient_fk", referencedColumnName = "id_patient")
     private Patient patient;
     @Column(name = "date")
     private LocalDateTime date;
@@ -29,20 +29,20 @@ public class LabTest {
 
     public LabTest() {}
 
-    public LabTest(long id_labtest, Patient patient, String result, String description) {
-        this.id_labtest = id_labtest;
+    public LabTest(long id_test, Patient patient, String result, String description) {
+        this.id_test = id_test;
         this.patient = patient;
         this.date = LocalDateTime.now();
         this.result = result;
         this.description = description;
     }
 
-    public long getId_labtest() {
-        return id_labtest;
+    public long getId_test() {
+        return id_test;
     }
 
-    public void setId_labtest(long id_labtest) {
-        this.id_labtest = id_labtest;
+    public void setId_test(long id_test) {
+        this.id_test = id_test;
     }
 
     public Patient getPatient() {

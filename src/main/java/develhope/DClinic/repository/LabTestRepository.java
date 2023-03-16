@@ -1,9 +1,10 @@
 package develhope.DClinic.repository;
 
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.NoRepositoryBean;
 
-@Repository
+
+@NoRepositoryBean
 @Transactional
 public interface LabTestRepository extends D_ClinicRepository{
 }

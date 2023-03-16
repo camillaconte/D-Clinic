@@ -18,9 +18,8 @@ public interface D_ClinicRepository<T> extends JpaRepository<T, Long> {
     @Override
     Optional<T> findById(Long aLong);
 
-    //cerca per codicefiscale
-
-    //??
+    //@Override
+    //List<T> findAllById(Iterable<Long> longs);
 
     @Override
     void deleteById(Long aLong);
