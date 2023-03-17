@@ -2,7 +2,6 @@ package develhope.DClinic.domain;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 
 @Entity
 @Table(name = "patient")

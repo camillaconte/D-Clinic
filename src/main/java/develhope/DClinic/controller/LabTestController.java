@@ -1,10 +1,14 @@
 package develhope.DClinic.controller;
 
-import develhope.DClinic.domain.LabTest;
 import develhope.DClinic.domain.LabTestDTO;
 import develhope.DClinic.service.LabTestService;
+import develhope.DClinic.service.ValidationExamsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.Optional;
 
 /**
@@ -15,26 +19,65 @@ import java.util.Optional;
 @RequestMapping("d_clinic/laboratory_test")
 public class LabTestController {
 
+    @Autowired
     private LabTestService labTestService;
+    @Autowired
+    private ValidationExamsService validationExamsService;
 
-    @PostMapping("")
-    public void create(@RequestBody LabTestDTO labTestDTO){
-        labTestService.save(labTestDTO);
+
+    /**
+     * Dovrebbe essere giusto ma chiedere conferma
+     */
+
+    @PostMapping(value = "/insertTest")
+    public ResponseEntity insetTest(@RequestBody LabTestDTO labTestDTO){
+        HashSet<String> messageErrors = validationExamsService.checkErrorLabTest(labTestDTO);
+        try{
+            if(labTestDTO.getPatient() != null && labTestDTO.getResult() != null && labTestDTO.getDescription() != null){
+                System.out.println("New laboratory test is insert");
+                labTestService.save(labTestDTO);
+                return new ResponseEntity<>(labTestDTO, HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(messageErrors, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(messageErrors, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
+
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id_labTest) throws Exception {
-        labTestService.deleteByID(id_labTest);
+    public ResponseEntity delete(@PathVariable long id_labTest){
+        try {
+            labTestService.deleteByID(id_labTest);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping
-    public LabTestDTO update(@RequestBody LabTestDTO labTestDTO) {
-        return labTestService.save(labTestDTO);
+    public ResponseEntity update(@RequestBody LabTestDTO labTestDTO){
+        try {
+            labTestService.save(labTestDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{id}")
-    public Optional<LabTestDTO> getLabTestByIdTest(long id_test) throws Exception {
-        return labTestService.getByID(id_test);
+    public ResponseEntity getLabTestByIdTest(long id_test){
+        try {
+            Optional<LabTestDTO> labTestByID = labTestService.getByID(id_test);
+            return new ResponseEntity<>(labTestByID, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 

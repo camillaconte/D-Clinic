@@ -4,16 +4,16 @@ import java.time.LocalDateTime;
 
 public class LabTestDTO {
     private long id;
-    private long id_patient_fk;
+    private Patient patient;
     private LocalDateTime date;
     private String result;
     private String description;
 
     public LabTestDTO() {}
 
-    public LabTestDTO(long id, long id_patient_fk, LocalDateTime date, String result, String description) {
+    public LabTestDTO(long id, Patient patient, LocalDateTime date, String result, String description) {
         this.id = id;
-        this.id_patient_fk = id_patient_fk;
+        this.patient = patient;
         this.date = date;
         this.result = result;
         this.description = description;
@@ -27,12 +27,12 @@ public class LabTestDTO {
         this.id = id;
     }
 
-    public long getId_patient_fk() {
-        return id_patient_fk;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setId_patient_fk(long id_patient_fk) {
-        this.id_patient_fk = id_patient_fk;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public LocalDateTime getDate() {
