@@ -24,5 +24,6 @@ public class PatientController {
     @DeleteMapping("/{id}")
     public void deletePatient(@PathVariable String id){
         return patient;
+
     }
 }
