@@ -10,7 +10,13 @@ import java.util.List;
 public class Patient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(
+            name = "patient_id_sequence",
+            sequenceName = "patient_id_sequence"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "patient_id_sequence")
     private int id;
 
     @Column(nullable = false)
@@ -19,15 +25,20 @@ public class Patient {
     @Column(nullable = false)
     private String surname;
 
+    @Column(nullable = false)
+    private String email;
+
+    //verificare qui e in MedicalRecord il mappedBy
     @OneToMany(mappedBy = "patient")
     @JsonIgnore
     private List<MedicalRecord> medicalRecordsList;
 
     public Patient(){}
 
-    public Patient(String name, String surname) {
+    public Patient(String name, String surname, String email) {
         this.name = name;
         this.surname = surname;
+        this.email = email;
     }
 
     public int getId() {
@@ -52,6 +63,14 @@ public class Patient {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<MedicalRecord> getMedicalRecordsList() {

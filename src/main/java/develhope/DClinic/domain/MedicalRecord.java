@@ -9,15 +9,21 @@ import java.time.LocalDateTime;
 public class MedicalRecord {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @SequenceGenerator(
+            name = "medicalRecord_id_sequence",
+            sequenceName = "medicalRecord_id_sequence"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "medicalRecord_id_sequence")
+    private Integer id;
 
     @Column(nullable = false)
     private String name;
 
     //"siamo i MedicalRecords e siamo TANTI per OGNI paziente"
     @ManyToOne
-    @JoinColumn(name = "course_name")
+    @JoinColumn(name = "patient_id")
     private Patient patient;
 
     //enum are public, static and final (unchangeable - cannot be overridden)
@@ -43,16 +49,19 @@ public class MedicalRecord {
 
     public MedicalRecord(){}
 
+    public MedicalRecord(String name){
+        this.name = name;
+    }
     public MedicalRecord(String name, Patient patient) {
         this.name = name;
         this.patient = patient;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
