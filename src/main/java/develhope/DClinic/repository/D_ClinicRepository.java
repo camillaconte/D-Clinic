@@ -6,6 +6,11 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author Luca Giorgi
+ * Repository generale per la clinica
+ */
+
 @NoRepositoryBean
 public interface D_ClinicRepository<T> extends JpaRepository<T, Long> {
 
@@ -17,9 +22,6 @@ public interface D_ClinicRepository<T> extends JpaRepository<T, Long> {
 
     @Override
     Optional<T> findById(Long aLong);
-
-    //@Override
-    //List<T> findAllById(Iterable<Long> longs);
 
     @Override
     void deleteById(Long aLong);

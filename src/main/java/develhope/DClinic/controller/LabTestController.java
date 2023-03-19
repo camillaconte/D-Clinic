@@ -2,7 +2,7 @@ package develhope.DClinic.controller;
 
 import develhope.DClinic.domain.LabTestDTO;
 import develhope.DClinic.service.LabTestService;
-import develhope.DClinic.service.ValidationExamsService;
+import develhope.DClinic.service.CheckEmptyFieldOfLabTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,63 +21,27 @@ public class LabTestController {
 
     @Autowired
     private LabTestService labTestService;
-    @Autowired
-    private ValidationExamsService validationExamsService;
 
-
-    /**
-     * Dovrebbe essere giusto ma chiedere conferma
-     */
 
     @PostMapping(value = "/insertTest")
     public ResponseEntity insetTest(@RequestBody LabTestDTO labTestDTO){
-        HashSet<String> messageErrors = validationExamsService.checkErrorLabTest(labTestDTO);
-        try{
-            if(labTestDTO.getPatient() != null && labTestDTO.getResult() != null && labTestDTO.getDescription() != null){
-                System.out.println("New laboratory test is insert");
-                labTestService.save(labTestDTO);
-                return new ResponseEntity<>(labTestDTO, HttpStatus.OK);
-            }else{
-                return new ResponseEntity<>(messageErrors, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<>(messageErrors, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return labTestService.insertNewTest(labTestDTO);
     }
 
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable long id_labTest){
-        try {
-            labTestService.deleteByID(id_labTest);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return labTestService.deleteByID(id_labTest);
     }
 
     @PutMapping
-    public ResponseEntity update(@RequestBody LabTestDTO labTestDTO){
-        try {
-            labTestService.save(labTestDTO);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity update(@PathVariable long id, @RequestBody LabTestDTO labTestDTO){
+        return labTestService.update(id,labTestDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getLabTestByIdTest(long id_test){
-        try {
-            Optional<LabTestDTO> labTestByID = labTestService.getByID(id_test);
-            return new ResponseEntity<>(labTestByID, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity getLabTestByIdTest(@PathVariable long id_test){
+        return labTestService.getByID(id_test);
     }
 
 

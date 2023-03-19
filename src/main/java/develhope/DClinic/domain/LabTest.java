@@ -18,7 +18,7 @@ public class LabTest {
     private long id_test;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_patient_fk", referencedColumnName = "id_patient")
+    @JoinColumn(name = "id_patient_fk", referencedColumnName = "fiscalCode_patient")
     private Patient patient;
     @Column(name = "date")
     private LocalDateTime date;

@@ -1,13 +1,15 @@
 package develhope.DClinic.service;
 
 import develhope.DClinic.domain.LabTestDTO;
+import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 
-public class ValidationExamsService {
-    public HashSet<String> checkErrorLabTest(LabTestDTO u){
+@Service
+public class CheckEmptyFieldOfLabTest {
+    public HashSet<String> checkEmptyFieldNewLabTest(LabTestDTO u){
         HashSet<String> MESSAGE_ERROR = new HashSet<>();
         if(u.getPatient() == null){
             MESSAGE_ERROR.add("PATIENT NOT INSERT");
