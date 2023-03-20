@@ -26,5 +26,6 @@ public interface D_ClinicRepository<T> extends JpaRepository<T, Long> {
     @Override
     void deleteById(Long aLong);
 
-
+    @Override
+    <S extends T> S saveAndFlush(S entity);
 }

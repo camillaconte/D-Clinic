@@ -60,14 +60,9 @@ public class LabTestService   {
 
     public ResponseEntity update(long id, LabTestDTO labTestDTO){
         try{
-            Optional<LabTestDTO> m = labTestRepository.findById(id);
-            if(m.isPresent()){
-                labTestRepository.deleteById(id);
-                labTestRepository.save(labTestDTO);
-                return new ResponseEntity<>(labTestDTO, HttpStatus.OK);
-            }else{
-                return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            labTestDTO.setId(id);
+            labTestRepository.saveAndFlush(labTestDTO);
+            return new ResponseEntity<>(labTestDTO, HttpStatus.OK);
         }catch (Exception e){
             e.getStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
