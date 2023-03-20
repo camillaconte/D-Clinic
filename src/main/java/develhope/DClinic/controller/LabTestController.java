@@ -23,7 +23,7 @@ public class LabTestController {
     private LabTestService labTestService;
 
 
-    @PostMapping(value = "/insertTest")
+    @PostMapping
     public ResponseEntity insetTest(@RequestBody LabTestDTO labTestDTO){
         return labTestService.insertNewTest(labTestDTO);
     }

@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.Optional;
 
 /**
  * @author Luca Giorgi
@@ -50,7 +49,7 @@ public class LabTestService   {
 
     public ResponseEntity getByID (long id_test){
         try {
-            Optional<LabTestDTO> labTestByID = labTestRepository.findById(id_test);
+            LabTestDTO labTestByID = (LabTestDTO) labTestRepository.getById(id_test);
             return new ResponseEntity<>(labTestByID, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

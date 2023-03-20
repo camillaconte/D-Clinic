@@ -21,7 +21,7 @@ public interface D_ClinicRepository<T> extends JpaRepository<T, Long> {
     List<T> findAll();
 
     @Override
-    Optional<T> findById(Long aLong);
+    T getById(Long aLong);
 
     @Override
     void deleteById(Long aLong);
