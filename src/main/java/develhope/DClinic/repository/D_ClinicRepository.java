@@ -1,5 +1,6 @@
 package develhope.DClinic.repository;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
@@ -18,9 +19,6 @@ public interface D_ClinicRepository<T> extends JpaRepository<T, Long> {
     <S extends T> S save(S entity);
 
     @Override
-    List<T> findAll();
-
-    @Override
     T getById(Long aLong);
 
     @Override
@@ -28,4 +26,7 @@ public interface D_ClinicRepository<T> extends JpaRepository<T, Long> {
 
     @Override
     <S extends T> S saveAndFlush(S entity);
+
+    @Override
+    List<T> findAll(Sort sort);
 }

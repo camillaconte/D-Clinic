@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * @author Luca Giorgi
@@ -62,6 +63,16 @@ public class LabTestService   {
             labTestDTO.setId(id);
             labTestRepository.saveAndFlush(labTestDTO);
             return new ResponseEntity<>(labTestDTO, HttpStatus.OK);
+        }catch (Exception e){
+            e.getStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity getAll(){
+        try{
+            List<LabTestDTO> sortList = labTestRepository.findAll();
+            return new ResponseEntity<>(sortList, HttpStatus.OK);
         }catch (Exception e){
             e.getStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);

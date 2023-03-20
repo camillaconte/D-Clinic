@@ -44,5 +44,8 @@ public class LabTestController {
         return labTestService.getByID(id_test);
     }
 
-
+    @GetMapping
+    public ResponseEntity getAndSortAll (){
+        return labTestService.getAll();
+    }
 }
