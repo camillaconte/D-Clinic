@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 
+/**
+ * @author Luca Giorgi
+ * Classe check campi vuoti
+ */
 @Service
 public class CheckEmptyFieldOfLabTest {
     public HashSet<String> checkEmptyFieldNewLabTest(LabTestDTO u){
@@ -20,13 +24,10 @@ public class CheckEmptyFieldOfLabTest {
         if(u.getResult() == null){
             MESSAGE_ERROR.add("RESULT NOT INSERT");
         }
-        return MESSAGE_ERROR;
-    }
-
-    public void checkAndInsertDate(LabTestDTO u){
         if(u.getDate() == null){
             u.setDate(LocalDateTime.now());
         }
+        return MESSAGE_ERROR;
     }
     
    
