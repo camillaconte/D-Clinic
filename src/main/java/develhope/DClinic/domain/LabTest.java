@@ -17,8 +17,8 @@ public class LabTest {
     @Column(name = "id_test")
     private long id_test;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_patient_fk", referencedColumnName = "fiscalCode_patient")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="tb_laboratory_test", nullable = false)
     private Patient patient;
     @Column(name = "date")
     private LocalDateTime date;
@@ -27,7 +27,7 @@ public class LabTest {
     @Column(name = "description")
     private String description;
 
-    public LabTest() {}
+    public LabTest(long id, Patient patient, LocalDateTime date, String description, String result) {}
 
     public LabTest(long id_test, Patient patient, String result, String description) {
         this.id_test = id_test;

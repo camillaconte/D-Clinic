@@ -12,7 +12,7 @@ import java.util.HashSet;
  * Classe check campi vuoti
  */
 @Service
-public class CheckEmptyFieldOfLabTest {
+public class CheckEmptyField {
     public HashSet<String> checkEmptyFieldNewLabTest(LabTestDTO u){
         HashSet<String> MESSAGE_ERROR = new HashSet<>();
         if(u.getPatient() == null){

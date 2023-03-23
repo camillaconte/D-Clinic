@@ -1,5 +1,8 @@
 package develhope.DClinic.repository;
 
+import develhope.DClinic.domain.LabTest;
+import develhope.DClinic.domain.LabTestDTO;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,5 +12,6 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface LabTestRepository extends D_ClinicRepository{
+public interface LabTestRepository extends D_ClinicRepository<LabTest>{
+
 }

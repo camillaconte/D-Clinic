@@ -1,8 +1,9 @@
 package develhope.DClinic.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class LabTestDTO {
+public class LabTestDTO implements Serializable {
     private long id;
     private Patient patient;
     private LocalDateTime date;

@@ -3,6 +3,7 @@ package develhope.DClinic.domain;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -17,8 +18,12 @@ public class Patient {
     @Column(name = "lastName")
     private String lastName;
 
-    @Column(name = "fiscalCode_patient")
-    private List<LabTest> labTest;
+    @Column(name = "fiscalCode")
+    private String fiscalCode;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="patient", nullable = false)
+    private Set<LabTest> labTest;
 
 
     public Patient(){}
@@ -55,11 +60,19 @@ public class Patient {
         this.id_patient = id_patient;
     }
 
-    public List<LabTest> getLabTest() {
+    public String getFiscalCode() {
+        return fiscalCode;
+    }
+
+    public void setFiscalCode(String fiscalCode) {
+        this.fiscalCode = fiscalCode;
+    }
+
+    public Set<LabTest> getLabTest() {
         return labTest;
     }
 
-    public void setLabTest(List<LabTest> labTest) {
+    public void setLabTest(Set<LabTest> labTest) {
         this.labTest = labTest;
     }
 }

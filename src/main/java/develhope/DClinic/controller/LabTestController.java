@@ -1,15 +1,11 @@
 package develhope.DClinic.controller;
 
+import develhope.DClinic.domain.LabTest;
 import develhope.DClinic.domain.LabTestDTO;
 import develhope.DClinic.service.LabTestService;
-import develhope.DClinic.service.CheckEmptyFieldOfLabTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashSet;
-import java.util.Optional;
 
 /**
  * @author Luca Giorgi
@@ -35,8 +31,8 @@ public class LabTestController {
     }
 
     @PutMapping
-    public ResponseEntity update(@PathVariable long id, @RequestBody LabTestDTO labTestDTO){
-        return labTestService.update(id,labTestDTO);
+    public ResponseEntity update(@PathVariable long id, @RequestBody LabTest labTest){
+        return labTestService.update(id,labTest);
     }
 
     @GetMapping("/{id}")
