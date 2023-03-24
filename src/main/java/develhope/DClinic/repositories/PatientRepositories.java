@@ -10,4 +10,7 @@ import java.util.List;
 public interface PatientRepositories extends JpaRepository<Patient, Long> {
     @Override
     List<Patient> findAll();
+
+    @Override
+    Patient getById(Long aLong);
 }
