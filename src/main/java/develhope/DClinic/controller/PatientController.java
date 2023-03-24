@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/patient")
@@ -16,20 +17,21 @@ public class PatientController {
     @Autowired
     PatientRepositories patientRepositories;
 
-    ArrayList<Patient> listPatient=new ArrayList<>();
+
     @PostMapping
     public String newPatient(@Validated @RequestBody Patient patient ){
-         listPatient.add(patient);
-       return "created a new patient";
+        patientRepositories.save(patient);
+        return "created patient";
     }
     @GetMapping
-    public String allPatient(){
-        return listPatient.toString();
+    public List<Patient> allPatient(){
+     return patientRepositories.findAll();
+
     }
 
     @GetMapping("/{id}")
     public String getSinglePatient(@RequestBody Patient patient){
-        return patient.toString();
+        return patientRepositories.toString();
     }
     @DeleteMapping("/{id}")
     public void deletePatient(@PathVariable long id){
