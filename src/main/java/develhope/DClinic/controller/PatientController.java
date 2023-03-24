@@ -1,29 +1,41 @@
 package develhope.DClinic.controller;
 
 
-import develhope.DClinic.entities.PatientEntities;
-import org.springframework.http.HttpStatus;
+import develhope.DClinic.entities.Patient;
+import develhope.DClinic.repositories.PatientRepositories;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/patient")
 
 public class PatientController {
-    PatientEntities patient;
+    @Autowired
+    PatientRepositories patientRepositories;
 
+    ArrayList<Patient> listPatient=new ArrayList<>();
     @PostMapping
-    public PatientEntities newPatient(@Validated @RequestBody PatientEntities patient ){
-
-        return patient;
+    public String newPatient(@Validated @RequestBody Patient patient ){
+         listPatient.add(patient);
+       return "created a new patient";
     }
     @GetMapping
-    public String getPatient(){
+    public String allPatient(){
+        return listPatient.toString();
+    }
+
+    @GetMapping("/{id}")
+    public String getSinglePatient(@RequestBody Patient patient){
         return patient.toString();
     }
     @DeleteMapping("/{id}")
-    public void deletePatient(@PathVariable String id){
-        return patient;
+    public void deletePatient(@PathVariable long id){
+        patientRepositories.deleteById(id);
 
     }
+
+
 }
