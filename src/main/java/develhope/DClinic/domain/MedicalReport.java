@@ -4,34 +4,62 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
+
+/**
+ *  @author Camilla Conte
+ *  Entity per i referti medici
+ *  */
+
 @Entity
-@Table(name = "medicalRecords")
-public class MedicalRecord {
+@Table(name = "medical_reports")
+public class MedicalReport {
 
     @Id
     @SequenceGenerator(
-            name = "medicalRecord_id_sequence",
-            sequenceName = "medicalRecord_id_sequence"
+            name = "medicalReports_id_sequence",
+            sequenceName = "medicalReports_id_sequence"
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "medicalRecord_id_sequence")
-    private Integer id;
+            generator = "medicalReports_id_sequence")
+    private long id;
 
     @Column(nullable = false)
     private String name;
 
-    //"siamo i MedicalRecords e siamo TANTI per OGNI paziente"
-    @ManyToOne
+    /**"siamo i Medical Reports e siamo TANTI per OGNI paziente"
+     * ogni report HA UN SOLO PAZIENTE (associato)
+     * le annotazioni che seguono definiscono la OWNING SIDE e dicono:
+     * l'entità MedicalReport avrà una foreign key column chiamata "patient_id"
+     * che farà riferimento al "primary attribute" id dell'entità Patient.
+     * Ora non resta che settare la REFERENCING SIDE
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
-    //enum are public, static and final (unchangeable - cannot be overridden)
-    enum Type {
-        SHORT,
-        EXTENDED
-    }
+    /**
+     * Come si potrebbero prevedere diversi tipi di Medical Report fra i quali il medico
+     * può scegliere, al momento di scrivere il referto?
+     * Perché potrebbe voler scrivere:
+     * - un semplice testo libero
+     * - modificare testo da un template
+     * - ...
+     *
+     * Potrebbe servirmi una enum?
+     * Uhmmm, forse invece sarebbe meglio avere dei MedicalReportDTO con campi diversi?
+     *
+     * Ricorda enum are public, static and final (unchangeable - cannot be overridden)
+     *
+     * OPPURE MI SERVE SEMPLICEMENTE IL FIELD TYPE???
+     */
 
+    /**
+     * N.B. potrebbe essere utile poter richiamare anche solo il field "hystory" dall'ultimo referto
+     * del paziente, così da limitarsi ad aggiornarlo alla visita successiva!
+     * Il metodo potrebbe essere un semplice getHystory...che poi il front end si prende e appiccica
+     * nella finestra di testo che mette a disposizione dell'utente dottore!
+     */
     @Column
     private String history;
 
@@ -47,21 +75,21 @@ public class MedicalRecord {
     @Column
     private LocalDateTime creationDate;
 
-    public MedicalRecord(){}
+    public MedicalReport(){}
 
-    public MedicalRecord(String name){
+    public MedicalReport(String name){
         this.name = name;
     }
-    public MedicalRecord(String name, Patient patient) {
+    public MedicalReport(String name, Patient patient) {
         this.name = name;
         this.patient = patient;
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 

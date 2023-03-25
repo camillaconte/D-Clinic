@@ -39,5 +39,4 @@ public class PatientController {
         patientService.updatePatient(patientId, newEmail, newName);
     }
 
-
 }

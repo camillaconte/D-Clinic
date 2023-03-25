@@ -28,12 +28,25 @@ public class Patient {
     @Column(nullable = false)
     private String email;
 
-    //verificare qui e in MedicalRecord il mappedBy
-    @OneToMany(mappedBy = "patient")
+    /**
+     * Qui settiamo la REFERENCING SIDE
+     * della ASSOCIAZIONE BIDIREZIONALE tra l'entità Paziente e i suoi MedicalReports
+     * Valore che attribuisco a  "mappedBy": nome del campo lato "owinign" dove viene stabilita l'associazione.
+     * Nel nostro caso è "patient" (perché il MedicalReport ha un field patient patient)
+     */
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
     @JsonIgnore
-    private List<MedicalRecord> medicalRecordsList;
+    private List<MedicalReport> medicalRecordsList;
 
     public Patient(){}
+
+    public Patient(int id, String name, String surname, String email, List<MedicalReport> medicalRecordsList) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.medicalRecordsList = medicalRecordsList;
+    }
 
     public Patient(String name, String surname, String email) {
         this.name = name;
@@ -73,11 +86,11 @@ public class Patient {
         this.email = email;
     }
 
-    public List<MedicalRecord> getMedicalRecordsList() {
+    public List<MedicalReport> getMedicalRecordsList() {
         return medicalRecordsList;
     }
 
-    public void setMedicalRecordsList(List<MedicalRecord> medicalRecordsList) {
+    public void setMedicalRecordsList(List<MedicalReport> medicalRecordsList) {
         this.medicalRecordsList = medicalRecordsList;
     }
 }

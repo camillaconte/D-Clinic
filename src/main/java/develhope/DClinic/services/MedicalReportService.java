@@ -1,8 +1,8 @@
 package develhope.DClinic.services;
 
-import develhope.DClinic.repositories.MedicalRecordsRepo;
+import develhope.DClinic.repositories.MedicalReportRepo;
 import develhope.DClinic.repositories.PatientRepo;
-import develhope.DClinic.domain.MedicalRecord;
+import develhope.DClinic.domain.MedicalReport;
 import develhope.DClinic.domain.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,14 +13,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MedicalRecordsService {
+public class MedicalReportService {
 
-    MedicalRecordsRepo medicalRecordsRepo;
+    MedicalReportRepo medicalReportRepo;
     PatientRepo patientRepo;
 
     @Autowired
-    public MedicalRecordsService(MedicalRecordsRepo medicalRecordsRepo, PatientRepo patientRepo){
-        this.medicalRecordsRepo = medicalRecordsRepo;
+    public MedicalReportService(MedicalReportRepo medicalReportRepo, PatientRepo patientRepo){
+        this.medicalReportRepo = medicalReportRepo;
         this.patientRepo = patientRepo;
     }
 
@@ -32,9 +32,9 @@ public class MedicalRecordsService {
 
     //prendo tutti i MedicalRecord (grazie al medicalRecordsrepo)
     //faccio un ciclo (o uno stream) per vedere chi ha come paziente il paziente che mi interessa
-    public List<MedicalRecord> getAllPatientRecords(Patient patient) {
-        List<MedicalRecord> patientRecords = new ArrayList<>();
-        for (MedicalRecord record : medicalRecordsRepo.findAll()){
+    public List<MedicalReport> getAllPatientRecords(Patient patient) {
+        List<MedicalReport> patientRecords = new ArrayList<>();
+        for (MedicalReport record : medicalReportRepo.findAll()){
             if (record.getPatient() == patient){
                 patientRecords.add(record);
             }
@@ -43,16 +43,17 @@ public class MedicalRecordsService {
 
     //prima lo creo "vuoto", cioè solo name e id (che si autogenera)
     //poi faccio un update mediante inserimento e.g. della String history
-    public void createNewRecord(MedicalRecord record) {
-        medicalRecordsRepo.save(record);
+    public void createNewReport(MedicalReport report) {
+        medicalReportRepo.save(report);
     }
 
+
     public void updateRecordHistory(String name, String history){
-        Optional<MedicalRecord> recordToFind = medicalRecordsRepo.findByName(name);
-        if(recordToFind.isPresent()){
-            MedicalRecord record = recordToFind.get();
-            record.setHistory(history);
-            medicalRecordsRepo.save(record);
+        Optional<MedicalReport> reportToFind = medicalReportRepo.findByName(name);
+        if(reportToFind.isPresent()){
+            MedicalReport report = reportToFind.get();
+            report.setHistory(history);
+            medicalReportRepo.save(report);
         } else {
             throw new IllegalStateException("there are no records with this name");
         }
@@ -61,12 +62,12 @@ public class MedicalRecordsService {
     //domanda: il nuovo record viene salvato nella tabella medicalRecords
     //e gli viene assegnato il paziente che ho dato in ingresso
     //a quel punto automaticamente quel record sarò anche nella lista di record del paziente?
-    public MedicalRecord createNewRecordForPatient (String name, Patient patient){
-        MedicalRecord medicalRecord = new MedicalRecord(name, patient);
-        medicalRecord.setCreationDate(LocalDateTime.now());
-        medicalRecord.setName(name);
-        medicalRecord.setPatient(patient);
-        return medicalRecordsRepo.save(medicalRecord);
+    public MedicalReport createNewRecordForPatient (String name, Patient patient){
+        MedicalReport medicalReport = new MedicalReport(name, patient);
+        medicalReport.setCreationDate(LocalDateTime.now());
+        medicalReport.setName(name);
+        medicalReport.setPatient(patient);
+        return medicalReportRepo.save(medicalReport);
     }
 
     //Come faccio a dire in quale record voglio aggiungere history?
@@ -75,8 +76,8 @@ public class MedicalRecordsService {
     //Il medico clicca sul nome del record da aggiornare: getRecordbyName?
     //...
     public void setHistory(String name, String history) throws Exception {
-        List<MedicalRecord> records = medicalRecordsRepo.findAll();
-        for (MedicalRecord record : records){
+        List<MedicalReport> records = medicalReportRepo.findAll();
+        for (MedicalReport record : records){
             if (record.getName() == name){
                 record.setHistory(history);
             } else {
@@ -88,10 +89,10 @@ public class MedicalRecordsService {
     //cliccando sul nome del record nella lista
     //voglio che mi restituisca il record
     //getRecordByName
-    public MedicalRecord getRecordByName(String name) throws Exception {
-        Optional<MedicalRecord> optionalMedicalRecord = medicalRecordsRepo.findByName(name);
+    public MedicalReport getRecordByName(String name) throws Exception {
+        Optional<MedicalReport> optionalMedicalRecord = medicalReportRepo.findByName(name);
         if(optionalMedicalRecord.isPresent()){
-           MedicalRecord record = optionalMedicalRecord.get();
+           MedicalReport record = optionalMedicalRecord.get();
            return record;
         } else {
             throw new Exception("No records with this name!");

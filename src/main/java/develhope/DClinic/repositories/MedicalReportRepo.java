@@ -1,14 +1,14 @@
 package develhope.DClinic.repositories;
 
-import develhope.DClinic.domain.MedicalRecord;
+import develhope.DClinic.domain.MedicalReport;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface MedicalRecordsRepo extends JpaRepository<MedicalRecord, Integer> {
+public interface MedicalReportRepo extends JpaRepository<MedicalReport, Integer> {
 
-    Optional<MedicalRecord> findByName(String name);
+    Optional<MedicalReport> findByName(String name);
 
 }
