@@ -1,9 +1,7 @@
-package develhope.DClinic.Repository;
+package develhope.DClinic.repository;
 
-import develhope.DClinic.Domain.Appointment;
-import develhope.DClinic.Domain.AppointmentDTo;
+import develhope.DClinic.domain.Appointment;
 import jakarta.transaction.Transactional;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

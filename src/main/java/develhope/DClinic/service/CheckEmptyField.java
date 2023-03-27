@@ -1,10 +1,9 @@
-package develhope.DClinic.Service;
+package develhope.DClinic.service;
 
-import develhope.DClinic.Domain.AppointmentDTo;
+import develhope.DClinic.domain.AppointmentDTo;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 
 @Service

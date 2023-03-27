@@ -1,14 +1,11 @@
-package develhope.DClinic.Controller;
+package develhope.DClinic.controller;
 
-import develhope.DClinic.Domain.Appointment;
-import develhope.DClinic.Domain.AppointmentDTo;
-import develhope.DClinic.Mapper.AppointmentMapper;
-import develhope.DClinic.Service.AppointmentService;
+import develhope.DClinic.domain.Appointment;
+import develhope.DClinic.domain.AppointmentDTo;
+import develhope.DClinic.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/dclinic-appointment")

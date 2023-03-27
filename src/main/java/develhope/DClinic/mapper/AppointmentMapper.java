@@ -1,6 +1,6 @@
-package develhope.DClinic.Mapper;
+package develhope.DClinic.mapper;
 
-import develhope.DClinic.Domain.*;
+import develhope.DClinic.domain.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

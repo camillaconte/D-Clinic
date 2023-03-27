@@ -1,11 +1,10 @@
-package develhope.DClinic.Service;
+package develhope.DClinic.service;
 
-import develhope.DClinic.Domain.Appointment;
-import develhope.DClinic.Domain.AppointmentDTo;
-import develhope.DClinic.Domain.Doctor;
-import develhope.DClinic.Mapper.AppointmentMapper;
-import develhope.DClinic.Repository.AppointmentRepository;
-import develhope.DClinic.Repository.DoctorRepository;
+import develhope.DClinic.domain.Appointment;
+import develhope.DClinic.domain.AppointmentDTo;
+import develhope.DClinic.mapper.AppointmentMapper;
+import develhope.DClinic.repository.AppointmentRepository;
+import develhope.DClinic.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AppointmentService {

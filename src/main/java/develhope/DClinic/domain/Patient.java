@@ -1,4 +1,4 @@
-package develhope.DClinic.Domain;
+package develhope.DClinic.domain;
 
 import jakarta.persistence.*;
 
