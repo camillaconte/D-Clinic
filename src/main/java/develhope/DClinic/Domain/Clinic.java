@@ -10,18 +10,21 @@ public class Clinic {
     @Column(name = "office_id")
     private long id;
 
-    @Column(name = "number")
-    private int number;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "city")
+    private String city;
 
     @Column(name = "description")
     private String description;
 
-    public Clinic() {
+    public Clinic(long id, String name, String description) {
     }
 
-    public Clinic(long id, int number, String description) {
+    public Clinic(long id, String name,String city, String description) {
         this.id = id;
-        this.number = number;
+        this.name = name;
+        this.city=city;
         this.description = description;
     }
 
@@ -33,12 +36,20 @@ public class Clinic {
         this.id = id;
     }
 
-    public int getNumber() {
-        return number;
+    public String getName() {
+        return name;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getDescription() {

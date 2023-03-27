@@ -77,6 +77,7 @@ public class AppointmentDTo {
         }
 
 
+
         public AppointmentDtoCreated setPatient(Patient patient) {
             this.patient = patient;
             return this;
@@ -108,7 +109,11 @@ public class AppointmentDTo {
         }
 
     }
-    public AppointmentDTo(long id, Patient patient, Doctor doctor, LocalDate date,Clinic clinic,
+
+    public AppointmentDTo() {
+    }
+
+    public AppointmentDTo(long id, Patient patient, Doctor doctor, LocalDate date, Clinic clinic,
                           String status, List<String> typology) {
         this.id = id;
         this.patient = patient;

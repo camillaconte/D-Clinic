@@ -1,5 +1,6 @@
 package develhope.DClinic.Repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
@@ -7,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @NoRepositoryBean
-public interface MedicalClinicRepository<T> extends CrudRepository<T, Long> {
+public interface D_ClinicRepository<T> extends JpaRepository<T, Long> {
     @Override
     List<T> findAll();
 

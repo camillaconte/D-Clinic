@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 @Component
 public class AppointmentMapper {
-    public Appointment mapToAppointment(final AppointmentDTo.AppointmentDtoCreated appointmentDto) {
+   public Appointment mapToAppointment(final AppointmentDTo appointmentDto) {
         return new Appointment(
                 appointmentDto.getId(),
                 new Clinic(
                         appointmentDto.getClinic().getId(),
-                        appointmentDto.getClinic().getNumber(),
+                        appointmentDto.getClinic().getName(),
+                        appointmentDto.getClinic().getCity(),
                         appointmentDto.getClinic().getDescription()),
                 new Patient(
                         appointmentDto.getPatient().getId(),
@@ -35,7 +36,8 @@ public class AppointmentMapper {
                 .setId(appointment.getId())
                 .setClinic(new Clinic(
                         appointment.getClinic().getId(),
-                        appointment.getClinic().getNumber(),
+                        appointment.getClinic().getName(),
+                        appointment.getClinic().getCity(),
                         appointment.getClinic().getDescription()))
 
                 .setPatient(new Patient(
@@ -62,7 +64,8 @@ public class AppointmentMapper {
                         .setId(a.getId())
                         .setClinic(new Clinic(
                                     a.getClinic().getId(),
-                                    a.getClinic().getNumber(),
+                                    a.getClinic().getName(),
+                                    a.getClinic().getCity(),
                                     a.getClinic().getDescription()))
                             .setPatient(new Patient(
                                     a.getPatient().getId(),

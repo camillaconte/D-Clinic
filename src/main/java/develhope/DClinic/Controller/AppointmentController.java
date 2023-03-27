@@ -1,9 +1,11 @@
 package develhope.DClinic.Controller;
 
+import develhope.DClinic.Domain.Appointment;
 import develhope.DClinic.Domain.AppointmentDTo;
 import develhope.DClinic.Mapper.AppointmentMapper;
 import develhope.DClinic.Service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,35 +15,34 @@ import java.util.List;
 public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
-    @Autowired
-    private AppointmentMapper appointmentMapper;
 
-    @GetMapping
-    public List<AppointmentDTo> getAll() {
-        return appointmentMapper.mapToAppointmentDtoList(appointmentService.getAll());
-    }
-
-    @GetMapping("/{appointmentId}")
-    public AppointmentDTo get(@PathVariable long appointmentId)  {    //exception
-        return appointmentMapper.mapToAppointmentDto(appointmentService.get(appointmentId)
-                .orElseThrow());
-
-    }
 
     @PostMapping
-    public void create(@RequestBody AppointmentDTo.AppointmentDtoCreated appointmentDto) {
-        appointmentService.save(appointmentMapper.mapToAppointment(appointmentDto));
+    public ResponseEntity create(@RequestBody AppointmentDTo appointmentDto) throws Exception {
+        return appointmentService.createNewAppointment(appointmentDto);
+    }
+
+    @GetMapping
+    public ResponseEntity getAndSortAll() {
+        return appointmentService.getAll();
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity getAppointmentById(@PathVariable long id){
+        return appointmentService.getReferenceByID(id);
+
+
     }
 
     @PutMapping
-    public AppointmentDTo update(@RequestBody AppointmentDTo.AppointmentDtoCreated appointmentDto) {
-        return appointmentMapper.mapToAppointmentDto(appointmentService.save(
-                appointmentMapper.mapToAppointment(appointmentDto)));
+    public ResponseEntity update(@PathVariable long id, @RequestBody Appointment appointment){
+        return appointmentService.updateAppointment(id,appointment);
     }
 
-    @DeleteMapping("/{appointmentId}")
-    public void delete(@PathVariable long appointmentId) {    //exception
-        appointmentService.deleteById(appointmentId);
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable long id){
+        return appointmentService.deleteByID(id);
     }
 
 
