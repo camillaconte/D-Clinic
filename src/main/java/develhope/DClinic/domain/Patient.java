@@ -95,8 +95,6 @@ public class Patient {
         this.fiscalCode = fiscalCode;
     }
 
-<<<<<<< HEAD
-=======
     public Integer getAge() {
         return age;
     }
@@ -105,7 +103,6 @@ public class Patient {
         this.age = age;
     }
 
->>>>>>> origin/mirko
     public String getEmail() {
         return email;
     }
@@ -114,7 +111,7 @@ public class Patient {
         this.email = email;
     }
 
-<<<<<<< HEAD
+
     public List<MedicalReport> getMedicalReportsList() {
         return medicalReportsList;
     }
@@ -136,8 +133,7 @@ public class Patient {
     public void setLabTest(Set<LabTest> labTest) {
         this.labTest = labTest;
     }
-}
-=======
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -154,4 +150,3 @@ public class Patient {
         this.address = address;
     }
 }
->>>>>>> origin/mirko
