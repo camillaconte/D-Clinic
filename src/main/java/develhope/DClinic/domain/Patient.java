@@ -55,6 +55,11 @@ public class Patient {
         this.email = email;
     }
 
+    public Patient(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public long getId() {
         return id;
     }

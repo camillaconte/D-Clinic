@@ -16,9 +16,8 @@ public class AppointmentMapper {
                         appointmentDto.getClinic().getCity(),
                         appointmentDto.getClinic().getDescription()),
                 new Patient(
-                        appointmentDto.getPatient().getId(),
-                        appointmentDto.getPatient().getName(),
-                        appointmentDto.getPatient().getLastname()),
+                        appointmentDto.getPatient().getFirstName(),
+                        appointmentDto.getPatient().getLastName()),
 
                 new Doctor(
                         appointmentDto.getDoctor().getId(),
@@ -41,9 +40,8 @@ public class AppointmentMapper {
                         appointment.getClinic().getDescription()))
 
                 .setPatient(new Patient(
-                        appointment.getPatient().getId(),
-                        appointment.getPatient().getName(),
-                        appointment.getPatient().getLastname()))
+                        appointment.getPatient().getFirstName(),
+                        appointment.getPatient().getLastName()))
 
 
                 .setDoctor(new Doctor(
@@ -68,9 +66,8 @@ public class AppointmentMapper {
                                     a.getClinic().getCity(),
                                     a.getClinic().getDescription()))
                             .setPatient(new Patient(
-                                    a.getPatient().getId(),
-                                    a.getPatient().getName(),
-                                    a.getPatient().getLastname()))
+                                    a.getPatient().getFirstName(),
+                                    a.getPatient().getLastName()))
 
                             .setDoctor(new Doctor(
                                     a.getDoctor().getId(),

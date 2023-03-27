@@ -44,7 +44,7 @@ public class PatientService {
         if (patientToFind.isPresent()){
             Patient patient = patientToFind.get();
             patient.setEmail(newEmail);
-            patient.setName(newName);
+            patient.setFirstName(newName);
             patientRepo.save(patient);
         } else throw new IllegalStateException("patient with this id not found");
     }

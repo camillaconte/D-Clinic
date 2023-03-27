@@ -1,5 +1,6 @@
 package develhope.DClinic.service;
 
+import develhope.DClinic.domain.AppointmentDTo;
 import develhope.DClinic.domain.LabTestDTO;
 import org.springframework.stereotype.Service;
 

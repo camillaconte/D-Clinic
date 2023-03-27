@@ -30,7 +30,7 @@ public class AppointmentService {
     }*/
 
     public ResponseEntity createNewAppointment(AppointmentDTo appointmentDTo) {
-        HashSet<String> MESSAGE_ERROR = checkEmptyField.checkEmptyFieldNewLabTest(appointmentDTo);
+        HashSet<String> MESSAGE_ERROR = checkEmptyField.checkEmptyFieldNewAppointment(appointmentDTo);
         try {
             if (appointmentDTo.getClinic() != null && appointmentDTo.getDoctor() != null &&
                     appointmentDTo.getPatient() != null) {
