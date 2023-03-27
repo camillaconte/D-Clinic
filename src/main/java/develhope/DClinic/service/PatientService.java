@@ -1,13 +1,12 @@
 package develhope.DClinic.service;
 
-import develhope.DClinic.entities.Patient;
+import develhope.DClinic.domain.Patient;
 import develhope.DClinic.repositories.PatientRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class PatientService {
     @Autowired
     PatientRepositories patientRepositories;
