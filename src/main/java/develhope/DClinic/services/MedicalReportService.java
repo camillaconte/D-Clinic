@@ -1,10 +1,13 @@
 package develhope.DClinic.services;
 
-import develhope.DClinic.repositories.MedicalReportRepo;
+import develhope.DClinic.repositories.MedicalReportRepository;
 import develhope.DClinic.repositories.PatientRepo;
 import develhope.DClinic.domain.MedicalReport;
 import develhope.DClinic.domain.Patient;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,49 +18,81 @@ import java.util.Optional;
 @Service
 public class MedicalReportService {
 
-    MedicalReportRepo medicalReportRepo;
+    MedicalReportRepository medicalReportRepository;
     PatientRepo patientRepo;
 
     @Autowired
-    public MedicalReportService(MedicalReportRepo medicalReportRepo, PatientRepo patientRepo){
-        this.medicalReportRepo = medicalReportRepo;
+    public MedicalReportService(MedicalReportRepository medicalReportRepository, PatientRepo patientRepo){
+        this.medicalReportRepository = medicalReportRepository;
         this.patientRepo = patientRepo;
     }
 
-    /*@Autowired
-    public MedicalRecordsService (PatientRepo patientRepo){
-        this.patientRepo = patientRepo;
-    }*/
+    /**
+     * CREATE methods
+     */
 
+    /**
+     * Problema pratico: se sono sulla pagina dell'appuntamento, come faccio a creare un record dove il campo paziente
+     * corrisponde proprio al campo paziente dell'appuntamento?
+     */
 
-    //prendo tutti i MedicalRecord (grazie al medicalRecordsrepo)
+    public ResponseEntity createReportResponse(MedicalReport report) {
+        try {
+            MedicalReport reportToSave = report;
+            medicalReportRepository.save(reportToSave);
+            return ResponseEntity.ok(reportToSave);
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        }
+    }
+
+    //prendo tutti i MedicalRecord (grazie al medicalRecordsRepository)
     //faccio un ciclo (o uno stream) per vedere chi ha come paziente il paziente che mi interessa
-    public List<MedicalReport> getAllPatientRecords(Patient patient) {
+    public List<MedicalReport> getAllPatientReports(Patient patient) {
         List<MedicalReport> patientRecords = new ArrayList<>();
-        for (MedicalReport record : medicalReportRepo.findAll()){
+        for (MedicalReport record : medicalReportRepository.findAll()){
             if (record.getPatient() == patient){
                 patientRecords.add(record);
             }
         } return patientRecords;
     }
 
-    //prima lo creo "vuoto", cioè solo name e id (che si autogenera)
-    //poi faccio un update mediante inserimento e.g. della String history
-    public void createNewReport(MedicalReport report) {
-        medicalReportRepo.save(report);
+    public List<MedicalReport> findAllReportsByPatientId(int patientId) {
+        Optional<Patient> patientToFind = patientRepo.findById(patientId);
+        List<MedicalReport> medicalReportList = null;
+        if (!patientToFind.isPresent()) {
+            throw new IllegalStateException("no patients with this id");
+        } else {
+            Patient patient = patientToFind.get();
+            medicalReportList = patient.getMedicalReportsList();
+        }
+        return medicalReportList;
     }
 
 
-    public void updateRecordHistory(String name, String history){
-        Optional<MedicalReport> reportToFind = medicalReportRepo.findByName(name);
+    public String getLastHistory() {
+        Optional<MedicalReport> lastReport = medicalReportRepository.findLast();
+        if (lastReport.isPresent()) {
+            String history = lastReport.get().getHistory();
+            return history;
+        } else {
+            throw new IllegalStateException("It was not possible to find a history");
+        }
+    }
+
+
+    /*public void updateReportHistory(String reportName, String history){
+        Optional<MedicalReport> reportToFind = medicalReportRepository.findByName(reportName);
         if(reportToFind.isPresent()){
             MedicalReport report = reportToFind.get();
             report.setHistory(history);
-            medicalReportRepo.save(report);
+            medicalReportRepository.save(report);
         } else {
             throw new IllegalStateException("there are no records with this name");
         }
-    }
+    }*/
+
+
 
     //domanda: il nuovo record viene salvato nella tabella medicalRecords
     //e gli viene assegnato il paziente che ho dato in ingresso
@@ -65,9 +100,9 @@ public class MedicalReportService {
     public MedicalReport createNewRecordForPatient (String name, Patient patient){
         MedicalReport medicalReport = new MedicalReport(name, patient);
         medicalReport.setCreationDate(LocalDateTime.now());
-        medicalReport.setName(name);
+        medicalReport.setReportName(name);
         medicalReport.setPatient(patient);
-        return medicalReportRepo.save(medicalReport);
+        return medicalReportRepository.save(medicalReport);
     }
 
     //Come faccio a dire in quale record voglio aggiungere history?
@@ -76,9 +111,9 @@ public class MedicalReportService {
     //Il medico clicca sul nome del record da aggiornare: getRecordbyName?
     //...
     public void setHistory(String name, String history) throws Exception {
-        List<MedicalReport> records = medicalReportRepo.findAll();
+        List<MedicalReport> records = medicalReportRepository.findAll();
         for (MedicalReport record : records){
-            if (record.getName() == name){
+            if (record.getReportName() == name){
                 record.setHistory(history);
             } else {
                 throw new Exception("No records with this name!");
@@ -89,15 +124,14 @@ public class MedicalReportService {
     //cliccando sul nome del record nella lista
     //voglio che mi restituisca il record
     //getRecordByName
-    public MedicalReport getRecordByName(String name) throws Exception {
-        Optional<MedicalReport> optionalMedicalRecord = medicalReportRepo.findByName(name);
+    /*public MedicalReport getRecordByName(String reportName) throws Exception {
+        Optional<MedicalReport> optionalMedicalRecord = medicalReportRepository.findByName(reportName);
         if(optionalMedicalRecord.isPresent()){
            MedicalReport record = optionalMedicalRecord.get();
            return record;
         } else {
             throw new Exception("No records with this name!");
         }
-    }
-
+    }*/
 
 }

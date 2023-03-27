@@ -4,6 +4,7 @@ import develhope.DClinic.domain.MedicalReport;
 import develhope.DClinic.domain.Patient;
 import develhope.DClinic.services.MedicalReportService;
 import develhope.DClinic.services.PatientService;
+import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,47 +14,45 @@ import java.util.List;
 
 @RestController
 public class MedicalReportsController {
-    MedicalReportService medicalReportService;
-    PatientService patientService;
 
-    @Autowired
+   @Autowired
+   MedicalReportService medicalReportService;
+
+   @Autowired
+   PatientService patientService;
+
+
+    /*@Autowired
     public MedicalReportsController(MedicalReportService medicalReportService, PatientService patientService){
         this.medicalReportService = medicalReportService;
         this.patientService = patientService;
-    }
-
-    /*@Autowired
-    public MedicalReportsController(PatientService patientService){
-        this.patientService = patientService;
     }*/
 
+    @PostMapping("/create-new-report-response-entity")
+    public ResponseEntity createReportResponse(@RequestBody MedicalReport report) {
+        return medicalReportService.createReportResponse(report);
+    }
+
+    /* DA IMPLEMENTARE QUANDO AVRò I DOCTOR
+    @GetMapping("/get-all-reports-by-doctorId/{doctorId}")
+    public List<MedicalReport> getAllReportsByDoctorId(@PathVariable ("doctorId") long doctorId{
+    medicalReportService.getALLReportsByDoctorId;
+     */
     @GetMapping("/get-all-reports-by-patientId/{patientId}")
-    public List<MedicalReport> getAllReportsByPatient(@PathVariable ("patientId") Integer patientId){
-        return patientService.findAllMedicalRecords(patientId);
+    public List<MedicalReport> getAllReportsByPatientId(@PathVariable ("patientId") int patientId){
+        return medicalReportService.findAllReportsByPatientId(patientId);
     }
 
-    @PostMapping("/insert-new-record")
-    public void insertNewReport(@RequestBody MedicalReport report){
-        medicalReportService.createNewReport(report);
+    @GetMapping("/get-last-history-by-patientId/{patientId}")
+    public String getLastHistory(){
+        return medicalReportService.getLastHistory();
     }
 
-
-    @PostMapping("/add-report-response-entity")
-    public ResponseEntity addReport(@RequestBody MedicalReport report) {
-        try {
-            medicalReportService.createNewReport(report);
-            return ResponseEntity.ok(report);
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-        }
-    }
-
-
-    @PutMapping("/update-record-history/{medicalRecordName}")
+    /*@PutMapping("/update-record-history/{medicalRecordName}")
     public void updateReportHistory(@PathVariable ("medicalRecordName") String medicalRecordName,
                                     @RequestParam String history){
-        medicalReportService.updateRecordHistory(medicalRecordName, history);
-    }
+        medicalReportService.updateReportHistory(medicalRecordName, history);
+    }*/
 
 
     /*in questo caso potrei inserire un medicalreport vuoto come RequestBody?
@@ -68,9 +67,9 @@ public class MedicalReportsController {
     }*/
 
     /*@PostMapping("/add-patient-to-MedicalRecord")
-    public ResponseEntity addMedicalRecord(@RequestBody ,@RequestParam String courseName) {
+    public ResponseEntity addMedicalRecord(@RequestBody Patient patient, @RequestParam String ame) {
         try {
-            studentService.setCourse(student, courseName);
+            Service.set(student, courseName);
             return ResponseEntity.ok(student);
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
@@ -83,16 +82,16 @@ public class MedicalReportsController {
      * @return
      */
     @GetMapping("/get-all-patient-records")
-    public ResponseEntity getAllPatientsRecords(@RequestBody Patient patient) {
+    public ResponseEntity getAllPatientsReports(@RequestBody Patient patient) {
         try{
-            medicalReportService.getAllPatientRecords(patient);
+            medicalReportService.getAllPatientReports(patient);
             return ResponseEntity.ok(patient);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-    /* Metodo sugggerito da Carlo per un altro problema?
+    /* Metodo sugggerito da Carlo per un altro problema
     Con ResponseEntity!
 
     @PutMapping ("/set-history")

@@ -22,10 +22,10 @@ public class MedicalReport {
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "medicalReports_id_sequence")
-    private long id;
+    private int id;
 
     @Column(nullable = false)
-    private String name;
+    private String reportName;
 
     /**"siamo i Medical Reports e siamo TANTI per OGNI paziente"
      * ogni report HA UN SOLO PAZIENTE (associato)
@@ -77,28 +77,28 @@ public class MedicalReport {
 
     public MedicalReport(){}
 
-    public MedicalReport(String name){
-        this.name = name;
+    public MedicalReport(String reportName){
+        this.reportName = reportName;
     }
-    public MedicalReport(String name, Patient patient) {
-        this.name = name;
+    public MedicalReport(String reportName, Patient patient) {
+        this.reportName = reportName;
         this.patient = patient;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getReportName() {
+        return reportName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setReportName(String reportName) {
+        this.reportName = reportName;
     }
 
     public Patient getPatient() {

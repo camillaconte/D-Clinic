@@ -17,7 +17,7 @@ public class Patient {
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "patient_id_sequence")
-    private int id;
+    private long id;
 
     @Column(nullable = false)
     private String name;
@@ -36,16 +36,16 @@ public class Patient {
      */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
     @JsonIgnore
-    private List<MedicalReport> medicalRecordsList;
+    private List<MedicalReport> medicalReportsList;
 
     public Patient(){}
 
-    public Patient(int id, String name, String surname, String email, List<MedicalReport> medicalRecordsList) {
+    public Patient(long id, String name, String surname, String email, List<MedicalReport> medicalRecordsList) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.medicalRecordsList = medicalRecordsList;
+        this.medicalReportsList = medicalRecordsList;
     }
 
     public Patient(String name, String surname, String email) {
@@ -54,11 +54,11 @@ public class Patient {
         this.email = email;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -86,11 +86,11 @@ public class Patient {
         this.email = email;
     }
 
-    public List<MedicalReport> getMedicalRecordsList() {
-        return medicalRecordsList;
+    public List<MedicalReport> getMedicalReportsList() {
+        return medicalReportsList;
     }
 
-    public void setMedicalRecordsList(List<MedicalReport> medicalRecordsList) {
-        this.medicalRecordsList = medicalRecordsList;
+    public void setMedicalReportsList(List<MedicalReport> medicalRecordsList) {
+        this.medicalReportsList = medicalReportsList;
     }
 }

@@ -22,17 +22,6 @@ public class PatientService {
         return patientRepo.findAll();
     }
 
-    public List<MedicalReport> findAllMedicalRecords(Integer patientId) {
-        Optional<Patient> patientToFind = patientRepo.findById(patientId);
-        List<MedicalReport> medicalReportList = null;
-        if (!patientToFind.isPresent()) {
-            throw new IllegalStateException("no patients with this id");
-        } else {
-            Patient patient = patientToFind.get();
-            medicalReportList = patient.getMedicalRecordsList();
-        }
-        return medicalReportList;
-    }
 
     public void insertNewPatient(Patient patient) {
         Optional<Patient> optionalPatient = patientRepo.findPatientByEmail(patient.getEmail());
