@@ -1,0 +1,11 @@
+package develhope.DClinic.repository;
+
+import develhope.DClinic.domain.Doctor;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+@Repository
+public interface DoctorRepository extends D_ClinicRepository<Doctor> {
+    List<Doctor> findByLastname(String lastname);
+
+}
