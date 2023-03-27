@@ -48,20 +48,19 @@ public class Patient {
 
     public Patient(){}
 
-    public Patient(long id, String name, String surname, String email, List<MedicalReport> medicalRecordsList) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
+    public Patient(String firstName, String lastName, String fiscalCode, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.fiscalCode = fiscalCode;
         this.email = email;
-        this.medicalReportsList = medicalRecordsList;
     }
 
     public long getId() {
-        return id_patient;
+        return id;
     }
 
     public void setId(long id) {
-        this.id_patient = id;
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -80,20 +79,34 @@ public class Patient {
         this.lastName = lastName;
     }
 
-    public long getId_patient() {
-        return id_patient;
-    }
-
-    public void setId_patient(long id_patient) {
-        this.id_patient = id_patient;
-    }
-
     public String getFiscalCode() {
         return fiscalCode;
     }
 
     public void setFiscalCode(String fiscalCode) {
         this.fiscalCode = fiscalCode;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<MedicalReport> getMedicalReportsList() {
+        return medicalReportsList;
+    }
+
+    public void setMedicalReportsList(List<MedicalReport> medicalReportsList) {
+        this.medicalReportsList = medicalReportsList;
+    }
+
+    // è sempre un setter, ma non è uno standard, lo devo fare manualmente
+    // ne avrò bisogno per aggiungere referti al momento della refertazione
+    public void addMedicalReport(MedicalReport medicalReport) {
+        this.medicalReportsList.add(medicalReport);
     }
 
     public Set<LabTest> getLabTest() {
