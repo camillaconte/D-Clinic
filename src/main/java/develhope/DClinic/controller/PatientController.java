@@ -1,7 +1,7 @@
-package develhope.DClinic.controllers;
+package develhope.DClinic.controller;
 
 import develhope.DClinic.domain.Patient;
-import develhope.DClinic.services.PatientService;
+import develhope.DClinic.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

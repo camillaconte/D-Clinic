@@ -1,10 +1,9 @@
-package develhope.DClinic.services;
+package develhope.DClinic.service;
 
-import develhope.DClinic.repositories.MedicalReportRepository;
-import develhope.DClinic.repositories.PatientRepo;
+import develhope.DClinic.repository.MedicalReportRepository;
+import develhope.DClinic.repository.PatientRepo;
 import develhope.DClinic.domain.MedicalReport;
 import develhope.DClinic.domain.Patient;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

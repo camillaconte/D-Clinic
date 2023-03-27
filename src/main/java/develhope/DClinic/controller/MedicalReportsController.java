@@ -1,10 +1,9 @@
-package develhope.DClinic.controllers;
+package develhope.DClinic.controller;
 
 import develhope.DClinic.domain.MedicalReport;
 import develhope.DClinic.domain.Patient;
-import develhope.DClinic.services.MedicalReportService;
-import develhope.DClinic.services.PatientService;
-import jakarta.persistence.Id;
+import develhope.DClinic.service.MedicalReportService;
+import develhope.DClinic.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
