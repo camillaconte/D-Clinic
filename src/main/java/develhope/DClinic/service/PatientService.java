@@ -1,7 +1,7 @@
 package develhope.DClinic.service;
 
 import develhope.DClinic.domain.Patient;
-import develhope.DClinic.repositories.PatientRepositories;
+import develhope.DClinic.repository.PatientRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
