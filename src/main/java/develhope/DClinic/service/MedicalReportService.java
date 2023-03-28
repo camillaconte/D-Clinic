@@ -56,7 +56,7 @@ public class MedicalReportService {
         } return patientRecords;
     }
 
-    public List<MedicalReport> findAllReportsByPatientId(int patientId) {
+    public List<MedicalReport> findAllReportsByPatientId(long patientId) {
         Optional<Patient> patientToFind = patientRepo.findById(patientId);
         List<MedicalReport> medicalReportList = null;
         if (!patientToFind.isPresent()) {

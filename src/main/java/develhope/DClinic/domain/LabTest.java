@@ -23,8 +23,11 @@ public class LabTest {
     @JoinColumn(name="tb_laboratory_test", nullable = false)
     private Patient patient;
     private LocalDateTime date;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tb_laboratory_test")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tests")
     private Set<LabParameter> labParameter;
+
+    @Column(nullable = false)
+    private double value;
     private String description;
 
     public LabTest() {
