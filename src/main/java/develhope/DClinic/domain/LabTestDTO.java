@@ -9,15 +9,18 @@ public class LabTestDTO implements Serializable {
     private Patient patient;
     private LocalDateTime date;
     private Set<LabParameter> labParameter;
+
+    private double value;
     private String description;
 
     public LabTestDTO() {
     }
 
-    public LabTestDTO(Patient patient, LocalDateTime date, Set<LabParameter> labParameter, String description) {
+    public LabTestDTO(Patient patient, LocalDateTime date, Set<LabParameter> labParameter, double value, String description) {
         this.patient = patient;
         this.date = date;
         this.labParameter = labParameter;
+        this.value = value;
         this.description = description;
     }
 
@@ -51,6 +54,14 @@ public class LabTestDTO implements Serializable {
 
     public void setLabParameter(Set<LabParameter> labParameter) {
         this.labParameter = labParameter;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
     }
 
     public String getDescription() {

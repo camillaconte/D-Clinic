@@ -16,6 +16,7 @@ public class LabTestMapper {
                 labTestDTO.getPatient(),
                 labTestDTO.getDate(),
                 labTestDTO.getLabParameter(),
+                labTestDTO.getValue(),
                 labTestDTO.getDescription()
         );
     }
@@ -25,13 +26,14 @@ public class LabTestMapper {
                 labTest.getPatient(),
                 labTest.getDate(),
                 labTest.getLabParameter(),
+                labTest.getValue(),
                 labTest.getDescription()
         );
     }
 
     public List<LabTestDTO> mapToLabTestDTOList(final List<LabTest> labTestList) {
         return labTestList.stream()
-                .map(l -> new LabTestDTO(l.getPatient(), l.getDate(), l.getLabParameter(), l.getDescription()))
+                .map(l -> new LabTestDTO(l.getPatient(), l.getDate(), l.getLabParameter(),l.getValue(), l.getDescription()))
                 .collect(Collectors.toList());
     }
 }

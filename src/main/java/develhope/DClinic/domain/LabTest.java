@@ -20,7 +20,6 @@ public class LabTest {
     private long id_test;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="tb_laboratory_test", nullable = false)
     private Patient patient;
     private LocalDateTime date;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tests")
@@ -33,10 +32,11 @@ public class LabTest {
     public LabTest() {
     }
 
-    public LabTest(Patient patient, LocalDateTime date, Set<LabParameter> labParameter, String description) {
+    public LabTest(Patient patient, LocalDateTime date, Set<LabParameter> labParameter, double value, String description) {
         this.patient = patient;
         this.date = date;
         this.labParameter = labParameter;
+        this.value = value;
         this.description = description;
     }
 
@@ -70,6 +70,14 @@ public class LabTest {
 
     public void setLabParameter(Set<LabParameter> labParameter) {
         this.labParameter = labParameter;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
     }
 
     public String getDescription() {
