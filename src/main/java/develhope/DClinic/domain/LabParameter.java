@@ -121,4 +121,12 @@ public class LabParameter {
     public void setIsNotInRangeStar(String isNotInRangeStar) {
         this.isNotInRangeStar = isNotInRangeStar;
     }
+
+    public Set<LabTest> getTests() {
+        return tests;
+    }
+
+    public void setTests(Set<LabTest> tests) {
+        this.tests = tests;
+    }
 }
