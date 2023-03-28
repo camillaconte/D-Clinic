@@ -45,7 +45,7 @@ public class Patient {
     private List<MedicalReport> medicalReportsList;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="patient", nullable = false)
+    @JoinColumn(name="patients", nullable = false)
     private Set<LabTest> labTest;
 
 

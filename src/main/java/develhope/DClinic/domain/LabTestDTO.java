@@ -2,19 +2,19 @@ package develhope.DClinic.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 public class LabTestDTO implements Serializable {
     private long id;
     private Patient patient;
     private LocalDateTime date;
-    private List<LabParameter> labParameter;
+    private Set<LabParameter> labParameter;
     private String description;
 
     public LabTestDTO() {
     }
 
-    public LabTestDTO(Patient patient, LocalDateTime date, List<LabParameter> labParameter, String description) {
+    public LabTestDTO(Patient patient, LocalDateTime date, Set<LabParameter> labParameter, String description) {
         this.patient = patient;
         this.date = date;
         this.labParameter = labParameter;
@@ -45,11 +45,11 @@ public class LabTestDTO implements Serializable {
         this.date = date;
     }
 
-    public List<LabParameter> getLabParameter() {
+    public Set<LabParameter> getLabParameter() {
         return labParameter;
     }
 
-    public void setLabParameter(List<LabParameter> labParameter) {
+    public void setLabParameter(Set<LabParameter> labParameter) {
         this.labParameter = labParameter;
     }
 

@@ -1,10 +1,12 @@
 package develhope.DClinic.mapper;
 
+import develhope.DClinic.domain.LabParameter;
 import develhope.DClinic.domain.LabTest;
 import develhope.DClinic.domain.LabTestDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component

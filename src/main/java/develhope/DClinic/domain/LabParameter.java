@@ -15,7 +15,7 @@ import javax.annotation.processing.Generated;
  */
 
 @Entity
-@Table
+@Table(name = "lab_parameter")
 public class LabParameter {
 
     @Id
@@ -26,6 +26,9 @@ public class LabParameter {
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "labParameter_id_sequence")
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "labParameter")
     private long id;
 
     @Column(nullable = false)
@@ -36,6 +39,8 @@ public class LabParameter {
      * e in realtà ultimamente si è capito che possono variare anche in base alla fascia di età
      * ...ma non complichiamoci la vita!
      */
+    @Column(name = "value", nullable = false)
+    private double value;
     @Column(name = "reference_man", nullable = false)
     private double referenceValueMale;
 

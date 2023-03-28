@@ -23,8 +23,8 @@ public class CheckEmptyField {
         if(u.getDescription() == null){
             MESSAGE_ERROR.add("DESCRIPTION NOT INSERT");
         }
-        if(u.getResult() == null){
-            MESSAGE_ERROR.add("RESULT NOT INSERT");
+        if(u.getLabParameter() == null){
+            MESSAGE_ERROR.add("PARAM NOT INSERT");
         }
         if(u.getDate() == null){
             u.setDate(LocalDateTime.now());

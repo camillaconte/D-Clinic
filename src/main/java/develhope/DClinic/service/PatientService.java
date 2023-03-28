@@ -30,7 +30,7 @@ public class PatientService {
         patientRepo.save(patient);
     }
 
-    public void deletePatientById(Integer patientId) {
+    public void deletePatientById(long patientId) {
         boolean exists = patientRepo.existsById(patientId);
         if(!exists){
             throw new IllegalStateException(
@@ -39,7 +39,7 @@ public class PatientService {
         patientRepo.deleteById(patientId);
     }
 
-    public void updatePatient(Integer patientId, String newEmail, String newName) {
+    public void updatePatient(long patientId, String newEmail, String newName) {
         Optional<Patient> patientToFind = patientRepo.findById(patientId);
         if (patientToFind.isPresent()){
             Patient patient = patientToFind.get();
