@@ -3,6 +3,7 @@ package develhope.DClinic.domain;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Luca Giorgi
@@ -23,17 +24,17 @@ public class LabTest {
     @Column(name = "date")
     private LocalDateTime date;
     @Column(name = "result")
-    private String result;
+    private List<LabParameter> labParameter;
     @Column(name = "description")
     private String description;
 
-    public LabTest(long id, Patient patient, LocalDateTime date, String description, String result) {}
+    public LabTest() {
+    }
 
-    public LabTest(long id_test, Patient patient, String result, String description) {
-        this.id_test = id_test;
+    public LabTest(Patient patient, LocalDateTime date, List<LabParameter> labParameter, String description) {
         this.patient = patient;
-        this.date = LocalDateTime.now();
-        this.result = result;
+        this.date = date;
+        this.labParameter = labParameter;
         this.description = description;
     }
 
@@ -61,12 +62,12 @@ public class LabTest {
         this.date = date;
     }
 
-    public String getResult() {
-        return result;
+    public List<LabParameter> getLabParameter() {
+        return labParameter;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setLabParameter(List<LabParameter> labParameter) {
+        this.labParameter = labParameter;
     }
 
     public String getDescription() {

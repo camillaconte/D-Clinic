@@ -11,27 +11,25 @@ import java.util.stream.Collectors;
 public class LabTestMapper {
     public LabTest mapToLabTest(final LabTestDTO labTestDTO) {
         return new LabTest(
-                labTestDTO.getId(),
                 labTestDTO.getPatient(),
                 labTestDTO.getDate(),
-                labTestDTO.getDescription(),
-                labTestDTO.getResult()
+                labTestDTO.getLabParameter(),
+                labTestDTO.getDescription()
         );
     }
 
     public LabTestDTO mapToLabTestDTO(final LabTest labTest) {
         return new LabTestDTO(
-                labTest.getId_test(),
                 labTest.getPatient(),
                 labTest.getDate(),
-                labTest.getResult(),
+                labTest.getLabParameter(),
                 labTest.getDescription()
         );
     }
 
     public List<LabTestDTO> mapToLabTestDTOList(final List<LabTest> labTestList) {
         return labTestList.stream()
-                .map(l -> new LabTestDTO(l.getId_test(), l.getPatient(), l.getDate(), l.getResult(), l.getDescription()))
+                .map(l -> new LabTestDTO(l.getPatient(), l.getDate(), l.getLabParameter(), l.getDescription()))
                 .collect(Collectors.toList());
     }
 }
