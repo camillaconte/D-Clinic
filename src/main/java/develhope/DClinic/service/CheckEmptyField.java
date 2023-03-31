@@ -17,14 +17,11 @@ import java.util.HashSet;
 public class CheckEmptyField {
     public HashSet<String> checkEmptyFieldNewLabTest(LabTestDTO u){
         HashSet<String> MESSAGE_ERROR = new HashSet<>();
-        if(u.getPatient() == null){
-            MESSAGE_ERROR.add("PATIENT NOT INSERT");
-        }
         if(u.getDescription() == null){
             MESSAGE_ERROR.add("DESCRIPTION NOT INSERT");
         }
-        if(u.getLabParameter() == null){
-            MESSAGE_ERROR.add("PARAM NOT INSERT");
+        if(u.getValue() == 0){
+            MESSAGE_ERROR.add("VALUE NOT INSERT");
         }
         if(u.getDate() == null){
             u.setDate(LocalDateTime.now());

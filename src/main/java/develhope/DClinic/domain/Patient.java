@@ -24,10 +24,8 @@ public class Patient {
     private String firstName;
     @Column(nullable = false)
     private String lastName;
-
     @Column(name = "fiscalCode")
     private String fiscalCode;
-
     @Column(nullable = false)
     private String email;
     private String phoneNumber;
@@ -44,7 +42,7 @@ public class Patient {
     @JsonIgnore
     private List<MedicalReport> medicalReportsList;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient_id")
     @JsonIgnore
     private Set<LabTest> labTest;
 

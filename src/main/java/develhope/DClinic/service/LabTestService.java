@@ -30,16 +30,12 @@ public class LabTestService   {
     public ResponseEntity insertNewTest(LabTestDTO labTestDTO){
         HashSet<String> MESSAGE_ERROR = checkEmptyField.checkEmptyFieldNewLabTest(labTestDTO);
         try{
-            if(labTestDTO.getPatient() != null && labTestDTO.getLabParameter() != null && labTestDTO.getDescription() != null){
-                System.out.println("New laboratory test is insert");
-                labTestRepository.save(labTestMapper.mapToLabTest(labTestDTO));
-                return new ResponseEntity<>(labTestDTO, HttpStatus.OK);
-            }else{
-                return new ResponseEntity<>(MESSAGE_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            System.out.println("New laboratory test is insert");
+            labTestRepository.save(labTestMapper.mapToLabTest(labTestDTO));
+            return new ResponseEntity<>(labTestDTO, HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>(MESSAGE_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

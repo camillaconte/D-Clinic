@@ -3,28 +3,19 @@ package develhope.DClinic.domain;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
-/**
- * @author Luca Giorgi
- * Entity per gli esami di aboratorio
- */
-
 @Entity
-@Table(name = "tb_laboratory_test")
+@Table
 public class LabTest {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_test")
     private long id_test;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    private Patient patient;
+    private Patient patient_id;
     private LocalDateTime date;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tests")
     private Set<LabParameter> labParameter;
-
     @Column(nullable = false)
     private double value;
     private String description;
@@ -33,7 +24,7 @@ public class LabTest {
     }
 
     public LabTest(Patient patient, LocalDateTime date, Set<LabParameter> labParameter, double value, String description) {
-        this.patient = patient;
+        this.patient_id = patient;
         this.date = date;
         this.labParameter = labParameter;
         this.value = value;
@@ -49,11 +40,11 @@ public class LabTest {
     }
 
     public Patient getPatient() {
-        return patient;
+        return patient_id;
     }
 
     public void setPatient(Patient patient) {
-        this.patient = patient;
+        this.patient_id = patient;
     }
 
     public LocalDateTime getDate() {
