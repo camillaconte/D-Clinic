@@ -42,7 +42,7 @@ public class Patient {
     @JsonIgnore
     private List<MedicalReport> medicalReportsList;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient_id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
     @JsonIgnore
     private Set<LabTest> labTest;
 

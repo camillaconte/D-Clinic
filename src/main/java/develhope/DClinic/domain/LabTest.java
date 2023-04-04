@@ -9,10 +9,10 @@ import java.util.Set;
 @Table
 public class LabTest {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id_test;
     @ManyToOne(fetch = FetchType.LAZY)
-    private Patient patient_id;
+    private Patient patient;
     private LocalDateTime date;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tests")
     private Set<LabParameter> labParameter;
@@ -24,7 +24,7 @@ public class LabTest {
     }
 
     public LabTest(Patient patient, LocalDateTime date, Set<LabParameter> labParameter, double value, String description) {
-        this.patient_id = patient;
+        this.patient = patient;
         this.date = date;
         this.labParameter = labParameter;
         this.value = value;
@@ -40,11 +40,11 @@ public class LabTest {
     }
 
     public Patient getPatient() {
-        return patient_id;
+        return patient;
     }
 
     public void setPatient(Patient patient) {
-        this.patient_id = patient;
+        this.patient = patient;
     }
 
     public LocalDateTime getDate() {

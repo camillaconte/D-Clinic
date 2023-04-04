@@ -1,7 +1,6 @@
 package develhope.DClinic.controller;
 
 import develhope.DClinic.domain.LabTest;
-import develhope.DClinic.domain.LabTestDTO;
 import develhope.DClinic.service.LabTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,24 +19,24 @@ public class LabTestController {
 
 
     @PostMapping
-    public ResponseEntity insetTest(@RequestBody LabTestDTO labTestDTO){
-        return labTestService.insertNewTest(labTestDTO);
+    public ResponseEntity insetTest(@RequestBody LabTest labTest){
+        return labTestService.insertNewTest(labTest);
     }
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable long id_labTest){
-        return labTestService.deleteByID(id_labTest);
+    public ResponseEntity delete(@PathVariable long id){
+        return labTestService.deleteByID(id);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity update(@PathVariable long id, @RequestBody LabTest labTest){
         return labTestService.update(id,labTest);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getLabTestByIdTest(@PathVariable long id_test){
-        return labTestService.getByID(id_test);
+    public ResponseEntity getLabTestByIdTest(@PathVariable long id){
+        return labTestService.getByID(id);
     }
 
     @GetMapping

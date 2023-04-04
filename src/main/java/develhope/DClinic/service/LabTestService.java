@@ -27,12 +27,12 @@ public class LabTestService   {
     @Autowired
     private CheckEmptyField checkEmptyField;
 
-    public ResponseEntity insertNewTest(LabTestDTO labTestDTO){
-        HashSet<String> MESSAGE_ERROR = checkEmptyField.checkEmptyFieldNewLabTest(labTestDTO);
+    public ResponseEntity insertNewTest(LabTest labTest){
+        HashSet<String> MESSAGE_ERROR = checkEmptyField.checkEmptyFieldNewLabTest(labTest);
         try{
             System.out.println("New laboratory test is insert");
-            labTestRepository.save(labTestMapper.mapToLabTest(labTestDTO));
-            return new ResponseEntity<>(labTestDTO, HttpStatus.OK);
+            labTestRepository.save(labTest);
+            return new ResponseEntity<>(labTest, HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -51,7 +51,7 @@ public class LabTestService   {
 
     public ResponseEntity getByID (long id_test){
         try {
-            LabTestDTO labTestByID = labTestMapper.mapToLabTestDTO(labTestRepository.getById(id_test));
+            LabTest labTestByID = labTestRepository.getById(id_test);
             return new ResponseEntity<>(labTestByID, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,7 +62,7 @@ public class LabTestService   {
     public ResponseEntity update(long id, LabTest labTest){
         try{
             labTest.setId_test(id);
-            labTestMapper.mapToLabTestDTO(labTestRepository.saveAndFlush(labTest));
+            labTestRepository.saveAndFlush(labTest);
             return new ResponseEntity<>(labTest, HttpStatus.OK);
         }catch (Exception e){
             e.getStackTrace();
@@ -72,7 +72,7 @@ public class LabTestService   {
 
     public ResponseEntity getAll(){
         try{
-            List<LabTestDTO> sortList = labTestMapper.mapToLabTestDTOList(labTestRepository.findAll());
+            List<LabTest> sortList = labTestRepository.findAll();
             return new ResponseEntity<>(sortList, HttpStatus.OK);
         }catch (Exception e){
             e.getStackTrace();
