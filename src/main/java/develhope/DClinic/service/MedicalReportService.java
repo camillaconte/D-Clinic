@@ -1,7 +1,7 @@
 package develhope.DClinic.service;
 
 import develhope.DClinic.repository.MedicalReportRepository;
-import develhope.DClinic.repository.PatientRepo;
+import develhope.DClinic.repository.PatientRepository;
 import develhope.DClinic.domain.MedicalReport;
 import develhope.DClinic.domain.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +18,12 @@ import java.util.Optional;
 public class MedicalReportService {
 
     MedicalReportRepository medicalReportRepository;
-    PatientRepo patientRepo;
+    PatientRepository patientRepository;
 
     @Autowired
-    public MedicalReportService(MedicalReportRepository medicalReportRepository, PatientRepo patientRepo){
+    public MedicalReportService(MedicalReportRepository medicalReportRepository, PatientRepository patientRepository){
         this.medicalReportRepository = medicalReportRepository;
-        this.patientRepo = patientRepo;
+        this.patientRepository = patientRepository;
     }
 
     /**
@@ -57,7 +57,7 @@ public class MedicalReportService {
     }
 
     public List<MedicalReport> findAllReportsByPatientId(long patientId) {
-        Optional<Patient> patientToFind = patientRepo.findById(patientId);
+        Optional<Patient> patientToFind = patientRepository.findById(patientId);
         List<MedicalReport> medicalReportList = null;
         if (!patientToFind.isPresent()) {
             throw new IllegalStateException("no patients with this id");

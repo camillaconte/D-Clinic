@@ -1,6 +1,6 @@
 package develhope.DClinic.domain;
 
-public class PatientDto {
+public class PatientDTO {
     private String name;
     private String surname;
     private String fiscalCode;
@@ -11,7 +11,7 @@ public class PatientDto {
 
     @Override
     public String toString() {
-        return "PatientDto{" +
+        return "PatientDTO{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", fiscalCode='" + fiscalCode + '\'' +
@@ -22,7 +22,7 @@ public class PatientDto {
                 '}';
     }
 
-    public PatientDto(String name, String surname, String fiscalCode, Integer age, String email, String phoneNumber, String address) {
+    public PatientDTO(String name, String surname, String fiscalCode, Integer age, String email, String phoneNumber, String address) {
         this.name = name;
         this.surname = surname;
         this.fiscalCode = fiscalCode;

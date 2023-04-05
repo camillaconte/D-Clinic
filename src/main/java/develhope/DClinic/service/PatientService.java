@@ -1,7 +1,7 @@
 package develhope.DClinic.service;
 
 import develhope.DClinic.domain.Patient;
-import develhope.DClinic.repository.PatientRepo;
+import develhope.DClinic.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,41 +11,41 @@ import java.util.Optional;
 @Service
 public class PatientService {
 
-    PatientRepo patientRepo;
+    PatientRepository patientRepository;
 
     @Autowired
-    public PatientService(PatientRepo patientRepo){
-        this.patientRepo = patientRepo;
+    public PatientService(PatientRepository patientRepository){
+        this.patientRepository = patientRepository;
     }
     public List<Patient> findAll() {
-        return patientRepo.findAll();
+        return patientRepository.findAll();
     }
 
 
     public void insertNewPatient(Patient patient) {
-        Optional<Patient> optionalPatient = patientRepo.findPatientByEmail(patient.getEmail());
+        Optional<Patient> optionalPatient = patientRepository.findPatientByEmail(patient.getEmail());
         if(optionalPatient.isPresent()){
             throw new IllegalStateException("email already taken");
         }
-        patientRepo.save(patient);
+        patientRepository.save(patient);
     }
 
     public void deletePatientById(long patientId) {
-        boolean exists = patientRepo.existsById(patientId);
+        boolean exists = patientRepository.existsById(patientId);
         if(!exists){
             throw new IllegalStateException(
                     "patient with id " + patientId + " does not exists");
         }
-        patientRepo.deleteById(patientId);
+        patientRepository.deleteById(patientId);
     }
 
     public void updatePatient(long patientId, String newEmail, String newName) {
-        Optional<Patient> patientToFind = patientRepo.findById(patientId);
+        Optional<Patient> patientToFind = patientRepository.findById(patientId);
         if (patientToFind.isPresent()){
             Patient patient = patientToFind.get();
             patient.setEmail(newEmail);
             patient.setFirstName(newName);
-            patientRepo.save(patient);
+            patientRepository.save(patient);
         } else throw new IllegalStateException("patient with this id not found");
     }
 }

@@ -1,16 +1,13 @@
 package develhope.DClinic.service;
 
 import develhope.DClinic.domain.LabTest;
-import develhope.DClinic.domain.LabTestDTO;
-import develhope.DClinic.mapper.LabTestMapper;
+import develhope.DClinic.domain.LabTestRequestDTO;
 import develhope.DClinic.repository.LabTestRepository;
+import develhope.DClinic.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
+import java.time.LocalDate;
 
 /**
  * @author Luca Giorgi
@@ -18,40 +15,30 @@ import java.util.List;
  */
 @Service
 public class LabTestService   {
-
+    @Autowired
+    private PatientRepository patientRepository;
     @Autowired
     private LabTestRepository labTestRepository;
-
-    @Autowired
-    private LabTestMapper labTestMapper;
     @Autowired
     private CheckEmptyField checkEmptyField;
 
-    public ResponseEntity insertNewTest(LabTest labTest){
-        HashSet<String> MESSAGE_ERROR = checkEmptyField.checkEmptyFieldNewLabTest(labTest);
-        try{
-            System.out.println("New laboratory test is insert");
-            labTestRepository.save(labTest);
-            return new ResponseEntity<>(labTest, HttpStatus.OK);
-        }catch(Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    public LabTest insertNewTest(LabTestRequestDTO labTestRequestDTO){
+        LabTest test = new LabTest();
+        test.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()));
+        test.setDate(LocalDate.now());
+        test.setNameParameter(labTestRequestDTO.getNameParameter());
+        test.setValue(labTestRequestDTO.getValue());
+        labTestRepository.save(test);
+        return test;
     }
 
-    public ResponseEntity deleteByID(long id_test){
-        try {
+    public void deleteByID(long id_test){
             labTestRepository.deleteById(id_test);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
-    public ResponseEntity getByID (long id_test){
+    /*public ResponseEntity getByID (long id_test){
         try {
-            LabTest labTestByID = labTestRepository.getById(id_test);
+            LabTestRequestDTO labTestByID = labTestMapper.mapToLabTestDTO(labTestRepository.getById(id_test));
             return new ResponseEntity<>(labTestByID, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,11 +46,11 @@ public class LabTestService   {
         }
     }
 
-    public ResponseEntity update(long id, LabTest labTest){
+    public ResponseEntity update(long id, LabTestRequestDTO labTestRequestDTO){
         try{
-            labTest.setId_test(id);
-            labTestRepository.saveAndFlush(labTest);
-            return new ResponseEntity<>(labTest, HttpStatus.OK);
+            labTestRequestDTO.setId(id);
+            LabTest test = labTestRepository.saveAndFlush(labTestMapper.mapToLabTest(labTestRequestDTO));
+            return new ResponseEntity<>(test, HttpStatus.OK);
         }catch (Exception e){
             e.getStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -72,11 +59,11 @@ public class LabTestService   {
 
     public ResponseEntity getAll(){
         try{
-            List<LabTest> sortList = labTestRepository.findAll();
+            List<LabTestRequestDTO> sortList = labTestMapper.mapToLabTestDTOList(labTestRepository.findAll()) ;
             return new ResponseEntity<>(sortList, HttpStatus.OK);
         }catch (Exception e){
             e.getStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }*/
 }
