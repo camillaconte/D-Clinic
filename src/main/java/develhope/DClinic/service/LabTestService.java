@@ -27,12 +27,12 @@ public class LabTestService   {
     @Autowired
     private CheckEmptyField checkEmptyField;
 
-    public ResponseEntity insertNewTest(LabTest labTest){
-        HashSet<String> MESSAGE_ERROR = checkEmptyField.checkEmptyFieldNewLabTest(labTest);
+    public ResponseEntity insertNewTest(LabTestDTO labTestDTO){
+        HashSet<String> MESSAGE_ERROR = checkEmptyField.checkEmptyFieldNewLabTest(labTestDTO);
         try{
             System.out.println("New laboratory test is insert");
-            labTestRepository.save(labTest);
-            return new ResponseEntity<>(labTest, HttpStatus.OK);
+            LabTest test = labTestRepository.save(labTestMapper.mapToLabTest(labTestDTO));
+            return new ResponseEntity<>(test, HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -51,7 +51,7 @@ public class LabTestService   {
 
     public ResponseEntity getByID (long id_test){
         try {
-            LabTest labTestByID = labTestRepository.getById(id_test);
+            LabTestDTO labTestByID = labTestMapper.mapToLabTestDTO(labTestRepository.getById(id_test));
             return new ResponseEntity<>(labTestByID, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,11 +59,11 @@ public class LabTestService   {
         }
     }
 
-    public ResponseEntity update(long id, LabTest labTest){
+    public ResponseEntity update(long id, LabTestDTO labTestDTO){
         try{
-            labTest.setId_test(id);
-            labTestRepository.saveAndFlush(labTest);
-            return new ResponseEntity<>(labTest, HttpStatus.OK);
+            labTestDTO.setId(id);
+            LabTest test = labTestRepository.saveAndFlush(labTestMapper.mapToLabTest(labTestDTO));
+            return new ResponseEntity<>(test, HttpStatus.OK);
         }catch (Exception e){
             e.getStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -72,7 +72,7 @@ public class LabTestService   {
 
     public ResponseEntity getAll(){
         try{
-            List<LabTest> sortList = labTestRepository.findAll();
+            List<LabTestDTO> sortList = labTestMapper.mapToLabTestDTOList(labTestRepository.findAll()) ;
             return new ResponseEntity<>(sortList, HttpStatus.OK);
         }catch (Exception e){
             e.getStackTrace();

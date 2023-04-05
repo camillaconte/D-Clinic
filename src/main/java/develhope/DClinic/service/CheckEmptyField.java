@@ -1,7 +1,7 @@
 package develhope.DClinic.service;
 
 import develhope.DClinic.domain.AppointmentDTo;
-import develhope.DClinic.domain.LabTest;
+import develhope.DClinic.domain.LabTestDTO;
 import org.springframework.stereotype.Service;
 
 
@@ -15,7 +15,7 @@ import java.util.HashSet;
  */
 @Service
 public class CheckEmptyField {
-    public HashSet<String> checkEmptyFieldNewLabTest(LabTest u){
+    public HashSet<String> checkEmptyFieldNewLabTest(LabTestDTO u){
         HashSet<String> MESSAGE_ERROR = new HashSet<>();
         if(u.getDescription() == null){
             MESSAGE_ERROR.add("DESCRIPTION NOT INSERT");
@@ -24,7 +24,7 @@ public class CheckEmptyField {
             MESSAGE_ERROR.add("VALUE NOT INSERT");
         }
         if(u.getDate() == null){
-            u.setDate(LocalDateTime.now());
+            u.setDate(LocalDate.now());
         }
         return MESSAGE_ERROR;
     }

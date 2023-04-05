@@ -2,7 +2,7 @@ package develhope.DClinic.domain;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -13,7 +13,7 @@ public class LabTest {
     private long id_test;
     @ManyToOne(fetch = FetchType.LAZY)
     private Patient patient;
-    private LocalDateTime date;
+    private LocalDate date;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tests")
     private Set<LabParameter> labParameter;
     @Column(nullable = false)
@@ -23,7 +23,7 @@ public class LabTest {
     public LabTest() {
     }
 
-    public LabTest(Patient patient, LocalDateTime date, Set<LabParameter> labParameter, double value, String description) {
+    public LabTest(Patient patient, LocalDate date, Set<LabParameter> labParameter, double value, String description) {
         this.patient = patient;
         this.date = date;
         this.labParameter = labParameter;
@@ -47,11 +47,11 @@ public class LabTest {
         this.patient = patient;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
