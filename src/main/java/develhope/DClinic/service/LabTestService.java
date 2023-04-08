@@ -2,12 +2,15 @@ package develhope.DClinic.service;
 
 import develhope.DClinic.domain.LabTest;
 import develhope.DClinic.domain.LabTestRequestDTO;
+import develhope.DClinic.domain.LabTestResponseDTO;
 import develhope.DClinic.repository.LabTestRepository;
 import develhope.DClinic.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Luca Giorgi
@@ -36,34 +39,40 @@ public class LabTestService   {
             labTestRepository.deleteById(id_test);
     }
 
-    /*public ResponseEntity getByID (long id_test){
-        try {
-            LabTestRequestDTO labTestByID = labTestMapper.mapToLabTestDTO(labTestRepository.getById(id_test));
-            return new ResponseEntity<>(labTestByID, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public LabTestResponseDTO getByID (long id_test){
+        LabTestResponseDTO testResponseDTO = new LabTestResponseDTO();
+        LabTest test = labTestRepository.getById(id_test);
+        testResponseDTO.setPatient(test.getPatient());
+        testResponseDTO.setDate(test.getDate());
+        testResponseDTO.setNameParameter(test.getNameParameter());
+        testResponseDTO.setValue(test.getValue());
+        //Inserire i parametri
+        return testResponseDTO;
     }
 
-    public ResponseEntity update(long id, LabTestRequestDTO labTestRequestDTO){
-        try{
-            labTestRequestDTO.setId(id);
-            LabTest test = labTestRepository.saveAndFlush(labTestMapper.mapToLabTest(labTestRequestDTO));
-            return new ResponseEntity<>(test, HttpStatus.OK);
-        }catch (Exception e){
-            e.getStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public LabTest update(long id, LabTestRequestDTO labTestRequestDTO){
+        LabTest update = new LabTest();
+        update.setId_test(id);
+        update.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()));
+        update.setDate(LocalDate.now());
+        update.setNameParameter(labTestRequestDTO.getNameParameter());
+        update.setValue(labTestRequestDTO.getValue());
+        labTestRepository.saveAndFlush(update);
+        return update;
     }
 
-    public ResponseEntity getAll(){
-        try{
-            List<LabTestRequestDTO> sortList = labTestMapper.mapToLabTestDTOList(labTestRepository.findAll()) ;
-            return new ResponseEntity<>(sortList, HttpStatus.OK);
-        }catch (Exception e){
-            e.getStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+    public List<LabTestResponseDTO> getAllTestOfPatientSV(long id) {
+        List<LabTest> listOfPatient = labTestRepository.findAllByPatientId(id);
+        List<LabTestResponseDTO> listOfPatientDTO = new ArrayList<>();
+        for (LabTest x : listOfPatient) {
+            LabTestResponseDTO responseDTO = new LabTestResponseDTO();
+            responseDTO.setPatient(x.getPatient());
+            responseDTO.setDate(x.getDate());
+            responseDTO.setNameParameter(x.getNameParameter());
+            responseDTO.setValue(x.getValue());
+            //Inserire i parametri
+            listOfPatientDTO.add(responseDTO);
         }
-    }*/
+        return listOfPatientDTO;
+    }
 }

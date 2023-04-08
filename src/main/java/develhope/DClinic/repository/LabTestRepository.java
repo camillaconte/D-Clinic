@@ -4,6 +4,7 @@ import develhope.DClinic.domain.LabTest;
 import develhope.DClinic.domain.Patient;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -14,7 +15,5 @@ import java.util.Optional;
 
 @Repository
 public interface LabTestRepository extends D_ClinicRepository<LabTest>{
-
-
-
+    List<LabTest> findAllByPatientId(long id);
 }
