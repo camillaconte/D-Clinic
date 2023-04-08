@@ -1,6 +1,7 @@
 package develhope.DClinic.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class Patient {
     @Column(nullable = false)
     private String firstName;
     @Column(nullable = false)
+
     private String lastName;
 
     @Column(name = "fiscalCode")
