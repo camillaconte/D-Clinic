@@ -63,7 +63,7 @@ public class LabTestController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getByID/{id}")
     public ResponseEntity getLabTestByIdTest(@PathVariable long id){
         try{
             LabTestResponseDTO getByID = labTestService.getByID(id);

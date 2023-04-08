@@ -52,10 +52,17 @@ public class LabTestService   {
     public LabTest update(long id, LabTestRequestDTO labTestRequestDTO){
         LabTest update = new LabTest();
         update.setId_test(id);
-        update.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()));
+        if(labTestRequestDTO.getFiscalCode() != null){
+            update.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()));
+        }
         update.setDate(LocalDate.now());
-        update.setNameParameter(labTestRequestDTO.getNameParameter());
-        update.setValue(labTestRequestDTO.getValue());
+        if(labTestRequestDTO.getNameParameter() != null){
+            update.setNameParameter(labTestRequestDTO.getNameParameter());
+        }
+        if(labTestRequestDTO.getValue() != 0){
+            update.setValue(labTestRequestDTO.getValue());
+        }
+        //Inserire i parametri
         labTestRepository.saveAndFlush(update);
         return update;
     }
