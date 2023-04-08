@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.Set;
 
 public class LabTestResponseDTO implements Serializable {
+
+    private long id;
     private Patient patient;
     private LocalDate date;
     private String nameParameter;
@@ -16,6 +18,14 @@ public class LabTestResponseDTO implements Serializable {
 
     public Patient getPatient() {
         return patient;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setPatient(Patient patient) {

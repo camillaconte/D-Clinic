@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -29,17 +30,21 @@ public class LabTestController {
 
     @PostMapping
     public ResponseEntity insetTest(@RequestBody LabTestRequestDTO labTestRequestDTO){
+        HashSet<String> error = checkEmptyField.checkEmptyFieldNewLabTest(labTestRequestDTO);
         try{
-            LabTest newEntity = labTestService.insertNewTest(labTestRequestDTO);
+            LabTest newEntity = new LabTest();
+            if(error.isEmpty()){
+                newEntity = labTestService.insertNewTest(labTestRequestDTO);
+            }
             return ResponseEntity.ok(newEntity);
         }catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable long id){
+    public ResponseEntity deleteBYID(@PathVariable long id){
         try{
             labTestService.deleteByID(id);
             return ResponseEntity.status(HttpStatus.OK).build();
@@ -68,10 +73,10 @@ public class LabTestController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity getAllTestOfPatient (@PathVariable long id){
+    @GetMapping("/{fiscalCode}")
+    public ResponseEntity getAllTestOfPatient (@PathVariable String fiscalCode){
         try{
-            List<LabTestResponseDTO> responseDTOList = labTestService.getAllTestOfPatientSV(id);
+            List<LabTestResponseDTO> responseDTOList = labTestService.getAllTestOfPatientSV(fiscalCode);
             return ResponseEntity.ok(responseDTOList);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

@@ -3,6 +3,7 @@ package develhope.DClinic.service;
 import develhope.DClinic.domain.LabTest;
 import develhope.DClinic.domain.LabTestRequestDTO;
 import develhope.DClinic.domain.LabTestResponseDTO;
+import develhope.DClinic.domain.Patient;
 import develhope.DClinic.repository.LabTestRepository;
 import develhope.DClinic.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,6 @@ public class LabTestService   {
     private PatientRepository patientRepository;
     @Autowired
     private LabTestRepository labTestRepository;
-    @Autowired
-    private CheckEmptyField checkEmptyField;
 
     public LabTest insertNewTest(LabTestRequestDTO labTestRequestDTO){
         LabTest test = new LabTest();
@@ -61,11 +60,13 @@ public class LabTestService   {
         return update;
     }
 
-    public List<LabTestResponseDTO> getAllTestOfPatientSV(long id) {
-        List<LabTest> listOfPatient = labTestRepository.findAllByPatientId(id);
+    public List<LabTestResponseDTO> getAllTestOfPatientSV(String fiscalCode) {
+        Patient patient = patientRepository.findPatientByFiscalCode(fiscalCode);
+        List<LabTest> listOfPatient = labTestRepository.findAllByPatientId(patient.getId());
         List<LabTestResponseDTO> listOfPatientDTO = new ArrayList<>();
         for (LabTest x : listOfPatient) {
             LabTestResponseDTO responseDTO = new LabTestResponseDTO();
+            responseDTO.setId(x.getId_test());
             responseDTO.setPatient(x.getPatient());
             responseDTO.setDate(x.getDate());
             responseDTO.setNameParameter(x.getNameParameter());
