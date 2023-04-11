@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 @Component
 public class AppointmentMapper {
-  /* public Appointment mapToAppointment(final AppointmentDTo appointmentDto) {
+    /*
+
+    public Appointment mapToAppointment(final AppointmentDTo appointmentDto) {
         return new Appointment(
                 appointmentDto.getId(),
                 new Clinic(

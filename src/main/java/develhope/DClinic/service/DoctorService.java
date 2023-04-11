@@ -20,7 +20,7 @@ public class DoctorService {
         entity.setFirstname(dto.getFirstName());
         entity.setLastname(dto.getLastName());
         entity.setFiscalCode(dto.getFiscalCode());
-        entity.setEmail(entity.getEmail());
+        entity.setEmail(dto.getEmail());
         entity.setPassword(dto.getPassword());
         entity.setTelephoneNumber(dto.getTelephoneNumber());
         entity.setSpecialization(dto.getSpecialization());
@@ -29,12 +29,14 @@ public class DoctorService {
     }
 
     public void deleteDoctorByFiscalCodeSV(String fiscalCode){
-        doctorRepository.deleteByFiscalCode(fiscalCode);
+        long id = doctorRepository.getByFiscalCode(fiscalCode).getId();
+        doctorRepository.deleteById(id);
     }
 
     public DoctorResponseDTO getByFiscalCodeSV(String fiscalCode){
         DoctorResponseDTO responseDTO = new DoctorResponseDTO();
         Doctor entity =doctorRepository.getByFiscalCode(fiscalCode);
+        responseDTO.setId(entity.getId());
         responseDTO.setFirstName(entity.getFirstname());
         responseDTO.setLastName(entity.getLastname());;
         responseDTO.setFiscalCode(entity.getFiscalCode());
@@ -47,8 +49,8 @@ public class DoctorService {
     public Doctor updateDoctorSV(String fiscalCode, DoctorRequestDTO dto){
         Doctor update = new Doctor();
         update.setId(doctorRepository.getByFiscalCode(fiscalCode).getId());
-        if(dto.getFirstName() != null)update.setFirstname(dto.getFirstName());
-        if(dto.getLastName() !=null) update.setLastname(dto.getLastName());
+        if(dto.getFirstName() != null) update.setFirstname(dto.getFirstName());
+        if(dto.getLastName() != null) update.setLastname(dto.getLastName());
         if(dto.getFiscalCode() != null) update.setFiscalCode(dto.getFiscalCode());
         if(dto.getEmail() != null) update.setEmail(dto.getEmail());
         if (dto.getPassword() != null) update.setPassword(dto.getPassword());
