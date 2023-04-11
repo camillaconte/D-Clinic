@@ -1,7 +1,5 @@
 package develhope.DClinic.domain;
 
-import develhope.DClinic.enums.Specialization;
-
 public class DoctorRequestDTO {
 
     private String firstName;
@@ -9,7 +7,8 @@ public class DoctorRequestDTO {
     private String fiscalCode;
     private String telephoneNumber;
     private String email;
-    private Specialization specialization;
+    private String password;
+    private String specialization;
 
     public DoctorRequestDTO() {
     }
@@ -54,11 +53,19 @@ public class DoctorRequestDTO {
         this.email = email;
     }
 
-    public Specialization getSpecialization() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSpecialization() {
         return specialization;
     }
 
-    public void setSpecialization(Specialization specialization) {
+    public void setSpecialization(String specialization) {
         this.specialization = specialization;
     }
 }
