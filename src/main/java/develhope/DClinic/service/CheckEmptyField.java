@@ -1,6 +1,6 @@
 package develhope.DClinic.service;
 
-import develhope.DClinic.domain.AppointmentDTO;
+
 import develhope.DClinic.domain.DoctorRequestDTO;
 import develhope.DClinic.domain.LabTestDTO;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class CheckEmptyField {
         return MESSAGE_ERROR;
     }
 
-    public HashSet<String> checkEmptyFieldNewAppointment(AppointmentDTO app) {
+    /*public HashSet<String> checkEmptyFieldNewAppointment(AppointmentDTO app) {
         HashSet<String> MESSAGE_ERROR = new HashSet<>();
         if (app.getPatient() == null) {
             MESSAGE_ERROR.add("PATIENT NOT INSERT");
@@ -48,7 +48,7 @@ public class CheckEmptyField {
             app.setDate(LocalDate.now());
         }
         return MESSAGE_ERROR;
-    }
+    }*/
 
 
     public HashSet<String> checkEmptyFieldNewDoctor(DoctorRequestDTO dto) {

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class AppointmentMapper {
 
 
-    public Appointment mapToAppointment(final AppointmentDTo appointmentDto) {
+   /* public Appointment mapToAppointment(final AppointmentDTo appointmentDto) {
         return new Appointment(
                 appointmentDto.getId(),
                 new Clinic(
@@ -23,9 +23,9 @@ public class AppointmentMapper {
 
                 new Doctor(
                         appointmentDto.getDoctor().getId(),
-                        appointmentDto.getDoctor().getName(),
+                        appointmentDto.getDoctor().getFirstname(),
                         appointmentDto.getDoctor().getLastname(),
-                        appointmentDto.getDoctor().getSpecialisation(),
+                        appointmentDto.getDoctor().getSpecialization(),
                         appointmentDto.getDoctor().getReview()),
                 appointmentDto.getDate(),
                 appointmentDto.getStatus(),
@@ -73,9 +73,9 @@ public class AppointmentMapper {
 
                         .setDoctor(new Doctor(
                                 a.getDoctor().getId(),
-                                a.getDoctor().getName(),
+                                a.getDoctor().getFirstname(),
                                 a.getDoctor().getLastname(),
-                                a.getDoctor().getSpecialisation(),
+                                a.getDoctor().getSpecialization(),
                                 a.getDoctor().getReview()))
                         .setDate(a.getDate())
                         .setStatus(a.getStatus())
@@ -83,6 +83,6 @@ public class AppointmentMapper {
                         .made())
                 .collect(Collectors.toList());
 
-    }
+    }*/
 
 }
