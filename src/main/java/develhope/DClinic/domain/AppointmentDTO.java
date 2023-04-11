@@ -1,20 +1,19 @@
 package develhope.DClinic.domain;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-public class AppointmentDTo {
+public class AppointmentDTO {
     private long id;
-    private Patient patient;
+    private String fiscalCodePatient;
     private String fiscalCodeDoctor;
     private LocalDate date;
-    private Clinic clinic;
+    private long clinicID;
     private String status;
     private List<String> typology;
 
 
-    public AppointmentDTo() {
+    public AppointmentDTO() {
     }
 
     public long getId() {
@@ -25,12 +24,12 @@ public class AppointmentDTo {
         this.id = id;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public String getFiscalCodePatient() {
+        return fiscalCodePatient;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setFiscalCodePatient(String fiscalCodePatient) {
+        this.fiscalCodePatient = fiscalCodePatient;
     }
 
     public String getFiscalCodeDoctor() {
@@ -45,16 +44,16 @@ public class AppointmentDTo {
         return date;
     }
 
-    public Clinic getClinic() {
-        return clinic;
-    }
-
-    public void setClinic(Clinic clinic) {
-        this.clinic = clinic;
-    }
-
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public long getClinicID() {
+        return clinicID;
+    }
+
+    public void setClinicID(long clinicID) {
+        this.clinicID = clinicID;
     }
 
     public String getStatus() {
@@ -69,7 +68,7 @@ public class AppointmentDTo {
         return typology;
     }
 
-   public void setTypology(List<String> typology) {
+    public void setTypology(List<String> typology) {
         this.typology = typology;
     }
 }

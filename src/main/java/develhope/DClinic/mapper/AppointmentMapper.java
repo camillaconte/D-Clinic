@@ -7,33 +7,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 @Component
 public class AppointmentMapper {
-    /*
 
-    public Appointment mapToAppointment(final AppointmentDTo appointmentDto) {
-        return new Appointment(
-                appointmentDto.getId(),
-                new Clinic(
-                        appointmentDto.getClinic().getId(),
-                        appointmentDto.getClinic().getName(),
-                        appointmentDto.getClinic().getCity(),
-                        appointmentDto.getClinic().getDescription()),
-                new Patient(
-                        appointmentDto.getPatient().getFirstName(),
-                        appointmentDto.getPatient().getLastName()),
 
-                new Doctor(
-                        appointmentDto.getDoctor().getId(),
-                        appointmentDto.getDoctor().getFirstname(),
-                        appointmentDto.getDoctor().getLastname(),
-                        appointmentDto.getDoctor().getSpecialization(),
-                        appointmentDto.getDoctor().get,
-                appointmentDto.getDate(),
-                appointmentDto.getStatus(),
-                appointmentDto.getTypology());
+    public Appointment mapToAppointment(final AppointmentDTO appointmentDto) {
+
     }
 
-    public AppointmentDTo mapToAppointmentDto(final Appointment appointment) {
-        return new AppointmentDTo.AppointmentDtoCreated()
+    public AppointmentDTO mapToAppointmentDto(final Appointment appointment) {
+        return new AppointmentDTO.AppointmentDtoCreated()
                 .setId(appointment.getId())
                 .setClinic(new Clinic(
                         appointment.getClinic().getId(),
@@ -58,9 +39,9 @@ public class AppointmentMapper {
                 .made();
     }
 
-    public List<AppointmentDTo> mapToAppointmentDtoList(final List<Appointment> appointmentList) {
+    public List<AppointmentDTO> mapToAppointmentDtoList(final List<Appointment> appointmentList) {
         return appointmentList.stream()
-                .map(a -> new AppointmentDTo.AppointmentDtoCreated()
+                .map(a -> new AppointmentDTO.AppointmentDtoCreated()
                         .setId(a.getId())
                         .setClinic(new Clinic(
                                     a.getClinic().getId(),

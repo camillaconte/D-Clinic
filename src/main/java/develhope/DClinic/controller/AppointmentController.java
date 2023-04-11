@@ -1,10 +1,7 @@
 package develhope.DClinic.controller;
 
-import develhope.DClinic.domain.Appointment;
-import develhope.DClinic.domain.AppointmentDTo;
 import develhope.DClinic.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,7 +12,7 @@ public class AppointmentController {
 
 
     /*@PostMapping
-    public ResponseEntity create(@RequestBody AppointmentDTo appointmentDto) throws Exception {
+    public ResponseEntity create(@RequestBody AppointmentDTO appointmentDto) throws Exception {
         return appointmentService.createNewAppointment(appointmentDto);
     }
 
