@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 @Component
 public class AppointmentMapper {
-   public Appointment mapToAppointment(final AppointmentDTo appointmentDto) {
+  /* public Appointment mapToAppointment(final AppointmentDTo appointmentDto) {
         return new Appointment(
                 appointmentDto.getId(),
                 new Clinic(
@@ -21,10 +21,10 @@ public class AppointmentMapper {
 
                 new Doctor(
                         appointmentDto.getDoctor().getId(),
-                        appointmentDto.getDoctor().getName(),
+                        appointmentDto.getDoctor().getFirstname(),
                         appointmentDto.getDoctor().getLastname(),
-                        appointmentDto.getDoctor().getSpecialisation(),
-                        appointmentDto.getDoctor().getReview()),
+                        appointmentDto.getDoctor().getSpecialization(),
+                        appointmentDto.getDoctor().get,
                 appointmentDto.getDate(),
                 appointmentDto.getStatus(),
                 appointmentDto.getTypology());
@@ -46,9 +46,9 @@ public class AppointmentMapper {
 
                 .setDoctor(new Doctor(
                         appointment.getDoctor().getId(),
-                        appointment.getDoctor().getName(),
+                        appointment.getDoctor().getFirstName(),
                         appointment.getDoctor().getLastname(),
-                        appointment.getDoctor().getSpecialisation(),
+                        appointment.getDoctor().getSpecialization(),
                         appointment.getDoctor().getReview()))
                 .setDate(appointment.getDate())
                 .setStatus(appointment.getStatus())
@@ -71,9 +71,9 @@ public class AppointmentMapper {
 
                             .setDoctor(new Doctor(
                                     a.getDoctor().getId(),
-                                    a.getDoctor().getName(),
+                                    a.getDoctor().getFirstName(),
                                     a.getDoctor().getLastname(),
-                                    a.getDoctor().getSpecialisation(),
+                                    a.getDoctor().getSpecialization(),
                                     a.getDoctor().getReview()))
                             .setDate(a.getDate())
                             .setStatus(a.getStatus())
@@ -81,6 +81,6 @@ public class AppointmentMapper {
                             .made())
                             .collect(Collectors.toList());
 
-    }
+    }*/
 
 }

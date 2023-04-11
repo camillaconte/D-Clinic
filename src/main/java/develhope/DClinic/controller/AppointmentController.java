@@ -14,7 +14,7 @@ public class AppointmentController {
     private AppointmentService appointmentService;
 
 
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity create(@RequestBody AppointmentDTo appointmentDto) throws Exception {
         return appointmentService.createNewAppointment(appointmentDto);
     }
@@ -40,7 +40,7 @@ public class AppointmentController {
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable long id){
         return appointmentService.deleteByID(id);
-    }
+    }*/
 
 
     }

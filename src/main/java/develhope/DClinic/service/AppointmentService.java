@@ -29,7 +29,7 @@ public class AppointmentService {
         this.doctorRepository=doctorRepository;
     }*/
 
-    public ResponseEntity createNewAppointment(AppointmentDTo appointmentDTo) {
+    /*public ResponseEntity createNewAppointment(AppointmentDTo appointmentDTo) {
         HashSet<String> MESSAGE_ERROR = checkEmptyField.checkEmptyFieldNewAppointment(appointmentDTo);
         try {
             if (appointmentDTo.getClinic() != null && appointmentDTo.getDoctor() != null &&
@@ -89,7 +89,7 @@ public class AppointmentService {
                 e.printStackTrace();
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-        }
+        }*/
     }
 
 
