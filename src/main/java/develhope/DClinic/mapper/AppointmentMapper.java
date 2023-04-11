@@ -9,12 +9,31 @@ import java.util.stream.Collectors;
 public class AppointmentMapper {
 
 
-    public Appointment mapToAppointment(final AppointmentDTO appointmentDto) {
+    public Appointment mapToAppointment(final AppointmentDTo appointmentDto) {
+        return new Appointment(
+                appointmentDto.getId(),
+                new Clinic(
+                        appointmentDto.getClinic().getId(),
+                        appointmentDto.getClinic().getName(),
+                        appointmentDto.getClinic().getCity(),
+                        appointmentDto.getClinic().getDescription()),
+                new Patient(
+                        appointmentDto.getPatient().getFirstName(),
+                        appointmentDto.getPatient().getLastName()),
 
+                new Doctor(
+                        appointmentDto.getDoctor().getId(),
+                        appointmentDto.getDoctor().getName(),
+                        appointmentDto.getDoctor().getLastname(),
+                        appointmentDto.getDoctor().getSpecialisation(),
+                        appointmentDto.getDoctor().getReview()),
+                appointmentDto.getDate(),
+                appointmentDto.getStatus(),
+                appointmentDto.getTypology());
     }
 
-    public AppointmentDTO mapToAppointmentDto(final Appointment appointment) {
-        return new AppointmentDTO.AppointmentDtoCreated()
+    public AppointmentDTo mapToAppointmentDto(final Appointment appointment) {
+        return new AppointmentDTo.AppointmentDtoCreated()
                 .setId(appointment.getId())
                 .setClinic(new Clinic(
                         appointment.getClinic().getId(),
@@ -29,9 +48,9 @@ public class AppointmentMapper {
 
                 .setDoctor(new Doctor(
                         appointment.getDoctor().getId(),
-                        appointment.getDoctor().getFirstName(),
+                        appointment.getDoctor().getName(),
                         appointment.getDoctor().getLastname(),
-                        appointment.getDoctor().getSpecialization(),
+                        appointment.getDoctor().getSpecialisation(),
                         appointment.getDoctor().getReview()))
                 .setDate(appointment.getDate())
                 .setStatus(appointment.getStatus())
@@ -39,31 +58,31 @@ public class AppointmentMapper {
                 .made();
     }
 
-    public List<AppointmentDTO> mapToAppointmentDtoList(final List<Appointment> appointmentList) {
+    public List<AppointmentDTo> mapToAppointmentDtoList(final List<Appointment> appointmentList) {
         return appointmentList.stream()
-                .map(a -> new AppointmentDTO.AppointmentDtoCreated()
+                .map(a -> new AppointmentDTo.AppointmentDtoCreated()
                         .setId(a.getId())
                         .setClinic(new Clinic(
-                                    a.getClinic().getId(),
-                                    a.getClinic().getName(),
-                                    a.getClinic().getCity(),
-                                    a.getClinic().getDescription()))
-                            .setPatient(new Patient(
-                                    a.getPatient().getFirstName(),
-                                    a.getPatient().getLastName()))
+                                a.getClinic().getId(),
+                                a.getClinic().getName(),
+                                a.getClinic().getCity(),
+                                a.getClinic().getDescription()))
+                        .setPatient(new Patient(
+                                a.getPatient().getFirstName(),
+                                a.getPatient().getLastName()))
 
-                            .setDoctor(new Doctor(
-                                    a.getDoctor().getId(),
-                                    a.getDoctor().getFirstName(),
-                                    a.getDoctor().getLastname(),
-                                    a.getDoctor().getSpecialization(),
-                                    a.getDoctor().getReview()))
-                            .setDate(a.getDate())
-                            .setStatus(a.getStatus())
-                            .setTypology(a.getTypology().toString())
-                            .made())
-                            .collect(Collectors.toList());
+                        .setDoctor(new Doctor(
+                                a.getDoctor().getId(),
+                                a.getDoctor().getName(),
+                                a.getDoctor().getLastname(),
+                                a.getDoctor().getSpecialisation(),
+                                a.getDoctor().getReview()))
+                        .setDate(a.getDate())
+                        .setStatus(a.getStatus())
+                        .setTypology(a.getTypology().toString())
+                        .made())
+                .collect(Collectors.toList());
 
-    }*/
+    }
 
 }
