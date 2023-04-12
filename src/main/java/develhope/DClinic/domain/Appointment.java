@@ -40,16 +40,6 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(long id, Clinic clinic, Patient patient, Doctor doctor, LocalDate date, String status, List<String> typology) {
-        this.id = id;
-        this.clinic = clinic;
-        this.patient = patient;
-        this.doctor = doctor;
-        this.date = date;
-        this.status = status;
-        this.typology = typology;
-    }
-
     public long getId() {
         return id;
     }

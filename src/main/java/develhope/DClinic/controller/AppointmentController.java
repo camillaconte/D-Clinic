@@ -1,10 +1,7 @@
 package develhope.DClinic.controller;
 
-import develhope.DClinic.domain.Appointment;
-import develhope.DClinic.domain.AppointmentDTo;
 import develhope.DClinic.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,8 +11,8 @@ public class AppointmentController {
     private AppointmentService appointmentService;
 
 
-    @PostMapping
-    public ResponseEntity create(@RequestBody AppointmentDTo appointmentDto) throws Exception {
+    /*@PostMapping
+    public ResponseEntity create(@RequestBody AppointmentDTO appointmentDto) throws Exception {
         return appointmentService.createNewAppointment(appointmentDto);
     }
 
@@ -40,7 +37,7 @@ public class AppointmentController {
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable long id){
         return appointmentService.deleteByID(id);
-    }
+    }*/
 
 
     }
