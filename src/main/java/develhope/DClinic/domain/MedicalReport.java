@@ -17,7 +17,8 @@ public class MedicalReport {
     @Id
     @SequenceGenerator(
             name = "medicalReports_id_sequence",
-            sequenceName = "medicalReports_id_sequence"
+            sequenceName = "medicalReports_id_sequence",
+            allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
