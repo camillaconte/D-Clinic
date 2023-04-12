@@ -47,8 +47,7 @@ public class DoctorService {
     }
 
     public Doctor updateDoctorSV(String fiscalCode, DoctorRequestDTO dto){
-        Doctor update = new Doctor();
-        update.setId(doctorRepository.getByFiscalCode(fiscalCode).getId());
+        Doctor update = doctorRepository.getByFiscalCode(fiscalCode);
         if(dto.getFirstName() != null) update.setFirstname(dto.getFirstName());
         if(dto.getLastName() != null) update.setLastname(dto.getLastName());
         if(dto.getFiscalCode() != null) update.setFiscalCode(dto.getFiscalCode());
