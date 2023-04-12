@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class LabTestResponseDTO implements Serializable {
 
-    private long id;
+    private String uuid;
     private Patient patient;
     private LocalDate date;
     private String nameParameter;
@@ -20,12 +20,12 @@ public class LabTestResponseDTO implements Serializable {
         return patient;
     }
 
-    public long getId() {
-        return id;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public void setPatient(Patient patient) {

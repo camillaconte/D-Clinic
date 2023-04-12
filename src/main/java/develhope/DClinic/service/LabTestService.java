@@ -28,8 +28,6 @@ public class LabTestService   {
         LabTest test = new LabTest();
         test.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()));
         test.setDate(LocalDate.now());
-        test.setNameParameter(labTestRequestDTO.getNameParameter());
-        test.setValue(labTestRequestDTO.getValue());
         labTestRepository.save(test);
         return test;
     }
@@ -43,25 +41,17 @@ public class LabTestService   {
         LabTest test = labTestRepository.getById(id_test);
         testResponseDTO.setPatient(test.getPatient());
         testResponseDTO.setDate(test.getDate());
-        testResponseDTO.setNameParameter(test.getNameParameter());
-        testResponseDTO.setValue(test.getValue());
         //Inserire i parametri
         return testResponseDTO;
     }
 
-    public LabTest update(long id, LabTestRequestDTO labTestRequestDTO){
+    public LabTest update(String uuid, LabTestRequestDTO labTestRequestDTO){
         LabTest update = new LabTest();
-        update.setId_test(id);
+        update.setUuid(uuid);
         if(labTestRequestDTO.getFiscalCode() != null){
             update.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()));
         }
         update.setDate(LocalDate.now());
-        if(labTestRequestDTO.getNameParameter() != null){
-            update.setNameParameter(labTestRequestDTO.getNameParameter());
-        }
-        if(labTestRequestDTO.getValue() != 0){
-            update.setValue(labTestRequestDTO.getValue());
-        }
         //Inserire i parametri
         labTestRepository.saveAndFlush(update);
         return update;
@@ -73,11 +63,9 @@ public class LabTestService   {
         List<LabTestResponseDTO> listOfPatientDTO = new ArrayList<>();
         for (LabTest x : listOfPatient) {
             LabTestResponseDTO responseDTO = new LabTestResponseDTO();
-            responseDTO.setId(x.getId_test());
+            responseDTO.setUuid(x.getUuid());
             responseDTO.setPatient(x.getPatient());
             responseDTO.setDate(x.getDate());
-            responseDTO.setNameParameter(x.getNameParameter());
-            responseDTO.setValue(x.getValue());
             //Inserire i parametri
             listOfPatientDTO.add(responseDTO);
         }

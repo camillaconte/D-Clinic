@@ -1,6 +1,7 @@
 package develhope.DClinic.domain;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -9,34 +10,24 @@ import java.util.Set;
 @Table
 public class LabTest {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id_test;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String uuid;
     @ManyToOne(fetch = FetchType.LAZY)
     private Patient patient;
     private LocalDate date;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tests")
     private Set<LabParameter> labParameter;
-    @Column(nullable = false)
-    private double value;
-    private String nameParameter;
-
     public LabTest() {
     }
 
-    public LabTest(Patient patient, LocalDate date, Set<LabParameter> labParameter, double value, String nameParameter) {
-        this.patient = patient;
-        this.date = date;
-        this.labParameter = labParameter;
-        this.value = value;
-        this.nameParameter = nameParameter;
+
+    public String getUuid() {
+        return uuid;
     }
 
-    public long getId_test() {
-        return id_test;
-    }
-
-    public void setId_test(long id_test) {
-        this.id_test = id_test;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public Patient getPatient() {
@@ -63,19 +54,4 @@ public class LabTest {
         this.labParameter = labParameter;
     }
 
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
-
-    public String getNameParameter() {
-        return nameParameter;
-    }
-
-    public void setNameParameter(String nameParameter) {
-        this.nameParameter = nameParameter;
-    }
 }

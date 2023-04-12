@@ -19,12 +19,6 @@ public class CheckEmptyField {
         if(u.getFiscalCode() == null){
             MESSAGE_ERROR.add("FISCAL CODE NOT INSERT");
         }
-        if(u.getValue() == 0){
-            MESSAGE_ERROR.add("VALUE NOT INSERT");
-        }
-        if(u.getDate() == null){
-            u.setDate(LocalDate.now());
-        }
         return MESSAGE_ERROR;
     }
 
