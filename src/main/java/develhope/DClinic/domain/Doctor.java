@@ -1,7 +1,10 @@
 package develhope.DClinic.domain;
 
 import jakarta.persistence.*;
-    @Entity
+
+import java.util.List;
+
+@Entity
     @Table(name = "Doctors")
     public class Doctor {
         @Id
@@ -20,6 +23,9 @@ import jakarta.persistence.*;
 
         @Column(name = "review")
         private String review;
+
+        @OneToMany
+        private List<Slot> slots;
 
         public Doctor() {
         }

@@ -45,3 +45,12 @@ public class AppointmentController {
 
     }
 
+    /*
+
+    public List<Slot> createBatchSlots(long doctorId, LocalDate dateStart, LocalDate dateEnd) {
+        metodo che crea 8 slot al giorno tra quelle due date per quel dottore
+        con un for...
+    }
+
+     */
+

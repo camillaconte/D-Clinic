@@ -2,6 +2,8 @@ package develhope.DClinic.service;
 
 import develhope.DClinic.domain.Appointment;
 import develhope.DClinic.domain.AppointmentDTo;
+import develhope.DClinic.domain.BookingDTO;
+import develhope.DClinic.domain.Slot;
 import develhope.DClinic.mapper.AppointmentMapper;
 import develhope.DClinic.repository.AppointmentRepository;
 import develhope.DClinic.repository.DoctorRepository;
@@ -90,6 +92,22 @@ public class AppointmentService {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
+
+        public Appointment bookAppointment(BookingDTO bookingDTO) {
+            // creare un oggetto appuntamento con dentro il medico, il paziente, ecc
+            // associare l'appuntamento allo slot
+            // segnare "occupato" lo slot
+            Appointment appointment = new Appointment();
+            // Slot slot = slotRepository.findById(bookingDTO.getSlotId());
+            // appointment.setSlot(slot);
+            // appointment.setClinic(slot.getClinic());
+            // slot.setOccupied(true);
+            // slotRepository.save(slot);
+            // appointment.setStatus(Status.BOOKED)
+            // appointment.setDoctor(slot.getDoctor());
+            return appointmentRepository.save(appointment);
+        }
+
     }
 
 

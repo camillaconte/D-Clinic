@@ -5,6 +5,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppointmentDTo {
+
+    /*
+
+
+
+
+    POST createNewAppointment
+
+    {
+        "patientId": 23,
+        "slotId": 315,
+        > lo status viene assegnato automaticamente dal programma: "prenotato"
+        > ricordiamoci quindi che per esempio la funzione createNewMedicalReport tra le varie cose
+          che fa ci sarà anche di prendere questo appuntamento e aggiornare lo stato
+        "medicalServiceId": 56,
+        "notes": "il paziente ha difficoltà a deambulare"
+    }
+
+     */
+
+
+
+
+
+
+
+
+
     private long id;
     private Patient patient;
     private Doctor doctor;

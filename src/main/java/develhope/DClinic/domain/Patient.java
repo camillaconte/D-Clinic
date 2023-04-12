@@ -34,6 +34,9 @@ public class Patient {
     private String address;
     private Integer age;
 
+    @OneToMany
+    private List<Appointment> appointments;
+
     /**
      * Qui settiamo la REFERENCING SIDE
      * della ASSOCIAZIONE BIDIREZIONALE tra l'entità Paziente e i suoi MedicalReports
