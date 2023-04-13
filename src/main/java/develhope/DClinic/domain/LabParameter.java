@@ -2,119 +2,155 @@ package develhope.DClinic.domain;
 
 import jakarta.persistence.*;
 
-import javax.annotation.processing.Generated;
-
 /**
  * @author camilla conte
  * Entity per i PARAMETRI DI LABORATORIO
  * (e.g. Emoglobina, Creatinina)
  *
- * RAZIONALE: nella pratica clinica un referto con gli esami di lab
- * potrebbe possedere più che una "String result" una List<LabParameter>
+ * RAZIONALE: nella pratica clinica un referto con gli esami di lab (LabTest)
+ * è formato da un Set<LabParameter>
  *
  */
 
 @Entity
-@Table
-public class LabParameter {
-
+@Table (name = "labParameters")
+public abstract class LabParameter {
     @Id
     @SequenceGenerator(
             name = "labParameter_id_sequence",
-            sequenceName = "labParameter_id_sequence"
+            sequenceName = "labParameter_id_sequence",
+            allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "labParameter_id_sequence")
-    private long id;
+    private long parameterId;
 
-    @Column(nullable = false)
-    private String name;
 
     /**
-     * I valori di riferimento cambiano in base al sesso
-     * e in realtà ultimamente si è capito che possono variare anche in base alla fascia di età
-     * ...ma non complichiamoci la vita!
+     * "Emoglobina"..."Creatinina"..."Glicemia"
      */
-    @Column(name = "reference_man", nullable = false)
-    private double referenceValueMale;
+    private String parameterName;
 
-    @Column(name = "reference_woman", nullable = false)
-    private double referenceValueFemale;
+    @ManyToOne
+    private LabTest labTest;
 
     /**
-     * come si riporta l'unità di misura? (che sarà diversa per ogni parametro)
+     * private Patient patient: inserirlo comunque oppure ricavarlo dal LabTest?
      */
+    //private Patient patient;
 
     /**
-     * ULTERIORE COMPLICAZIONE (da inserire in un secondo momento):
-     * un esame di lab potrebbe contenere altri sottoesami:
-     * esempio Emocromo: contiene Emoglobina, Globuli rossi, Globuli bianchi...
+     * "result" mi sembra meglio di "value", è più chiaro di cosa stiamo parlando
+     * TODO capire come si riporta l'unità di misura
+     * (che cambia a seconda della sottoclasse di LabParameter:
+     * Emoglobina in g/dL, Creatinina mg/dl...)
      */
 
+    private double result;
 
     /**
-     * in realtà questo parametro si ricava
-     * confrontando value e referenceValue: quindi potremmo ometterlo
-     * e inserire la logica necessaria...
-     * ...ma al front end potrebbe servire avere un campo specifico
+     * I valori di riferimento in realtà cambiano in base al sesso
+     * (e alcuni anche in base alla fascia di età)
+     * Però PER IL MOMENTO LASCEREI LE COSE PIù SEMPLICI POSSIBILE
+     * (siamo sempre in tempo a implementare successivamente
+     * un referenceValueMale e un referenceValueFemale
+     * (che peraltro richiederanno un nuovo field nella classe Patient,
+     * il sesso appunto)
+     */
+
+    private double minReferenceValue;
+    private double maxReferenceValue;
+
+    /**
+     * boolean isNotInRange: CORRISPONDE A QUELLA STELLINA CHE VEDIAMO
+     * NEI NOSTRI ESAMI QUANDO IL RISULTATO NON VA TANTO BENE!
+     * <p>
+     * Questo parametro si ricava confrontando RESULT e REFERENCEVALUES:
+     * (quindi potremmo ometterlo, ma poi dovremmo inserire la logica necessaria a calcolarlo...
+     * ...come dice Carlo potrebbe essere comodo un campo specifico)
      *
-     * Significato: se il value è dentro al range di riferimento
-     * (Esempio: name = Emoglobina, value = 12.5
+     * Significato: di base è FALSE (valore default dei boolean: false)
+     * cioè di base il nostro LabParam è "IN RANGE", nei valori di riferimento
+     * <p>
+     * Se il RESULT è davvero dentro ai valori di riferimento: rimane false
+     * Esempio: Emoglobina 12.5 g/dl
      * --> se l'esame di lab è di una donna, OK, in range (12-16 g/dl)
+     * <p>
+     * Ma se il RESULT è fuori dai valori di riferimento
+     * (inferiore o superiore), va impostato a TRUE
+     * Esempio: Emoglobina 12.5 g/dl (come sopra)
      * --> se l'esame di lab è di un uomo: lieve anemia! (range 14-18 g/dl)
      */
-    @Column(name = "not_in_range")
-    private String isNotInRangeStar;
 
-    public LabParameter(){}
+    //@Column(name = "not_in_range")
+    private boolean isNotInRange;
 
-    public LabParameter(long id, String name, double referenceValueMale,
-                        double referenceValueFemale, String isNotInRangeStar) {
-        this.id = id;
-        this.name = name;
-        this.referenceValueMale = referenceValueMale;
-        this.referenceValueFemale = referenceValueFemale;
-        this.isNotInRangeStar = isNotInRangeStar;
+    public LabParameter() {}
+
+    public LabParameter(String parameterName, double result, double minReferenceValue, double maxReferenceValue,
+                        boolean isNotInRange) {
+        this.parameterName = parameterName;
+        //this.labTest = labtest;
+        this.result = result;
+        this.minReferenceValue = minReferenceValue;
+        this.maxReferenceValue = maxReferenceValue;
+        this.isNotInRange = isNotInRange;
     }
 
-    public long getId() {
-        return id;
+    public long getParameterId() {
+        return parameterId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setParameterId(long parameterId) {
+        this.parameterId = parameterId;
     }
 
-    public String getName() {
-        return name;
+    public String getParameterName() {
+        return parameterName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setParameterName(String parameterName) {
+        this.parameterName = parameterName;
     }
 
-    public double getReferenceValueMale() {
-        return referenceValueMale;
+    public LabTest getLabTest() {
+        return labTest;
     }
 
-    public void setReferenceValueMale(double referenceValueMale) {
-        this.referenceValueMale = referenceValueMale;
+    public void setLabTest(LabTest labTest) {
+        this.labTest = labTest;
     }
 
-    public double getReferenceValueFemale() {
-        return referenceValueFemale;
+    public double getResult() {
+        return result;
     }
 
-    public void setReferenceValueFemale(double referenceValueFemale) {
-        this.referenceValueFemale = referenceValueFemale;
+    public void setResult(double result) {
+        this.result = result;
     }
 
-    public String getIsNotInRangeStar() {
-        return isNotInRangeStar;
+    public double getMinReferenceValue() {
+        return minReferenceValue;
     }
 
-    public void setIsNotInRangeStar(String isNotInRangeStar) {
-        this.isNotInRangeStar = isNotInRangeStar;
+    public void setMinReferenceValue(double minReferenceValue) {
+        this.minReferenceValue = minReferenceValue;
+    }
+
+    public double getMaxReferenceValue() {
+        return maxReferenceValue;
+    }
+
+    public void setMaxReferenceValue(double maxReferenceValue) {
+        this.maxReferenceValue = maxReferenceValue;
+    }
+
+    public boolean isNotInRange() {
+        return isNotInRange;
+    }
+
+    public void setNotInRange(boolean notInRange) {
+        isNotInRange = notInRange;
     }
 }
