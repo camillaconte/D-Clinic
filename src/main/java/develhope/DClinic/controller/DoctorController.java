@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.List;
-
+/**
+ * @author Luca Giorgi
+ * Controller per Doctor
+ */
 
 @RestController
 @RequestMapping("d_clinic/doctor")
@@ -25,11 +28,10 @@ class DoctorController {
     public ResponseEntity insetNewDoctor(@RequestBody DoctorRequestDTO dto){
         HashSet<String> error = checkEmptyField.checkEmptyFieldNewDoctor(dto);
         try{
-            Doctor newEntity = new Doctor();
             if(error.isEmpty()){
-                newEntity = doctorService.insertNewDoctorSV(dto);
+                Doctor newEntity = doctorService.insertNewDoctorSV(dto);
             }
-            return ResponseEntity.ok(newEntity);
+            return ResponseEntity.ok().build();
         }catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
         }

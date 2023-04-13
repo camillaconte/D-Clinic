@@ -1,6 +1,10 @@
 package develhope.DClinic.domain;
 
 import jakarta.persistence.*;
+/**
+ * @author Luca Giorgi
+ * Entità del dottore
+ */
     @Entity
     @Table
     public class Doctor extends Employee{

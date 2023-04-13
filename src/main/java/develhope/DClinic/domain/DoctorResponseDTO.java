@@ -1,5 +1,9 @@
 package develhope.DClinic.domain;
 
+/**
+ * @author Luca Giorgi
+ * Classe Doctor dedicate per le risposte
+ */
 public class DoctorResponseDTO {
 
     private long id;

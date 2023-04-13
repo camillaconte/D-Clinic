@@ -1,5 +1,8 @@
 package develhope.DClinic.domain;
-
+/**
+ * @author Luca Giorgi
+ * Classe Doctor dedicata alla richieste
+ */
 public class DoctorRequestDTO {
 
     private String firstName;

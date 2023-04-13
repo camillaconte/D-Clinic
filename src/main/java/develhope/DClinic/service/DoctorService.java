@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author Luca Giorgi
+ * Service per Doctor
+ */
 
 @Service
 public class DoctorService {

@@ -1,7 +1,10 @@
 package develhope.DClinic.domain;
 
 import jakarta.persistence.*;
-
+/**
+ * @author Luca Giorgi
+ * Classe comune per i lavoratori della clinica
+ */
 @MappedSuperclass
 public abstract class Employee {
 

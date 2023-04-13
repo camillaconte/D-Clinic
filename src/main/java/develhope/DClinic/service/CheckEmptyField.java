@@ -5,14 +5,12 @@ import develhope.DClinic.domain.DoctorRequestDTO;
 import develhope.DClinic.domain.LabTestDTO;
 import org.springframework.stereotype.Service;
 
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 
 /**
  * @author Luca Giorgi
- * Classe check campi vuoti
+ * Classe check dei campi vuoti
  */
 @Service
 public class CheckEmptyField {
