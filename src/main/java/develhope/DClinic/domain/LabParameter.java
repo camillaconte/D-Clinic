@@ -14,7 +14,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table (name = "labParameters")
-public abstract class LabParameter {
+public class LabParameter {
     @Id
     @SequenceGenerator(
             name = "labParameter_id_sequence",
@@ -26,6 +26,9 @@ public abstract class LabParameter {
             generator = "labParameter_id_sequence")
     private long parameterId;
 
+
+    @Enumerated(EnumType.STRING)
+    private LabParamType type;
 
     /**
      * "Emoglobina"..."Creatinina"..."Glicemia"
@@ -88,10 +91,11 @@ public abstract class LabParameter {
 
     public LabParameter() {}
 
-    public LabParameter(String parameterName, double result, double minReferenceValue, double maxReferenceValue,
-                        boolean isNotInRange) {
+    public LabParameter(LabParamType type, String parameterName, LabTest labTest, double result,
+                        double minReferenceValue, double maxReferenceValue, boolean isNotInRange) {
+        this.type = type;
         this.parameterName = parameterName;
-        //this.labTest = labtest;
+        this.labTest = labTest;
         this.result = result;
         this.minReferenceValue = minReferenceValue;
         this.maxReferenceValue = maxReferenceValue;
@@ -104,6 +108,14 @@ public abstract class LabParameter {
 
     public void setParameterId(long parameterId) {
         this.parameterId = parameterId;
+    }
+
+    public LabParamType getType() {
+        return type;
+    }
+
+    public void setType(LabParamType type) {
+        this.type = type;
     }
 
     public String getParameterName() {
