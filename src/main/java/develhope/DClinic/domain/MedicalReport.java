@@ -35,8 +35,7 @@ public class MedicalReport {
      * che farà riferimento al "primary attribute" id dell'entità Patient.
      * Ora non resta che settare la REFERENCING SIDE
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id")
+    @ManyToOne //(fetch = FetchType.LAZY)
     private Patient patient;
 
     /**

@@ -41,7 +41,8 @@ public class LabParameter {
     /**
      * private Patient patient: inserirlo comunque oppure ricavarlo dal LabTest?
      */
-    //private Patient patient;
+    @ManyToOne
+    private Patient patient;
 
     /**
      * "result" mi sembra meglio di "value", è più chiaro di cosa stiamo parlando
@@ -91,11 +92,12 @@ public class LabParameter {
 
     public LabParameter() {}
 
-    public LabParameter(LabParamType type, String parameterName, LabTest labTest, double result,
+    public LabParameter(LabParamType type, String parameterName, LabTest labTest, Patient patient, double result,
                         double minReferenceValue, double maxReferenceValue, boolean isNotInRange) {
         this.type = type;
         this.parameterName = parameterName;
         this.labTest = labTest;
+        this.patient = patient;
         this.result = result;
         this.minReferenceValue = minReferenceValue;
         this.maxReferenceValue = maxReferenceValue;
@@ -132,6 +134,14 @@ public class LabParameter {
 
     public void setLabTest(LabTest labTest) {
         this.labTest = labTest;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public double getResult() {
