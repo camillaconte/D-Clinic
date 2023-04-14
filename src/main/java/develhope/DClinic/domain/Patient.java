@@ -15,7 +15,8 @@ public class Patient {
     @Id
     @SequenceGenerator(
             name = "patient_id_sequence",
-            sequenceName = "patient_id_sequence"
+            sequenceName = "patient_id_sequence",
+            allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
@@ -46,23 +47,29 @@ public class Patient {
     @JsonIgnore
     private List<MedicalReport> medicalReportsList;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
+    @JsonIgnore
+    private List<LabParameter> labParametersList;
+
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="patient", nullable = false)
+    @JoinColumn(name = "patient", nullable = false)
     private Set<LabTest> labTest;
 
+    public Patient() {}
 
-    public Patient(){}
-
-    public Patient(String firstName, String lastName, String fiscalCode, String email) {
+    public Patient(String firstName, String lastName, String fiscalCode, String email, String phoneNumber,
+                   String address, Integer age, List<MedicalReport> medicalReportsList,
+                   List<LabParameter> labParametersList, Set<LabTest> labTest) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.fiscalCode = fiscalCode;
         this.email = email;
-    }
-
-    public Patient(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.age = age;
+        this.medicalReportsList = medicalReportsList;
+        this.labParametersList = labParametersList;
+        this.labTest = labTest;
     }
 
     public long getId() {
@@ -97,43 +104,12 @@ public class Patient {
         this.fiscalCode = fiscalCode;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-
-    public List<MedicalReport> getMedicalReportsList() {
-        return medicalReportsList;
-    }
-
-    public void setMedicalReportsList(List<MedicalReport> medicalReportsList) {
-        this.medicalReportsList = medicalReportsList;
-    }
-
-    // è sempre un setter, ma non è uno standard, lo devo fare manualmente
-    // ne avrò bisogno per aggiungere referti al momento della refertazione
-    public void addMedicalReport(MedicalReport medicalReport) {
-        this.medicalReportsList.add(medicalReport);
-    }
-
-    public Set<LabTest> getLabTest() {
-        return labTest;
-    }
-
-    public void setLabTest(Set<LabTest> labTest) {
-        this.labTest = labTest;
     }
 
     public String getPhoneNumber() {
@@ -150,5 +126,37 @@ public class Patient {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public List<MedicalReport> getMedicalReportsList() {
+        return medicalReportsList;
+    }
+
+    public void setMedicalReportsList(List<MedicalReport> medicalReportsList) {
+        this.medicalReportsList = medicalReportsList;
+    }
+
+    public List<LabParameter> getLabParametersList() {
+        return labParametersList;
+    }
+
+    public void setLabParametersList(List<LabParameter> labParametersList) {
+        this.labParametersList = labParametersList;
+    }
+
+    public Set<LabTest> getLabTest() {
+        return labTest;
+    }
+
+    public void setLabTest(Set<LabTest> labTest) {
+        this.labTest = labTest;
     }
 }

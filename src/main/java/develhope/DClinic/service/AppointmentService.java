@@ -1,17 +1,10 @@
 package develhope.DClinic.service;
 
-import develhope.DClinic.domain.Appointment;
-import develhope.DClinic.domain.AppointmentDTo;
 import develhope.DClinic.mapper.AppointmentMapper;
 import develhope.DClinic.repository.AppointmentRepository;
 import develhope.DClinic.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
-import java.util.List;
 
 @Service
 public class AppointmentService {
@@ -23,13 +16,14 @@ public class AppointmentService {
     private AppointmentMapper appointmentMapper;
     @Autowired
     private CheckEmptyField checkEmptyField;
+
    /* @Autowired
     public AppointmentService (AppointmentRepository appointmentRepository,DoctorRepository doctorRepository){
         this.appointmentRepository=appointmentRepository;
         this.doctorRepository=doctorRepository;
     }*/
 
-    public ResponseEntity createNewAppointment(AppointmentDTo appointmentDTo) {
+    /*public ResponseEntity createNewAppointment(AppointmentDTO appointmentDTo) {
         HashSet<String> MESSAGE_ERROR = checkEmptyField.checkEmptyFieldNewAppointment(appointmentDTo);
         try {
             if (appointmentDTo.getClinic() != null && appointmentDTo.getDoctor() != null &&
@@ -49,7 +43,7 @@ public class AppointmentService {
 
     public ResponseEntity getAll() {
         try {
-            List<AppointmentDTo> sortList = appointmentMapper.mapToAppointmentDtoList(appointmentRepository.findAll());
+            List<AppointmentDTO> sortList = appointmentMapper.mapToAppointmentDtoList(appointmentRepository.findAll());
             return new ResponseEntity<>(sortList, HttpStatus.OK);
         } catch (Exception e) {
             e.getStackTrace();
@@ -72,7 +66,7 @@ public class AppointmentService {
 
     public ResponseEntity getReferenceByID(long id) {
         try {
-            AppointmentDTo appointmentByID = appointmentMapper.mapToAppointmentDto
+            AppointmentDTO appointmentByID = appointmentMapper.mapToAppointmentDto
                     (appointmentRepository.getReferenceById(id));
             return new ResponseEntity<>(appointmentByID, HttpStatus.OK);
         } catch (Exception e) {
@@ -89,7 +83,7 @@ public class AppointmentService {
                 e.printStackTrace();
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-        }
+        }*/
     }
 
 
