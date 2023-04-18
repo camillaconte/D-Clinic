@@ -15,8 +15,10 @@ public class LabTest {
     @ManyToOne
     private Patient patient;
     private LocalDate date;
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tests")
+    @OneToMany(mappedBy = "labTest")
     private Set<LabParameter> labParameter;
+
+
     public LabTest() {
     }
 

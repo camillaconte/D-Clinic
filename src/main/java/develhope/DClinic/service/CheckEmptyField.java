@@ -3,6 +3,7 @@ package develhope.DClinic.service;
 
 
 import develhope.DClinic.domain.AppointmentDTo;
+import develhope.DClinic.domain.DoctorRequestDTO;
 import develhope.DClinic.domain.LabTestRequestDTO;
 import org.springframework.stereotype.Service;
 
