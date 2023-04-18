@@ -3,7 +3,6 @@ package develhope.DClinic.domain;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 public class AppointmentDTo {
     private long id;
     private Patient patient;
@@ -98,7 +97,7 @@ public class AppointmentDTo {
             return this;
         }
 
-       public AppointmentDtoCreated setTypology(String type) {
+        public AppointmentDtoCreated setTypology(String type) {
             typology.add(type);
             return this;
         }
@@ -178,7 +177,7 @@ public class AppointmentDTo {
         return typology;
     }
 
-   public void setTypology(List<String> typology) {
+    public void setTypology(List<String> typology) {
         this.typology = typology;
     }
 }
