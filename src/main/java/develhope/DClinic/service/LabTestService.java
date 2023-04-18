@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Luca Giorgi
@@ -38,16 +39,17 @@ public class LabTestService   {
 
     public LabTestResponseDTO getByID (long id_test){
         LabTestResponseDTO testResponseDTO = new LabTestResponseDTO();
-        LabTest test = labTestRepository.getById(id_test);
-        testResponseDTO.setPatient(test.getPatient());
-        testResponseDTO.setDate(test.getDate());
+        Optional<LabTest> test = labTestRepository.findById(id_test);
+        if(test.isEmpty()) throw new RuntimeException("The laboratory test is not exist");
+        testResponseDTO.setPatient(test.get().getPatient());
+        testResponseDTO.setDate(test.get().getDate());
         //Inserire i parametri
         return testResponseDTO;
     }
 
-    public LabTest update(String uuid, LabTestRequestDTO labTestRequestDTO){
+    public LabTest update(long id, LabTestRequestDTO labTestRequestDTO){
         LabTest update = new LabTest();
-        update.setUuid(uuid);
+        update.setTestId(id);
         if(labTestRequestDTO.getFiscalCode() != null){
             update.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()));
         }
@@ -63,7 +65,7 @@ public class LabTestService   {
         List<LabTestResponseDTO> listOfPatientDTO = new ArrayList<>();
         for (LabTest x : listOfPatient) {
             LabTestResponseDTO responseDTO = new LabTestResponseDTO();
-            responseDTO.setUuid(x.getUuid());
+            responseDTO.setId(x.getTestId());
             responseDTO.setPatient(x.getPatient());
             responseDTO.setDate(x.getDate());
             //Inserire i parametri

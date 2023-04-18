@@ -54,9 +54,9 @@ public class LabTestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable String uuid, @RequestBody LabTestRequestDTO labTest){
+    public ResponseEntity update(@PathVariable long id, @RequestBody LabTestRequestDTO labTest){
         try{
-            LabTest update = labTestService.update(uuid,labTest);
+            LabTest update = labTestService.update(id,labTest);
             return ResponseEntity.ok(update);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

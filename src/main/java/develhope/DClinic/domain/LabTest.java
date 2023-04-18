@@ -1,7 +1,6 @@
 package develhope.DClinic.domain;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -10,10 +9,10 @@ import java.util.Set;
 @Table
 public class LabTest {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String uuid;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    private long testId;
+    @ManyToOne
     private Patient patient;
     private LocalDate date;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "tests")
@@ -22,12 +21,12 @@ public class LabTest {
     }
 
 
-    public String getUuid() {
-        return uuid;
+    public long getTestId() {
+        return testId;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setTestId(long testId) {
+        this.testId = testId;
     }
 
     public Patient getPatient() {
