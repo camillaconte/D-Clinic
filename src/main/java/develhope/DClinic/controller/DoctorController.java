@@ -24,14 +24,20 @@ class DoctorController {
     @Autowired
     private CheckEmptyField checkEmptyField;
 
+
+    //Fatta piccola modifica perché altrimenti il nuovo Doctor non veniva salvato nel DB - cami
+    //TODO sistemare typo (inset --> insert)
     @PostMapping
     public ResponseEntity insetNewDoctor(@RequestBody DoctorRequestDTO dto){
         HashSet<String> error = checkEmptyField.checkEmptyFieldNewDoctor(dto);
         try{
             if(error.isEmpty()){
-                Doctor newEntity = doctorService.insertNewDoctorSV(dto);
+                //Doctor newEntity = doctorService.insertNewDoctorSV(dto);
+                doctorService.insertNewDoctorSV(dto);
             }
-            return ResponseEntity.ok().build();
+            //return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body(dto);
+
         }catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
         }

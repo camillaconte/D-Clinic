@@ -18,6 +18,8 @@ public class DoctorService {
     @Autowired
     DoctorRepository doctorRepository;
 
+
+   //Fatta piccola modifica perché altrimenti il nuovo Doctor non veniva salvato nel DB - cami
     public Doctor insertNewDoctorSV(DoctorRequestDTO dto){
         Doctor entity = new Doctor();
         entity.setFirstname(dto.getFirstName());
@@ -27,8 +29,8 @@ public class DoctorService {
         entity.setPassword(dto.getPassword());
         entity.setTelephoneNumber(dto.getTelephoneNumber());
         entity.setSpecialization(dto.getSpecialization());
-        doctorRepository.save(entity);
-        return entity;
+        return doctorRepository.save(entity);
+        //return entity;
     }
 
     public void deleteDoctorByFiscalCodeSV(String fiscalCode){
