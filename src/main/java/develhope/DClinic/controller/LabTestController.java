@@ -5,6 +5,8 @@ import develhope.DClinic.domain.LabTestRequestDTO;
 import develhope.DClinic.domain.LabTestResponseDTO;
 import develhope.DClinic.service.CheckEmptyField;
 import develhope.DClinic.service.LabTestService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,17 +29,19 @@ public class LabTestController {
     @Autowired
     private CheckEmptyField checkEmptyField;
 
+    public static Logger LOGGER = LoggerFactory.getLogger(LabTestController.class);
+
 
     @PostMapping
     public ResponseEntity insetTest(@RequestBody LabTestRequestDTO labTestRequestDTO){
         HashSet<String> error = checkEmptyField.checkEmptyFieldNewLabTest(labTestRequestDTO);
         try{
-            LabTest newEntity = new LabTest();
             if(error.isEmpty()){
-                newEntity = labTestService.insertNewTest(labTestRequestDTO);
+                LabTest newEntity = labTestService.insertNewTest(labTestRequestDTO);
             }
-            return ResponseEntity.ok(newEntity);
+            return ResponseEntity.ok().build();
         }catch (Exception ex) {
+            LOGGER.error(error.toString());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
@@ -49,6 +53,7 @@ public class LabTestController {
             labTestService.deleteByID(id);
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (Exception e){
+            LOGGER.error("The test does not exist");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
@@ -59,6 +64,7 @@ public class LabTestController {
             LabTest update = labTestService.update(id,labTest);
             return ResponseEntity.ok(update);
         }catch (Exception e){
+            LOGGER.error("The test to be modified does not exist");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
@@ -69,6 +75,7 @@ public class LabTestController {
             LabTestResponseDTO getByID = labTestService.getByID(id);
             return ResponseEntity.ok(getByID);
         }catch (Exception e){
+            LOGGER.error("The test does not exist");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
@@ -79,6 +86,7 @@ public class LabTestController {
             List<LabTestResponseDTO> responseDTOList = labTestService.getAllTestOfPatientSV(fiscalCode);
             return ResponseEntity.ok(responseDTOList);
         }catch (Exception e){
+            LOGGER.error("The patient has no test to display");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }

@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.List;
+
+import static develhope.DClinic.controller.LabTestController.LOGGER;
+
 /**
  * @author Luca Giorgi
  * Controller per Doctor
@@ -29,10 +32,11 @@ class DoctorController {
         HashSet<String> error = checkEmptyField.checkEmptyFieldNewDoctor(dto);
         try{
             if(error.isEmpty()){
-                Doctor newEntity = doctorService.insertNewDoctorSV(dto);
+                doctorService.insertNewDoctorSV(dto);
             }
             return ResponseEntity.ok().build();
         }catch (Exception ex) {
+            LOGGER.error(error.toString());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
         }
     }
@@ -44,6 +48,7 @@ class DoctorController {
             doctorService.deleteDoctorByFiscalCodeSV(fiscalCode);
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (Exception e){
+            LOGGER.error("The doctor does not exist");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
@@ -54,6 +59,7 @@ class DoctorController {
             Doctor update = doctorService.updateDoctorSV(fiscalCode, dto);
             return ResponseEntity.ok(update);
         }catch (Exception e){
+            LOGGER.error("The doctor to be modified does not exist");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
@@ -64,6 +70,7 @@ class DoctorController {
             DoctorResponseDTO output = doctorService.getByFiscalCodeSV(fiscalCode);
             return ResponseEntity.ok(output);
         }catch (Exception e){
+            LOGGER.error("The doctor does not exist");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }

@@ -41,7 +41,7 @@ public class DoctorService {
         Doctor entity =doctorRepository.getByFiscalCode(fiscalCode);
         responseDTO.setId(entity.getId());
         responseDTO.setFirstName(entity.getFirstname());
-        responseDTO.setLastName(entity.getLastname());;
+        responseDTO.setLastName(entity.getLastname());
         responseDTO.setFiscalCode(entity.getFiscalCode());
         responseDTO.setEmail(entity.getEmail());
         responseDTO.setTelephoneNumber(entity.getTelephoneNumber());
