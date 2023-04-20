@@ -1,18 +1,14 @@
 package develhope.DClinic.service;
 
-import develhope.DClinic.domain.LabTest;
-import develhope.DClinic.domain.LabTestRequestDTO;
-import develhope.DClinic.domain.LabTestResponseDTO;
-import develhope.DClinic.domain.Patient;
+import develhope.DClinic.domain.*;
+import develhope.DClinic.exceptions.PatientNotFoundException;
 import develhope.DClinic.repository.LabTestRepository;
 import develhope.DClinic.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Luca Giorgi
@@ -27,11 +23,34 @@ public class LabTestService   {
 
     public LabTest insertNewTest(LabTestRequestDTO labTestRequestDTO){
         LabTest test = new LabTest();
-        test.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()));
+        //test.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()));
         test.setDate(LocalDate.now());
         labTestRepository.save(test);
         return test;
     }
+
+    /**
+     * @author Camilla Conte
+     * Method to insert a new lab test with Set of LabParam inside
+     */
+    /*public void insertNewLabTestCami(LabTestDTOCami labTestDTOCami) throws Exception {
+        //trovo il paziente
+        Optional<Patient> patientToFind =
+                patientRepository.findPatientByFiscalCode(labTestDTOCami.getPatientFiscalCode());
+        if(patientToFind.isEmpty()){
+            throw new PatientNotFoundException("Patient with fiscalcode " + labTestDTOCami.getPatientFiscalCode()
+                                                + "not found");
+        }
+        if(labTestDTOCami.getLabParameters().isEmpty()){
+            throw new Exception ("Lab Parameters non inserted");
+        }
+        Set<LabParameter> labParametersForTest = labTestDTOCami.getLabParameters();
+        for(LabParameter labParameter : labParametersForTest){
+
+        }
+        LabTest labTest = new LabTest(patientToFind.get(), labParametersForTest);
+
+    }*/
 
     public void deleteByID(long id_test){
             labTestRepository.deleteById(id_test);
@@ -73,4 +92,5 @@ public class LabTestService   {
         }
         return listOfPatientDTO;
     }
+
 }

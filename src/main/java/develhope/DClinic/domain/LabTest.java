@@ -15,12 +15,28 @@ public class LabTest {
     @ManyToOne
     private Patient patient;
     private LocalDate date;
+
+    /**
+     * TODO mettere al plurale - cami
+     */
     @OneToMany(mappedBy = "labTest")
     private Set<LabParameter> labParameter;
 
 
     public LabTest() {
     }
+
+    /**
+     * @author Camilla Conte
+     * Costruttore con i parametri che mi servono per creare un nuovo LabTest
+     * nel metodo del service "insertNewLabTestCami"
+     */
+
+    public LabTest(Patient patient, Set<LabParameter> labParametersList){
+        this.patient = patient;
+        this.labParameter = labParametersList;
+    }
+
 
 
     public long getTestId() {

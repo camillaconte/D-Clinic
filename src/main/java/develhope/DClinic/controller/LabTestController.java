@@ -1,6 +1,7 @@
 package develhope.DClinic.controller;
 
 import develhope.DClinic.domain.LabTest;
+import develhope.DClinic.domain.LabTestDTOCami;
 import develhope.DClinic.domain.LabTestRequestDTO;
 import develhope.DClinic.domain.LabTestResponseDTO;
 import develhope.DClinic.service.CheckEmptyField;
@@ -44,6 +45,18 @@ public class LabTestController {
             LOGGER.error(error.toString());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
+    }
+
+    /**
+     * @author Camilla Conte
+     * Alternative method to insert a new LabTest
+     * including the Set of LabParameter
+     *
+     */
+    @PostMapping
+    public ResponseEntity insertNewLabTestCami(@RequestBody LabTestDTOCami labTestDTOCami){
+        labTestService.insertNewLabTestCami(labTestDTOCami);
+        return ResponseEntity.ok(labTestDTOCami);
     }
 
 
