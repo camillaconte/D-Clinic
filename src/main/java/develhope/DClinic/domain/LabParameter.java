@@ -92,6 +92,16 @@ public class LabParameter {
 
     public LabParameter() {}
 
+    /**
+     * Costruttore che mi serve per creare un labParam
+     * soltanto a partire dal type (Creatinine , Glucose...)
+     * @param type
+     */
+    public LabParameter(LabParamType type, Patient patient){
+        this.type = type;
+        this.patient = patient;
+    }
+
     public LabParameter(LabParamType type, String parameterName, LabTest labTest, Patient patient, double result,
                         double minReferenceValue, double maxReferenceValue, boolean isNotInRange) {
         this.type = type;

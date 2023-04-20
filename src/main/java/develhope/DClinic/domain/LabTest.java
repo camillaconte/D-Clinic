@@ -3,6 +3,7 @@ package develhope.DClinic.domain;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -15,12 +16,28 @@ public class LabTest {
     @ManyToOne
     private Patient patient;
     private LocalDate date;
+
+    /**
+     * TODO mettere al plurale - cami
+     */
     @OneToMany(mappedBy = "labTest")
     private Set<LabParameter> labParameter;
 
 
     public LabTest() {
     }
+
+    /**
+     * @author Camilla Conte
+     * Costruttore con i parametri che mi servono per creare un nuovo LabTest
+     * nel metodo del service "insertNewLabTestCami"
+     */
+
+    public LabTest(Patient patient, Set<LabParameter> labParameters) {
+        this.patient = patient;
+        this.labParameter = new HashSet<>();
+    }
+
 
 
     public long getTestId() {

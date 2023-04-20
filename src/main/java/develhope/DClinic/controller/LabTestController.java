@@ -1,6 +1,7 @@
 package develhope.DClinic.controller;
 
 import develhope.DClinic.domain.LabTest;
+import develhope.DClinic.domain.LabTestDTOCami;
 import develhope.DClinic.domain.LabTestRequestDTO;
 import develhope.DClinic.domain.LabTestResponseDTO;
 import develhope.DClinic.service.CheckEmptyField;
@@ -31,6 +32,10 @@ public class LabTestController {
 
     public static Logger LOGGER = LoggerFactory.getLogger(LabTestController.class);
 
+    //Lorenzo e Carlo fanno così - verifichiamo insieme cosa meglio usare
+    //o se è lo stesso
+    Logger log = LoggerFactory.getLogger(MedicalReportsController.class);
+
 
     @PostMapping
     public ResponseEntity insetTest(@RequestBody LabTestRequestDTO labTestRequestDTO){
@@ -43,6 +48,26 @@ public class LabTestController {
         }catch (Exception ex) {
             LOGGER.error(error.toString());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+    }
+
+    /**
+     * @author Camilla Conte
+     * Alternative method to insert a new LabTest
+     * including the Set of LabParameter
+     *
+     */
+    @PostMapping("/insert-test-cami")
+    public ResponseEntity insertNewLabTestCami(@RequestBody LabTestDTOCami labTestDTOCami){
+        try {
+            log.info("Trying to create new lab test...");
+            labTestService.insertNewLabTestCami(labTestDTOCami);
+            log.info("New Lab test created!");
+            return ResponseEntity.status(HttpStatus.CREATED).body
+                    ("Created new Lab Test for patient with fiscal code " + labTestDTOCami.getPatientFiscalCode());
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
