@@ -18,7 +18,7 @@ public class LabTest {
     private LocalDate date;
 
     /**
-     * TODO mettere al plurale - cami
+     * TODO mettere al plurale anche labTests - cami
      */
     @OneToMany(mappedBy = "labTest")
     private Set<LabParameter> labParameters;
@@ -28,7 +28,7 @@ public class LabTest {
     }
 
     /**
-     * @author Camilla Conte
+     * @author camilla conte
      * Costruttore con i parametri che mi servono per creare un nuovo LabTest
      * nel metodo del service "insertNewLabTestCami"
      */

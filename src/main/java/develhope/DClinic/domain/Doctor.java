@@ -3,6 +3,7 @@ package develhope.DClinic.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,7 +20,22 @@ public class Doctor extends Employee {
     @JsonIgnore
     private Set<MedicalReport> medicalReportsList;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
+    @JsonIgnore
+    private List<Slot> slots;
+
+    @ManyToOne
+    private Clinic clinic;
+
     public Doctor() {
+    }
+
+    public Doctor(String review, Set<MedicalReport> medicalReportsList,
+                  List<Slot> slots, Clinic clinic) {
+        this.review = review;
+        this.medicalReportsList = medicalReportsList;
+        this.slots = slots;
+        this.clinic = clinic;
     }
 
     public String getReview() {
@@ -34,5 +50,21 @@ public class Doctor extends Employee {
 
     public void setMedicalReportsList(Set<MedicalReport> medicalReportsList) {
         this.medicalReportsList = medicalReportsList;
+    }
+
+    public List<Slot> getSlots() {
+        return slots;
+    }
+
+    public void setSlots(List<Slot> slots) {
+        this.slots = slots;
+    }
+
+    public Clinic getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
     }
 }

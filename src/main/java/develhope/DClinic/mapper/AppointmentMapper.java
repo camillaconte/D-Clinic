@@ -11,9 +11,9 @@ public class AppointmentMapper {
 
    /* public Appointment mapToAppointment(final AppointmentDTo appointmentDto) {
         return new Appointment(
-                appointmentDto.getId(),
+                appointmentDto.getClinicId(),
                 new Clinic(
-                        appointmentDto.getClinic().getId(),
+                        appointmentDto.getClinic().getClinicId(),
                         appointmentDto.getClinic().getName(),
                         appointmentDto.getClinic().getCity(),
                         appointmentDto.getClinic().getDescription()),
@@ -21,7 +21,7 @@ public class AppointmentMapper {
                         appointmentDto.getPatient().getFirstName(),
                         appointmentDto.getPatient().getLastName()),
                 new Doctor(
-                        appointmentDto.getDoctor().getId(),
+                        appointmentDto.getDoctor().getClinicId(),
                         appointmentDto.getDoctor().getFirstname(),
                         appointmentDto.getDoctor().getLastname(),
                         appointmentDto.getDoctor().getSpecialization(),
@@ -32,9 +32,9 @@ public class AppointmentMapper {
     }
     public AppointmentDTo mapToAppointmentDto(final Appointment appointment) {
         return new AppointmentDTo.AppointmentDtoCreated()
-                .setId(appointment.getId())
+                .setClinicId(appointment.getClinicId())
                 .setClinic(new Clinic(
-                        appointment.getClinic().getId(),
+                        appointment.getClinic().getClinicId(),
                         appointment.getClinic().getName(),
                         appointment.getClinic().getCity(),
                         appointment.getClinic().getDescription()))
@@ -42,7 +42,7 @@ public class AppointmentMapper {
                         appointment.getPatient().getFirstName(),
                         appointment.getPatient().getLastName()))
                 .setDoctor(new Doctor(
-                        appointment.getDoctor().getId(),
+                        appointment.getDoctor().getClinicId(),
                         appointment.getDoctor().getName(),
                         appointment.getDoctor().getLastname(),
                         appointment.getDoctor().getSpecialisation(),
@@ -55,9 +55,9 @@ public class AppointmentMapper {
     public List<AppointmentDTo> mapToAppointmentDtoList(final List<Appointment> appointmentList) {
         return appointmentList.stream()
                 .map(a -> new AppointmentDTo.AppointmentDtoCreated()
-                        .setId(a.getId())
+                        .setClinicId(a.getClinicId())
                         .setClinic(new Clinic(
-                                a.getClinic().getId(),
+                                a.getClinic().getClinicId(),
                                 a.getClinic().getName(),
                                 a.getClinic().getCity(),
                                 a.getClinic().getDescription()))
@@ -65,7 +65,7 @@ public class AppointmentMapper {
                                 a.getPatient().getFirstName(),
                                 a.getPatient().getLastName()))
                         .setDoctor(new Doctor(
-                                a.getDoctor().getId(),
+                                a.getDoctor().getClinicId(),
                                 a.getDoctor().getFirstname(),
                                 a.getDoctor().getLastname(),
                                 a.getDoctor().getSpecialization(),
