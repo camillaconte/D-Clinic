@@ -36,7 +36,7 @@ public class AppointmentMapper {
         return new AppointmentDTo.AppointmentDtoCreated()
                 .setMedicalReportId(appointment.getMedicalReportId())
                 .setClinic(new Clinic(
-                        appointment.getClinic().getMedicalReportId(),
+                        appointment.getClinic().getId(),
                         appointment.getClinic().getName(),
                         appointment.getClinic().getCity(),
                         appointment.getClinic().getDescription()))
