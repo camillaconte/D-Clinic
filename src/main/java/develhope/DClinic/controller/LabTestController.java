@@ -71,7 +71,7 @@ public class LabTestController {
         }
     }
 
-    /*
+
     @DeleteMapping("/{id}")
     public ResponseEntity deleteBYID(@PathVariable long id){
         try{
@@ -114,5 +114,5 @@ public class LabTestController {
             LOGGER.error("The patient has no test to display");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-    }*/
+    }
 }

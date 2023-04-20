@@ -39,9 +39,9 @@ public class LabTestService   {
      */
     public LabTest insertNewLabTestCami(LabTestDTOCami labTestDTOCami) throws Exception {
         //trovo il paziente con il codice fiscale che c'è nel DTO
-        Optional<Patient> patientToFind =
-                patientRepository.findPatientByFiscalCode(labTestDTOCami.getPatientFiscalCode());
-        if(patientToFind.isEmpty()){
+        //TODO trasformarlo in optional quando Luca ha sistemato PatientRepository
+        Patient patientToFind = patientRepository.findPatientByFiscalCode(labTestDTOCami.getPatientFiscalCode());
+        if(patientToFind == null){
             throw new PatientNotFoundException("Patient with fiscalcode " + labTestDTOCami.getPatientFiscalCode()
                                                 + "not found");
         }
@@ -49,13 +49,15 @@ public class LabTestService   {
             throw new Exception ("Lab Parameters non inserted");
         }
         //creo un nuovo LabTest dandogli il PAZIENTE e un Set vuoto
-        LabTest newLabTest = new LabTest(patientToFind.get(), new HashSet<>());
+        //LabTest newLabTest = new LabTest(patientToFind.get(), new HashSet<>());
+        LabTest newLabTest = new LabTest(patientToFind, new HashSet<>());
         List<LabParamType> listOfLabParamType = labTestDTOCami.getRequiredLabParameters();
         //a partire dalla Lista di LabParamType (Glucose, Creatinine...)
         //salvo tanti nuovi record LabParameter
         //quanti solo gli elementi della lista
         for(LabParamType type : listOfLabParamType){
-            LabParameter newLabParameter = new LabParameter(type, patientToFind.get());
+            //LabParameter newLabParameter = new LabParameter(type, patientToFind.get());
+            LabParameter newLabParameter = new LabParameter(type, patientToFind);
             labParameterRepository.save(newLabParameter);
             //aggiungo al nuovo test il singolo LabParameter
             // salvo il nuovo test
@@ -63,15 +65,19 @@ public class LabTestService   {
             labTestRepository.save(newLabTest);
             //aggiungo anche al paziente il singolo labParameter
             // salvo il pz
-            patientToFind.get().getLabParametersList().add(newLabParameter);
-            patientRepository.save(patientToFind.get());
+            //patientToFind.get().getLabParametersList().add(newLabParameter);
+            patientToFind.getLabParametersList().add(newLabParameter);
+            //patientRepository.save(patientToFind.get());
+            patientRepository.save(patientToFind);
         }
-        patientToFind.get().getLabTest().add(newLabTest);
-        patientRepository.save(patientToFind.get());
+        //patientToFind.get().getLabTest().add(newLabTest);
+        patientToFind.getLabTest().add(newLabTest);
+        //patientRepository.save(patientToFind.get());
+        patientRepository.save(patientToFind);
         return newLabTest;
     }
 
-    /*
+
     public void deleteByID(long id_test){
             labTestRepository.deleteById(id_test);
     }
@@ -111,6 +117,6 @@ public class LabTestService   {
             listOfPatientDTO.add(responseDTO);
         }
         return listOfPatientDTO;
-    }*/
+    }
 
 }
