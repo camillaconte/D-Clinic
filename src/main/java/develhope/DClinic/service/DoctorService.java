@@ -18,7 +18,6 @@ public class DoctorService {
     @Autowired
     DoctorRepository doctorRepository;
 
-
     public Doctor insertNewDoctorSV(DoctorRequestDTO dto){
         Doctor entity = new Doctor();
         entity.setFirstname(dto.getFirstName());

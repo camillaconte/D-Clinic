@@ -1,39 +1,75 @@
 package develhope.DClinic.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.aspectj.weaver.patterns.ConcreteCflowPointcut;
+
+import java.util.List;
+
+/**
+ * Entity: Clinic
+ * @author camillaconte
+ * @author mirkomicocci
+ */
 
 @Table(name="Clinics")
 @Entity
 public class Clinic {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "office_id")
-    private long id;
-
-    @Column(name = "name")
+    @SequenceGenerator(
+            name = "clinic_id_sequence",
+            sequenceName = "clinic_id_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "clinic_id_sequence")
+    private long clinicId;
     private String name;
-    @Column(name = "city")
     private String city;
-
-    @Column(name = "description")
     private String description;
+    @Enumerated(EnumType.STRING)
+    private Room room;
 
-    public Clinic(long id, String name, String description) {
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "clinic")
+    @JsonIgnore
+    private List<Slot> slots;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "clinic")
+    @JsonIgnore
+    private List<Doctor> doctors;
+
+    public Clinic(){}
+
+    public Clinic(String name, String city, String description) {
     }
 
-    public Clinic(long id, String name,String city, String description) {
-        this.id = id;
+    public Clinic(long clinicId, String name, String city, String description,
+                  Room room, List<Slot> slots, List<Doctor> doctors) {
+        this.clinicId = clinicId;
         this.name = name;
-        this.city=city;
+        this.city = city;
         this.description = description;
+        this.room = room;
+        this.slots = slots;
+        this.doctors = doctors;
     }
 
-    public long getId() {
-        return id;
+    public Clinic(long clinicId, String name, String city, String description, Room room) {
+        this.clinicId = clinicId;
+        this.name = name;
+        this.city = city;
+        this.description = description;
+        this.room = room;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public long getClinicId() {
+        return clinicId;
+    }
+
+    public void setClinicId(long clinicId) {
+        this.clinicId = clinicId;
     }
 
     public String getName() {
@@ -59,4 +95,16 @@ public class Clinic {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Room getRoom() { return room; }
+
+    public void setRoom(Room room) { this.room = room; }
+
+    public List<Slot> getSlots() { return slots; }
+
+    public void setSlots(List<Slot> slots) { this.slots = slots; }
+
+    public List<Doctor> getDoctors() { return doctors; }
+
+    public void setDoctors(List<Doctor> doctors) { this.doctors = doctors; }
 }
