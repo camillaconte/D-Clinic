@@ -32,6 +32,10 @@ public class LabTestController {
 
     public static Logger LOGGER = LoggerFactory.getLogger(LabTestController.class);
 
+    //Lorenzo e Carlo fanno così - verifichiamo insieme cosa meglio usare
+    //o se è lo stesso
+    Logger log = LoggerFactory.getLogger(MedicalReportsController.class);
+
 
     @PostMapping
     public ResponseEntity insetTest(@RequestBody LabTestRequestDTO labTestRequestDTO){
@@ -53,13 +57,21 @@ public class LabTestController {
      * including the Set of LabParameter
      *
      */
-    @PostMapping
+    @PostMapping("/insert-test-cami")
     public ResponseEntity insertNewLabTestCami(@RequestBody LabTestDTOCami labTestDTOCami){
-        labTestService.insertNewLabTestCami(labTestDTOCami);
-        return ResponseEntity.ok(labTestDTOCami);
+        try {
+            log.info("Trying to create new lab test...");
+            labTestService.insertNewLabTestCami(labTestDTOCami);
+            log.info("New Lab test created!");
+            return ResponseEntity.status(HttpStatus.CREATED).body
+                    ("Created new Lab Test for patient with fiscal code " + labTestDTOCami.getPatientFiscalCode());
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
-
+    /*
     @DeleteMapping("/{id}")
     public ResponseEntity deleteBYID(@PathVariable long id){
         try{
@@ -102,5 +114,5 @@ public class LabTestController {
             LOGGER.error("The patient has no test to display");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-    }
+    }*/
 }

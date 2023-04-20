@@ -2,6 +2,7 @@ package develhope.DClinic.service;
 
 import develhope.DClinic.domain.*;
 import develhope.DClinic.exceptions.PatientNotFoundException;
+import develhope.DClinic.repository.LabParameterRepository;
 import develhope.DClinic.repository.LabTestRepository;
 import develhope.DClinic.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class LabTestService   {
     @Autowired
     private LabTestRepository labTestRepository;
 
+    @Autowired
+    private LabParameterRepository labParameterRepository;
+
     public LabTest insertNewTest(LabTestRequestDTO labTestRequestDTO){
         LabTest test = new LabTest();
         //test.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()));
@@ -33,25 +37,41 @@ public class LabTestService   {
      * @author Camilla Conte
      * Method to insert a new lab test with Set of LabParam inside
      */
-    /*public void insertNewLabTestCami(LabTestDTOCami labTestDTOCami) throws Exception {
-        //trovo il paziente
+    public LabTest insertNewLabTestCami(LabTestDTOCami labTestDTOCami) throws Exception {
+        //trovo il paziente con il codice fiscale che c'è nel DTO
         Optional<Patient> patientToFind =
                 patientRepository.findPatientByFiscalCode(labTestDTOCami.getPatientFiscalCode());
         if(patientToFind.isEmpty()){
             throw new PatientNotFoundException("Patient with fiscalcode " + labTestDTOCami.getPatientFiscalCode()
                                                 + "not found");
         }
-        if(labTestDTOCami.getLabParameters().isEmpty()){
+        if(labTestDTOCami.getRequiredLabParameters().isEmpty()){
             throw new Exception ("Lab Parameters non inserted");
         }
-        Set<LabParameter> labParametersForTest = labTestDTOCami.getLabParameters();
-        for(LabParameter labParameter : labParametersForTest){
-
+        //creo un nuovo LabTest dandogli il PAZIENTE e un Set vuoto
+        LabTest newLabTest = new LabTest(patientToFind.get(), new HashSet<>());
+        List<LabParamType> listOfLabParamType = labTestDTOCami.getRequiredLabParameters();
+        //a partire dalla Lista di LabParamType (Glucose, Creatinine...)
+        //salvo tanti nuovi record LabParameter
+        //quanti solo gli elementi della lista
+        for(LabParamType type : listOfLabParamType){
+            LabParameter newLabParameter = new LabParameter(type, patientToFind.get());
+            labParameterRepository.save(newLabParameter);
+            //aggiungo al nuovo test il singolo LabParameter
+            // salvo il nuovo test
+            newLabTest.getLabParameter().add(newLabParameter);
+            labTestRepository.save(newLabTest);
+            //aggiungo anche al paziente il singolo labParameter
+            // salvo il pz
+            patientToFind.get().getLabParametersList().add(newLabParameter);
+            patientRepository.save(patientToFind.get());
         }
-        LabTest labTest = new LabTest(patientToFind.get(), labParametersForTest);
+        patientToFind.get().getLabTest().add(newLabTest);
+        patientRepository.save(patientToFind.get());
+        return newLabTest;
+    }
 
-    }*/
-
+    /*
     public void deleteByID(long id_test){
             labTestRepository.deleteById(id_test);
     }
@@ -91,6 +111,6 @@ public class LabTestService   {
             listOfPatientDTO.add(responseDTO);
         }
         return listOfPatientDTO;
-    }
+    }*/
 
 }

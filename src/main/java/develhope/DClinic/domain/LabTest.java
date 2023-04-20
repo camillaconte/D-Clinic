@@ -3,6 +3,7 @@ package develhope.DClinic.domain;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -32,9 +33,9 @@ public class LabTest {
      * nel metodo del service "insertNewLabTestCami"
      */
 
-    public LabTest(Patient patient, Set<LabParameter> labParametersList){
+    public LabTest(Patient patient, Set<LabParameter> labParameters) {
         this.patient = patient;
-        this.labParameter = labParametersList;
+        this.labParameter = new HashSet<>();
     }
 
 

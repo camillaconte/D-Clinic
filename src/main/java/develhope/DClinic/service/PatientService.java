@@ -21,7 +21,6 @@ public class PatientService {
         return patientRepository.findAll();
     }
 
-
     public void insertNewPatient(Patient patient) {
         Optional<Patient> optionalPatient = patientRepository.findPatientByEmail(patient.getEmail());
         if(optionalPatient.isPresent()){
