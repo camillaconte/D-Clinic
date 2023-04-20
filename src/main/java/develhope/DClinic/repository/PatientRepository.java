@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface PatientRepository extends D_ClinicRepository<Patient> {
 
     Optional<Patient> findPatientByEmail(String email);
-    Patient findPatientByFiscalCode(String fiscalCode);
+    Optional<Patient> findPatientByFiscalCode(String fiscalCode);
 
-    //Optional<Patient> findPatientByFiscalCode(String fiscalCode);
+
 }

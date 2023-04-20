@@ -27,7 +27,7 @@ public class LabTestService   {
 
     public LabTest insertNewTest(LabTestRequestDTO labTestRequestDTO){
         LabTest test = new LabTest();
-        //test.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()));
+        test.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()).get());
         test.setDate(LocalDate.now());
         labTestRepository.save(test);
         return test;
@@ -40,7 +40,7 @@ public class LabTestService   {
     public LabTest insertNewLabTestCami(LabTestDTOCami labTestDTOCami) throws Exception {
         //trovo il paziente con il codice fiscale che c'è nel DTO
         //TODO trasformarlo in optional quando Luca ha sistemato PatientRepository
-        Patient patientToFind = patientRepository.findPatientByFiscalCode(labTestDTOCami.getPatientFiscalCode());
+        Optional<Patient> patientToFind = patientRepository.findPatientByFiscalCode(labTestDTOCami.getPatientFiscalCode());
         if(patientToFind == null){
             throw new PatientNotFoundException("Patient with fiscalcode " + labTestDTOCami.getPatientFiscalCode()
                                                 + "not found");
@@ -49,31 +49,25 @@ public class LabTestService   {
             throw new Exception ("Lab Parameters non inserted");
         }
         //creo un nuovo LabTest dandogli il PAZIENTE e un Set vuoto
-        //LabTest newLabTest = new LabTest(patientToFind.get(), new HashSet<>());
-        LabTest newLabTest = new LabTest(patientToFind, new HashSet<>());
+        LabTest newLabTest = new LabTest(patientToFind.get(), new HashSet<>());
         List<LabParamType> listOfLabParamType = labTestDTOCami.getRequiredLabParameters();
         //a partire dalla Lista di LabParamType (Glucose, Creatinine...)
         //salvo tanti nuovi record LabParameter
         //quanti solo gli elementi della lista
         for(LabParamType type : listOfLabParamType){
-            //LabParameter newLabParameter = new LabParameter(type, patientToFind.get());
-            LabParameter newLabParameter = new LabParameter(type, patientToFind);
+            LabParameter newLabParameter = new LabParameter(type, patientToFind.get());
             labParameterRepository.save(newLabParameter);
             //aggiungo al nuovo test il singolo LabParameter
             // salvo il nuovo test
-            newLabTest.getLabParameter().add(newLabParameter);
+            newLabTest.getLabParameters().add(newLabParameter);
             labTestRepository.save(newLabTest);
             //aggiungo anche al paziente il singolo labParameter
             // salvo il pz
-            //patientToFind.get().getLabParametersList().add(newLabParameter);
-            patientToFind.getLabParametersList().add(newLabParameter);
-            //patientRepository.save(patientToFind.get());
-            patientRepository.save(patientToFind);
+            patientToFind.get().getLabParametersList().add(newLabParameter);
+            patientRepository.save(patientToFind.get());
         }
-        //patientToFind.get().getLabTest().add(newLabTest);
-        patientToFind.getLabTest().add(newLabTest);
-        //patientRepository.save(patientToFind.get());
-        patientRepository.save(patientToFind);
+        patientToFind.get().getLabTest().add(newLabTest);
+        patientRepository.save(patientToFind.get());
         return newLabTest;
     }
 
@@ -96,7 +90,7 @@ public class LabTestService   {
         LabTest update = new LabTest();
         update.setTestId(id);
         if(labTestRequestDTO.getFiscalCode() != null){
-            update.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()));
+            update.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()).get());
         }
         update.setDate(LocalDate.now());
         //Inserire i parametri
@@ -105,7 +99,7 @@ public class LabTestService   {
     }
 
     public List<LabTestResponseDTO> getAllTestOfPatientSV(String fiscalCode) {
-        Patient patient = patientRepository.findPatientByFiscalCode(fiscalCode);
+        Patient patient = patientRepository.findPatientByFiscalCode(fiscalCode).get();
         List<LabTest> listOfPatient = labTestRepository.findAllByPatientId(patient.getId());
         List<LabTestResponseDTO> listOfPatientDTO = new ArrayList<>();
         for (LabTest x : listOfPatient) {

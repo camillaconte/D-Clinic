@@ -30,11 +30,11 @@ public class LabTestController {
     @Autowired
     private CheckEmptyField checkEmptyField;
 
-    public static Logger LOGGER = LoggerFactory.getLogger(LabTestController.class);
+    private Logger LOGGER = LoggerFactory.getLogger(LabTestController.class);
 
     //Lorenzo e Carlo fanno così - verifichiamo insieme cosa meglio usare
     //o se è lo stesso
-    Logger log = LoggerFactory.getLogger(MedicalReportsController.class);
+    private Logger log = LoggerFactory.getLogger(LabTestController.class);
 
 
     @PostMapping

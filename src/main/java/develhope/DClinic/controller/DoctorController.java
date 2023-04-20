@@ -3,6 +3,8 @@ package develhope.DClinic.controller;
 import develhope.DClinic.domain.*;
 import develhope.DClinic.service.CheckEmptyField;
 import develhope.DClinic.service.DoctorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashSet;
 import java.util.List;
 
-import static develhope.DClinic.controller.LabTestController.LOGGER;
 
 /**
  * @author Luca Giorgi
@@ -26,6 +27,8 @@ class DoctorController {
     DoctorService doctorService;
     @Autowired
     private CheckEmptyField checkEmptyField;
+
+    private Logger LOGGER = LoggerFactory.getLogger(DoctorController.class);
 
     @PostMapping
     public ResponseEntity insetNewDoctor(@RequestBody DoctorRequestDTO dto){

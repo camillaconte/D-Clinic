@@ -21,7 +21,7 @@ public class LabTest {
      * TODO mettere al plurale - cami
      */
     @OneToMany(mappedBy = "labTest")
-    private Set<LabParameter> labParameter;
+    private Set<LabParameter> labParameters;
 
 
     public LabTest() {
@@ -35,7 +35,7 @@ public class LabTest {
 
     public LabTest(Patient patient, Set<LabParameter> labParameters) {
         this.patient = patient;
-        this.labParameter = new HashSet<>();
+        this.labParameters = new HashSet<>();
     }
 
 
@@ -64,12 +64,12 @@ public class LabTest {
         this.date = date;
     }
 
-    public Set<LabParameter> getLabParameter() {
-        return labParameter;
+    public Set<LabParameter> getLabParameters() {
+        return labParameters;
     }
 
-    public void setLabParameter(Set<LabParameter> labParameter) {
-        this.labParameter = labParameter;
+    public void setLabParameters(Set<LabParameter> labParameters) {
+        this.labParameters = labParameters;
     }
 
 }
