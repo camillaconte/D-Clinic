@@ -44,7 +44,7 @@ public class Patient {
      */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
     @JsonIgnore
-    private List<MedicalReport> medicalReportsList;
+    private Set<MedicalReport> medicalReportsList;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
     @JsonIgnore
@@ -57,7 +57,7 @@ public class Patient {
     public Patient() {}
 
     public Patient(String firstName, String lastName, String fiscalCode, String email, String phoneNumber,
-                   String address, Integer age, List<MedicalReport> medicalReportsList,
+                   String address, Integer age, Set<MedicalReport> medicalReportsList,
                    List<LabParameter> labParametersList, Set<LabTest> labTest) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -135,11 +135,11 @@ public class Patient {
         this.age = age;
     }
 
-    public List<MedicalReport> getMedicalReportsList() {
+    public Set<MedicalReport> getMedicalReportsList() {
         return medicalReportsList;
     }
 
-    public void setMedicalReportsList(List<MedicalReport> medicalReportsList) {
+    public void setMedicalReportsList(Set<MedicalReport> medicalReportsList) {
         this.medicalReportsList = medicalReportsList;
     }
 

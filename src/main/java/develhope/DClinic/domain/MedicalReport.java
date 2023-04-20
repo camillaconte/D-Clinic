@@ -1,5 +1,6 @@
 package develhope.DClinic.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ public class MedicalReport {
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "medicalReports_id_sequence")
-    private int id;
+    private long medicalReportId;
 
     @Column(nullable = false)
     private String reportName;
@@ -32,34 +33,28 @@ public class MedicalReport {
      * ogni report HA UN SOLO PAZIENTE (associato)
      * le annotazioni che seguono definiscono la OWNING SIDE e dicono:
      * l'entità MedicalReport avrà una foreign key column chiamata "patient_id"
-     * che farà riferimento al "primary attribute" id dell'entità Patient.
+     * che farà riferimento al "primary attribute" medicalReportId dell'entità Patient.
      * Ora non resta che settare la REFERENCING SIDE
      */
+
+    //tolto FetchType.LAZY perché dava errore nella creazione del bean
     @ManyToOne //(fetch = FetchType.LAZY)
     private Patient patient;
 
+    @ManyToOne
+    private Doctor doctor;
+
     /**
-     * Come si potrebbero prevedere diversi tipi di Medical Report fra i quali il medico
-     * può scegliere, al momento di scrivere il referto?
+     * TODO prevedere diversi tipi di Medical Report fra i quali il medico
+     * può scegliere, al momento di scrivere il referto
      * Perché potrebbe voler scrivere:
      * - un semplice testo libero
      * - modificare testo da un template
      * - ...
-     *
-     * Potrebbe servirmi una enum?
-     * Uhmmm, forse invece sarebbe meglio avere dei MedicalReportDTO con campi diversi?
-     *
+     * Potrebbe servirmi una enum (TypeOfMedicalReport typeOfReport)?
      * Ricorda enum are public, static and final (unchangeable - cannot be overridden)
-     *
-     * OPPURE MI SERVE SEMPLICEMENTE IL FIELD TYPE???
      */
 
-    /**
-     * N.B. potrebbe essere utile poter richiamare anche solo il field "hystory" dall'ultimo referto
-     * del paziente, così da limitarsi ad aggiornarlo alla visita successiva!
-     * Il metodo potrebbe essere un semplice getHystory...che poi il front end si prende e appiccica
-     * nella finestra di testo che mette a disposizione dell'utente dottore!
-     */
     @Column
     private String history;
 
@@ -72,7 +67,7 @@ public class MedicalReport {
     @Column
     String conclusions;
 
-    @Column
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime creationDate;
 
     public MedicalReport(){}
@@ -85,12 +80,24 @@ public class MedicalReport {
         this.patient = patient;
     }
 
-    public int getId() {
-        return id;
+    public MedicalReport(String reportName, Patient patient, Doctor doctor, String history, String historyOfPresentIllness,
+                         String physicalExam, String conclusions, LocalDateTime creationDate) {
+        this.reportName = reportName;
+        this.patient = patient;
+        this.doctor = doctor;
+        this.history = history;
+        this.historyOfPresentIllness = historyOfPresentIllness;
+        this.physicalExam = physicalExam;
+        this.conclusions = conclusions;
+        this.creationDate = creationDate;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public long getMedicalReportId() {
+        return medicalReportId;
+    }
+
+    public void setMedicalReportId(long medicalReportId) {
+        this.medicalReportId = medicalReportId;
     }
 
     public String getReportName() {
@@ -108,6 +115,10 @@ public class MedicalReport {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
+
+    public Doctor getDoctor() { return doctor;}
+
+    public void setDoctor(Doctor doctor) { this.doctor = doctor; }
 
     public String getHistory() {
         return history;

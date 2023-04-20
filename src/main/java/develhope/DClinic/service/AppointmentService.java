@@ -55,7 +55,7 @@ public class AppointmentService {
 
     public ResponseEntity updateAppointment(long id, Appointment appointment) {
         try {
-            appointment.setId(id);
+            appointment.setMedicalReportId(id);
             appointmentMapper.mapToAppointmentDto(appointmentRepository.saveAndFlush(appointment));
             return new ResponseEntity<>(appointment, HttpStatus.OK);
         } catch (Exception e) {

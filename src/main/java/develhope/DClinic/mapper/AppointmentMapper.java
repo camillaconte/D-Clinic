@@ -20,7 +20,6 @@ public class AppointmentMapper {
                 new Patient(
                         appointmentDto.getPatient().getFirstName(),
                         appointmentDto.getPatient().getLastName()),
-
                 new Doctor(
                         appointmentDto.getDoctor().getId(),
                         appointmentDto.getDoctor().getFirstname(),
@@ -31,7 +30,6 @@ public class AppointmentMapper {
                 appointmentDto.getStatus(),
                 appointmentDto.getTypology());
     }
-
     public AppointmentDTo mapToAppointmentDto(final Appointment appointment) {
         return new AppointmentDTo.AppointmentDtoCreated()
                 .setId(appointment.getId())
@@ -40,12 +38,9 @@ public class AppointmentMapper {
                         appointment.getClinic().getName(),
                         appointment.getClinic().getCity(),
                         appointment.getClinic().getDescription()))
-
                 .setPatient(new Patient(
                         appointment.getPatient().getFirstName(),
                         appointment.getPatient().getLastName()))
-
-
                 .setDoctor(new Doctor(
                         appointment.getDoctor().getId(),
                         appointment.getDoctor().getName(),
@@ -57,7 +52,6 @@ public class AppointmentMapper {
                 .setTypology(appointment.getTypology().toString())
                 .made();
     }
-
     public List<AppointmentDTo> mapToAppointmentDtoList(final List<Appointment> appointmentList) {
         return appointmentList.stream()
                 .map(a -> new AppointmentDTo.AppointmentDtoCreated()
@@ -70,7 +64,6 @@ public class AppointmentMapper {
                         .setPatient(new Patient(
                                 a.getPatient().getFirstName(),
                                 a.getPatient().getLastName()))
-
                         .setDoctor(new Doctor(
                                 a.getDoctor().getId(),
                                 a.getDoctor().getFirstname(),
@@ -82,7 +75,6 @@ public class AppointmentMapper {
                         .setTypology(a.getTypology().toString())
                         .made())
                 .collect(Collectors.toList());
-
     }*/
 
 }
