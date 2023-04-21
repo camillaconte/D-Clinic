@@ -24,6 +24,9 @@ public class CheckEmptyField {
         if(u.getFiscalCode() == null){
             MESSAGE_ERROR.add("FISCAL CODE NOT INSERT");
         }
+        if(u.getLabParameter() == null){
+            MESSAGE_ERROR.add("PARAMETERS NOT INSERT");
+        }
         return MESSAGE_ERROR;
     }
 

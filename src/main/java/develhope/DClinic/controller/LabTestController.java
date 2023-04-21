@@ -40,15 +40,16 @@ public class LabTestController {
     @PostMapping
     public ResponseEntity insetTest(@RequestBody LabTestRequestDTO labTestRequestDTO){
         HashSet<String> error = checkEmptyField.checkEmptyFieldNewLabTest(labTestRequestDTO);
-        try{
-            if(error.isEmpty()){
+        if(error.isEmpty()){
+            try{
                 LabTest newEntity = labTestService.insertNewTest(labTestRequestDTO);
+                return ResponseEntity.ok(newEntity);
+            }catch (Exception ex) {
+                LOGGER.warn(ex.getMessage());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
             }
-            return ResponseEntity.ok().build();
-        }catch (Exception ex) {
-            LOGGER.error(error.toString());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
     /**

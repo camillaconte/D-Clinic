@@ -33,15 +33,16 @@ class DoctorController {
     @PostMapping
     public ResponseEntity insetNewDoctor(@RequestBody DoctorRequestDTO dto){
         HashSet<String> error = checkEmptyField.checkEmptyFieldNewDoctor(dto);
-        try{
-            if(error.isEmpty()){
-                doctorService.insertNewDoctorSV(dto);
+        if(error.isEmpty()){
+            try{
+                Doctor doctor = doctorService.insertNewDoctorSV(dto);
+                return ResponseEntity.ok(doctor);
+            }catch (Exception ex) {
+                LOGGER.error(ex.getMessage());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
             }
-            return ResponseEntity.ok().build();
-        }catch (Exception ex) {
-            LOGGER.error(error.toString());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
         }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
 
