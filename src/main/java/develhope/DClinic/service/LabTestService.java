@@ -5,6 +5,8 @@ import develhope.DClinic.exceptions.PatientNotFoundException;
 import develhope.DClinic.repository.LabParameterRepository;
 import develhope.DClinic.repository.LabTestRepository;
 import develhope.DClinic.repository.PatientRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,15 +23,38 @@ public class LabTestService   {
     private PatientRepository patientRepository;
     @Autowired
     private LabTestRepository labTestRepository;
-
+    @Autowired
+    private CheckEmptyField checkEmptyField;
     @Autowired
     private LabParameterRepository labParameterRepository;
 
-    public LabTest insertNewTest(LabTestRequestDTO labTestRequestDTO){
+    private Logger LOGGER = LoggerFactory.getLogger(LabTestService.class);
+
+    public LabTest insertNewTest(LabTestRequestDTO labTestRequestDTO) throws Exception {
+
         LabTest test = new LabTest();
-        test.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()).get());
+        Optional<Patient> optionalPatient = patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode());
+        if(optionalPatient.isEmpty()){
+            LOGGER.warn("Patient not found");
+            throw  new Exception("Patient not found");
+        }
+        Patient patient = optionalPatient.get();
+        test.setPatient(patient);
         test.setDate(LocalDate.now());
+        Set<LabParameter> parameters = labTestRequestDTO.getLabParameter();
+        for (LabParameter x : parameters){
+            LabParameter parameter = x;
+            parameter.setLabTest(test);
+            parameter.setPatient(patient);
+            labParameterRepository.save(parameter);
+            test.getLabParameters().add(x);
+            labTestRepository.save(test);
+            patient.getLabParametersList().add(parameter);
+            patientRepository.save(patient);
+        }
         labTestRepository.save(test);
+        patient.getLabTest().add(test);
+        patientRepository.save(patient);
         return test;
     }
 
@@ -82,18 +107,34 @@ public class LabTestService   {
         if(test.isEmpty()) throw new RuntimeException("The laboratory test is not exist");
         testResponseDTO.setPatient(test.get().getPatient());
         testResponseDTO.setDate(test.get().getDate());
-        //Inserire i parametri
+        Set<LabParameter> list = labParameterRepository.getByLabTestId(test.get().getTestId());
+        for(LabParameter x : list){
+            testResponseDTO.getLabParameter().add(x);
+        }
         return testResponseDTO;
     }
 
     public LabTest update(long id, LabTestRequestDTO labTestRequestDTO){
         LabTest update = new LabTest();
         update.setTestId(id);
+        Patient patient = patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()).get();
         if(labTestRequestDTO.getFiscalCode() != null){
-            update.setPatient(patientRepository.findPatientByFiscalCode(labTestRequestDTO.getFiscalCode()).get());
+            update.setPatient(patient);
         }
         update.setDate(LocalDate.now());
-        //Inserire i parametri
+        if(labTestRequestDTO.getLabParameter() != null){
+            Set<LabParameter> parameters = labTestRequestDTO.getLabParameter();
+            for (LabParameter x : parameters){
+                LabParameter parameter = x;
+                parameter.setLabTest(update);
+                parameter.setPatient(patient);
+                labParameterRepository.save(parameter);
+                update.getLabParameters().add(x);
+                labTestRepository.save(update);
+                patient.getLabParametersList().add(parameter);
+                patientRepository.save(patient);
+            }
+        }
         labTestRepository.saveAndFlush(update);
         return update;
     }
@@ -107,7 +148,10 @@ public class LabTestService   {
             responseDTO.setId(x.getTestId());
             responseDTO.setPatient(x.getPatient());
             responseDTO.setDate(x.getDate());
-            //Inserire i parametri
+            Set<LabParameter> list = labParameterRepository.getByLabTestId(x.getTestId());
+            for(LabParameter param : list){
+                responseDTO.getLabParameter().add(param);
+            }
             listOfPatientDTO.add(responseDTO);
         }
         return listOfPatientDTO;
