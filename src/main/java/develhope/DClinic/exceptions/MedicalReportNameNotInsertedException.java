@@ -1,8 +1,8 @@
 package develhope.DClinic.exceptions;
 
-public class MedicalReportNameNotFoundException extends Exception {
+public class MedicalReportNameNotInsertedException extends Exception {
 
-    public MedicalReportNameNotFoundException(String message) {
+    public MedicalReportNameNotInsertedException(String message) {
         super(message);
     }
 

@@ -1,11 +1,9 @@
 package develhope.DClinic.controller;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import develhope.DClinic.domain.MedicalReport;
 import develhope.DClinic.domain.MedicalReportDTO;
-import develhope.DClinic.domain.Patient;
 import develhope.DClinic.exceptions.DoctorNotFoundException;
-import develhope.DClinic.exceptions.MedicalReportNameNotFoundException;
+import develhope.DClinic.exceptions.MedicalReportNameNotInsertedException;
+import develhope.DClinic.exceptions.MedicalReportsNotFoundException;
 import develhope.DClinic.exceptions.PatientNotFoundException;
 import develhope.DClinic.service.MedicalReportService;
 import develhope.DClinic.service.PatientService;
@@ -16,9 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.Set;
-
 /**
  * Controller for Medical Report (= "referti medici")
  * @author camillaconte
@@ -26,7 +21,7 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("/medical-report")
-public class MedicalReportsController {
+public class MedicalReportController {
 
    @Autowired
    MedicalReportService medicalReportService;
@@ -34,7 +29,7 @@ public class MedicalReportsController {
    @Autowired
    PatientService patientService;
 
-   Logger log = LoggerFactory.getLogger(MedicalReportsController.class);
+   Logger log = LoggerFactory.getLogger(MedicalReportController.class);
 
     @PostMapping("/create-new-report")
     public ResponseEntity createReportResponse(@RequestBody MedicalReportDTO medicalReportDTO) {
@@ -46,7 +41,7 @@ public class MedicalReportsController {
         } catch (PatientNotFoundException e) {
             log.warn(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (MedicalReportNameNotFoundException e) {
+        } catch (MedicalReportNameNotInsertedException e) {
             log.warn(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (DoctorNotFoundException e) {
@@ -55,12 +50,26 @@ public class MedicalReportsController {
         }
     }
 
+    //-----------------------------------------------------------------------------------------------------//
+    @GetMapping("/get-all-reports-patient-fiscalCode")
+    public ResponseEntity getAllPatientReportsByFiscalCode(@RequestParam String patientFiscalCode){
+        try{
+            return ResponseEntity.ok().body(medicalReportService.getAllPatientReportsByFiscalCode(patientFiscalCode));
+        } catch (PatientNotFoundException e) {
+            log.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (MedicalReportsNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 
-    @GetMapping("/get-all-reports-by-doctorId/{doctorId}")
-    public ResponseEntity getAllReportsByDoctorId(@PathVariable ("doctorId") long doctorId) {
+    //-----------------------------------------------------------------------------------------------------//
+
+    @GetMapping("/get-all-reports-doctor/{doctorId}")
+    public ResponseEntity getAllDoctorReportsByDoctorId(@PathVariable ("doctorId") long doctorId) {
         try {
             //medicalReportService.getAllReportsByDoctorId(doctorId);
-            return ResponseEntity.status(HttpStatus.CREATED).body(medicalReportService.getAllReportsByDoctorId(doctorId));
+            return ResponseEntity.status(HttpStatus.CREATED).body(medicalReportService.getAllDoctorReportsByDoctorId(doctorId));
         } catch (DoctorNotFoundException e) {
             log.warn(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -69,6 +78,8 @@ public class MedicalReportsController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
+    //-----------------------------------------------------------------------------------------------------//
 
     /*@GetMapping("/get-all-reports-by-patientId/{patientId}")
     public Set<MedicalReport> getAllReportsByPatientId(@PathVariable ("patientId") int patientId){

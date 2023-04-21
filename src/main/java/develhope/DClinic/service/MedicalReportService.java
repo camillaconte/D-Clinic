@@ -3,7 +3,8 @@ package develhope.DClinic.service;
 import develhope.DClinic.domain.Doctor;
 import develhope.DClinic.domain.MedicalReportDTO;
 import develhope.DClinic.exceptions.DoctorNotFoundException;
-import develhope.DClinic.exceptions.MedicalReportNameNotFoundException;
+import develhope.DClinic.exceptions.MedicalReportNameNotInsertedException;
+import develhope.DClinic.exceptions.MedicalReportsNotFoundException;
 import develhope.DClinic.exceptions.PatientNotFoundException;
 import develhope.DClinic.repository.DoctorRepository;
 import develhope.DClinic.repository.MedicalReportRepository;
@@ -13,8 +14,6 @@ import develhope.DClinic.domain.Patient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -35,7 +34,7 @@ public class MedicalReportService {
     Logger log = LoggerFactory.getLogger(MedicalReportService.class);
 
     public MedicalReport createNewReport(MedicalReportDTO medicalReportDTO) throws PatientNotFoundException,
-            MedicalReportNameNotFoundException, DoctorNotFoundException {
+            MedicalReportNameNotInsertedException, DoctorNotFoundException {
         log.info("Trying to crate new report by doctor with id " + medicalReportDTO.getDoctorId() +
                 "for patient with id " + medicalReportDTO.getPatientId());
         Optional<Patient> patient = patientRepository.findById(medicalReportDTO.getPatientId());
@@ -49,7 +48,7 @@ public class MedicalReportService {
                     "not found in database");
         }
         if (medicalReportDTO.getReportName().isEmpty()) {
-            throw new MedicalReportNameNotFoundException("Medical Report name not set yet");
+            throw new MedicalReportNameNotInsertedException("Medical Report name not set yet");
         }
         MedicalReport newReport = new MedicalReport(
                 medicalReportDTO.getReportName(),
@@ -68,7 +67,26 @@ public class MedicalReportService {
         return medicalReportRepository.save(newReport);
     }
 
-    public Set<MedicalReport> getAllReportsByDoctorId(long doctorId) throws Exception {
+    //-----------------------------------------------------------------------------------------------------//
+
+    public Set<MedicalReport> getAllPatientReportsByFiscalCode(String patientFiscalCode)
+            throws PatientNotFoundException, MedicalReportsNotFoundException {
+        Optional<Patient> patientToFind = patientRepository.findPatientByFiscalCode(patientFiscalCode);
+        if(patientToFind.isEmpty()){
+            throw new PatientNotFoundException("No patients found with fiscal code " + patientFiscalCode);
+        }
+        Optional<Set<MedicalReport>> patientReportsList =
+                medicalReportRepository.findAllByPatientFiscalCode(patientFiscalCode);
+        if(patientReportsList.isEmpty()){
+            throw new MedicalReportsNotFoundException
+                    ("No reports found for patient with fiscal code " + patientFiscalCode);
+        }
+        return patientToFind.get().getMedicalReportsList();
+    }
+
+    //-----------------------------------------------------------------------------------------------------//
+
+    public Set<MedicalReport> getAllDoctorReportsByDoctorId(long doctorId) throws Exception {
         Optional<Doctor> doctor = doctorRepository.findById(doctorId);
         if (doctor.isEmpty()) {
             throw new DoctorNotFoundException("Doctor with id " + doctorId + "not found in database");
@@ -79,6 +97,10 @@ public class MedicalReportService {
         }
         return doctorReportsList.get();
     }
+
+
+    //-----------------------------------------------------------------------------------------------------//
+
 
     /*
     //prendo tutti i MedicalRecord (grazie al medicalRecordsRepository)

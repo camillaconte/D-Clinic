@@ -11,11 +11,21 @@ import java.util.Set;
 @Repository
 public interface MedicalReportRepository extends D_ClinicRepository<MedicalReport> {
 
-    //Optional<MedicalReport> findByName(String reportName);
+    Optional<Set<MedicalReport>> findAllByDoctorId(long doctorId);
+    Optional<Set<MedicalReport>> findAllByDoctorFiscalCode(String doctorFiscalCode);
+
+    Optional<Set<MedicalReport>> findAllByPatientId(long patientId);
+    Optional<Set<MedicalReport>> findAllByPatientFiscalCode(String patientFiscalCode);
+
+
+    //Optional<Set<MedicalReport>> findByName(String reportName);
 
     @Query(value = "SELECT * FROM clinicdb.medical_reports WHERE id=(SELECT max(id) FROM dClinic.medical_reports);", nativeQuery = true)
     Optional<MedicalReport> findLast();
 
-    Optional <Set<MedicalReport>> findAllByDoctorId(long doctorId);
+
+
+
+
 
 }
