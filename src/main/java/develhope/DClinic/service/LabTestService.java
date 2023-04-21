@@ -107,7 +107,7 @@ public class LabTestService   {
         if(test.isEmpty()) throw new RuntimeException("The laboratory test is not exist");
         testResponseDTO.setPatient(test.get().getPatient());
         testResponseDTO.setDate(test.get().getDate());
-        Set<LabParameter> list = labParameterRepository.getByLabTestId(test.get().getTestId());
+        Set<LabParameter> list = labParameterRepository.getByLabTestTestId(test.get().getTestId());
         for(LabParameter x : list){
             testResponseDTO.getLabParameter().add(x);
         }
@@ -148,7 +148,7 @@ public class LabTestService   {
             responseDTO.setId(x.getTestId());
             responseDTO.setPatient(x.getPatient());
             responseDTO.setDate(x.getDate());
-            Set<LabParameter> list = labParameterRepository.getByLabTestId(x.getTestId());
+            Set<LabParameter> list = labParameterRepository.getByLabTestTestId(x.getTestId());
             for(LabParameter param : list){
                 responseDTO.getLabParameter().add(param);
             }

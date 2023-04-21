@@ -6,5 +6,5 @@ import java.util.Set;
 
 public interface LabParameterRepository extends D_ClinicRepository<LabParameter> {
 
-    Set<LabParameter> getByLabTestId(long id);
+    Set<LabParameter> getByLabTestTestId(long id);
 }
