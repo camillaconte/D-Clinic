@@ -81,76 +81,19 @@ public class MedicalReportController {
 
     //-----------------------------------------------------------------------------------------------------//
 
-    /*@GetMapping("/get-all-reports-by-patientId/{patientId}")
-    public Set<MedicalReport> getAllReportsByPatientId(@PathVariable ("patientId") int patientId){
-        return medicalReportService.getAllReportsByDoctorId
-    }*/
-
-
-    /**
-     * Una funzionalità che permette di risalire
-     * all'ultima history = anamnesi remota del paziente
-     * così il medico che fa una nuova visita
-     * può copiarla nel nuovo referto
-     * senza stare a riscrivere tutto!
-     */
-    /*@GetMapping("/get-last-history-by-patientId/{patientId}")
-    public String getLastHistory(){
-        return medicalReportService.getLastHistory();
-    }*/
-
-    /**
-     * TODO prevedere funzione che permetta di aggiornare
-     * un MedicalReport già esistente!
+     /**
+     * TODO prevedere delete --> CASCADE???
      */
 
-    /*in questo caso potrei inserire un medicalreport vuoto come RequestBody?
-    @PostMapping("/create-new-record-for-patient")
-    public ResponseEntity createNewRecord (@RequestParam String name, @RequestBody Patient patient) {
-        try {
-            medicalRecordsService.createNewRecord(name, patient);
-            return ResponseEntity.ok(patient);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }*/
-
-    /*@PostMapping("/add-patient-to-MedicalRecord")
-    public ResponseEntity addMedicalRecord(@RequestBody Patient patient, @RequestParam String ame) {
-        try {
-            Service.set(student, courseName);
-            return ResponseEntity.ok(student);
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-        }
-    }*/
+    /**
+     * TODO prevedere funzione che permetta di risalire all'ultima history (anamnesi remota) del paziente
+     * così il medico che fa una nuova visita può copiarla nel nuovo referto senza stare a riscrivere tutto!
+     */
 
     /**
-     * Questo metodo andrebbe nel PatientController
-     * @param patient
-     * @return
+     * TODO prevedere funzioni che permettano di aggiornare un MedicalReport già esistente
      */
-    /*@GetMapping("/get-all-patient-records")
-    public ResponseEntity getAllPatientsReports(@RequestBody Patient patient) {
-        try{
-            medicalReportService.getAllPatientReports(patient);
-            return ResponseEntity.ok(patient);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }
 
-    /* Metodo sugggerito da Carlo per un altro problema
-    Con ResponseEntity!
 
-    @PutMapping ("/set-history")
-    public ResponseEntity setHistory(@RequestParam String name, @RequestParam String history){
-        try{
-            medicalRecordsService.setHistory(name, history);
-            return ResponseEntity.ok(name);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }*/
 
 }
