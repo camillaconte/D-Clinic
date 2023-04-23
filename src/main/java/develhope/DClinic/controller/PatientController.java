@@ -1,8 +1,10 @@
 package develhope.DClinic.controller;
 
 import develhope.DClinic.domain.Patient;
+import develhope.DClinic.exceptions.PatientNotFoundException;
 import develhope.DClinic.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,15 +20,16 @@ public class PatientController {
         this.patientService = patientService;
     }
 
-    @GetMapping("/get-all-patients")
-    public List<Patient> getAllPatients (){
-        //return List.of(); --> lista vuota
-        return patientService.findAll();
-    }
 
     @PostMapping("/insert-patient")
     public void insertNewPatient(@RequestBody Patient patient){
         patientService.insertNewPatient(patient);
+    }
+
+    @GetMapping("/get-all-patients")
+    public List<Patient> getAllPatients (){
+        //return List.of(); --> lista vuota
+        return patientService.findAll();
     }
 
     @DeleteMapping("/delete-patient-by-id/{patientId}")

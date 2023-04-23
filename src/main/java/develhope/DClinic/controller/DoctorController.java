@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("d_clinic/doctor")
-class DoctorController {
+public class DoctorController {
 
     @Autowired
     DoctorService doctorService;
@@ -30,7 +30,7 @@ class DoctorController {
 
     private Logger LOGGER = LoggerFactory.getLogger(DoctorController.class);
 
-    @PostMapping
+    @PostMapping("/create-doctor")
     public ResponseEntity insetNewDoctor(@RequestBody DoctorRequestDTO dto){
         HashSet<String> error = checkEmptyField.checkEmptyFieldNewDoctor(dto);
         if(error.isEmpty()){
@@ -68,7 +68,7 @@ class DoctorController {
         }
     }
 
-    @GetMapping("/{fiscalCode}")
+    @GetMapping("/get-by-fiscalCode/{fiscalCode}")
     public ResponseEntity getDoctorByFiscalCode(@PathVariable String fiscalCode){
         try{
             DoctorResponseDTO output = doctorService.getByFiscalCodeSV(fiscalCode);
@@ -79,7 +79,7 @@ class DoctorController {
         }
     }
 
-    @GetMapping("/")
+    @GetMapping("/get-all-Doctors")
     public ResponseEntity getAllDoctors(){
         try{
             List<DoctorResponseDTO> responseDTOList = doctorService.getAllDoctorSV();
