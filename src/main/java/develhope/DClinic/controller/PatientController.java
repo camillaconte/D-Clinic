@@ -38,5 +38,9 @@ public class PatientController {
     public void updatePatient(@PathVariable Integer patientId,@RequestParam String newEmail, String newName){
         patientService.updatePatient(patientId, newEmail, newName);
     }
+    @PutMapping("/allpatient")
+    public void upPatient(@PathVariable Integer id ,@RequestBody Patient patient){
+  patientService.upPatient(id,patient);
+    }
 
 }

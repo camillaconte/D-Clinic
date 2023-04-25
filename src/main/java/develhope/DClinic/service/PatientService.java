@@ -48,4 +48,16 @@ public class PatientService {
             patientRepo.save(patient);
         } else throw new IllegalStateException("patient with this id not found");
     }
+    public  void upPatient(Integer id ,Patient patient){
+        if (patientRepo.existsById(id)){
+            patient.getEmail();
+            patient.getAddress();
+            patient.getAge();
+            patient.getFiscalCode();
+            patient.getLastName();
+            patient.getPhoneNumber();
+            patientRepo.save(patient);
+        } else throw new IllegalStateException("patient with this id not found");
+
+    }
 }
