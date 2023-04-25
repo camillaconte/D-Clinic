@@ -28,14 +28,16 @@ public class Appointment {
 
     @Column(name = "appointment_date")
     private LocalDate date;
+    @OneToOne
+    private Slot slot;
 
 
     @Column(name = "status")
     private String status;
 
-    @Column(name = "typology")
-    @ElementCollection
-    private List<String> typology;
+   // @Column(name = "typology")
+    //@ElementCollection
+    //private List<String> typology;
 
     public Appointment() {
     }
@@ -88,11 +90,18 @@ public class Appointment {
         this.status = status;
     }
 
-    public List<String> getTypology() {
-        return typology;
+    public Slot getSlot() {
+        return slot;
     }
 
-    public void setTypology(List<String> typology) {
-        this.typology = typology;
+    public void setSlot(Slot slot) {
+        this.slot = slot;
     }
+    //public List<String> getTypology() {
+   //     return typology;
+   // }
+
+//    public void setTypology(List<String> typology) {
+  //      this.typology = typology;
+    //}
 }

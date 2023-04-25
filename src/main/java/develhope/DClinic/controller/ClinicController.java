@@ -40,7 +40,7 @@ public class ClinicController {
         } catch (Exception e){
             e.getMessage();
             log.error(error.toString());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
