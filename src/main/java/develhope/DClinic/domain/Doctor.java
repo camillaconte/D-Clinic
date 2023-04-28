@@ -16,15 +16,23 @@ public class Doctor extends Employee {
 
     private String review;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
+    @OneToMany(
+            mappedBy = "doctor",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     @JsonIgnore
     private Set<MedicalReport> medicalReportsList;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
+    @OneToMany(
+            mappedBy = "doctor",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     @JsonIgnore
     private List<Slot> slots;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Clinic clinic;
 
     public Doctor() {
@@ -67,4 +75,5 @@ public class Doctor extends Employee {
     public void setClinic(Clinic clinic) {
         this.clinic = clinic;
     }
+
 }

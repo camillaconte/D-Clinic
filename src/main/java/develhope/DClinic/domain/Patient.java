@@ -39,26 +39,37 @@ public class Patient {
     /**
      * Qui settiamo la REFERENCING SIDE
      * della ASSOCIAZIONE BIDIREZIONALE tra l'entità Paziente e i suoi MedicalReports
-     * Valore che attribuisco a  "mappedBy": nome del campo lato "owinign" dove viene stabilita l'associazione.
-     * Nel nostro caso è "patient" (perché il MedicalReport ha un field patient patient)
+     * TODO verificare che sia CascadeType.ALL e non REMOVE
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
+    @OneToMany(
+            mappedBy = "patient",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     @JsonIgnore
     private Set<MedicalReport> medicalReportsList;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
+    @OneToMany(
+            mappedBy = "patient",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     @JsonIgnore
     private List<LabParameter> labParametersList;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(
+            mappedBy = "patient",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     @JsonIgnore
-    private Set<LabTest> labTest;
+    private Set<LabTest> labTests;
 
     public Patient() {}
 
     public Patient(String firstName, String lastName, String fiscalCode, String email, String phoneNumber,
                    String address, Integer age, Set<MedicalReport> medicalReportsList,
-                   List<LabParameter> labParametersList, Set<LabTest> labTest) {
+                   List<LabParameter> labParametersList, Set<LabTest> labTests) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.fiscalCode = fiscalCode;
@@ -68,7 +79,7 @@ public class Patient {
         this.age = age;
         this.medicalReportsList = medicalReportsList;
         this.labParametersList = labParametersList;
-        this.labTest = labTest;
+        this.labTests = labTests;
     }
 
     public long getId() {
@@ -151,11 +162,12 @@ public class Patient {
         this.labParametersList = labParametersList;
     }
 
-    public Set<LabTest> getLabTest() {
-        return labTest;
+    public Set<LabTest> getLabTests() {
+        return labTests;
     }
 
-    public void setLabTest(Set<LabTest> labTest) {
-        this.labTest = labTest;
+    public void setLabTests(Set<LabTest> labTests) {
+        this.labTests = labTests;
     }
+
 }
