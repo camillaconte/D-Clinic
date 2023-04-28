@@ -22,8 +22,10 @@ public class FileStorageService {
     private String folderNameProfilePictures;
 
     private String getFileRepositoryFolderForProfilePictures(){
-        return System.getProperty("user.home") + File.separator + "Desktop"+
+        String path = System.getProperty("user.home") + File.separator + "Desktop"+
                 File.separator + folderNameProfilePictures;
+        log.info(path);
+        return path;
     }
 
 
@@ -51,7 +53,7 @@ public class FileStorageService {
         log.info("Complete file name: " + completeFileName);
 
         //controllo che esista la folder
-        File finalFolder = new File(folderNameProfilePictures);
+        File finalFolder = new File(getFileRepositoryFolderForProfilePictures());
         if (!finalFolder.exists()) throw new IOException("Final folder does not exist");
         if (!finalFolder.isDirectory()) throw new IOException("Final folder is not a directory");
         //se i controlli sono andati bene, allora 1) creo la destinazione finale del file

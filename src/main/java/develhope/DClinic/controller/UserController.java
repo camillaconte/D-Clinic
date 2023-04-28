@@ -31,11 +31,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * TODO inserisci controllo: se[] dim 0 (vuoto) lancia eccezione
+     */
     @PostMapping("/{id}/upload-profile")
-    public ResponseEntity uploadProfilePicture(@PathVariable Integer id, @RequestParam MultipartFile profilePicture) {
+    public ResponseEntity uploadProfilePicture(@PathVariable Integer id, @RequestParam MultipartFile[] profilePicture) {
         try {
             log.info("Uploading profile picture for user " + id);
-            return ResponseEntity.status(HttpStatus.OK).body(userService.uploadProfilePicture(id, profilePicture));
+            return ResponseEntity.status(HttpStatus.OK).body(userService.uploadProfilePicture(id, profilePicture[0]));
         } catch (UserNotFoundException e) {
             log.warn(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
