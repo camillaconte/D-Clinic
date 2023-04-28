@@ -1,5 +1,6 @@
 package develhope.DClinic.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -13,14 +14,20 @@ public class LabTest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private long testId;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Patient patient;
     private LocalDate date;
 
     /**
      * TODO mettere al plurale anche labTests - cami
      */
-    @OneToMany(mappedBy = "labTest")
+    @OneToMany(
+            mappedBy = "labTest",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonIgnore
     private Set<LabParameter> labParameters;
 
 
