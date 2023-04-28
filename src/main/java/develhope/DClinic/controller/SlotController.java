@@ -1,11 +1,16 @@
 package develhope.DClinic.controller;
 
+import develhope.DClinic.domain.Clinic;
 import develhope.DClinic.domain.Slot;
 import develhope.DClinic.domain.SlotDTO;
+import develhope.DClinic.repository.ClinicRepository;
 import develhope.DClinic.repository.SlotRepository;
 import develhope.DClinic.service.SlotService;
 //import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +25,8 @@ public class SlotController {
     private SlotRepository slotRepository;
     @Autowired
     private SlotService slotService;
+
+    Logger log = LoggerFactory.getLogger(SlotController.class);
 
     @PostMapping("/create")
     public ResponseEntity createSlot(@RequestBody SlotDTO slotDTO) {
@@ -37,12 +44,25 @@ public class SlotController {
         return slotService.getAllSlots();
     }
 
-    @GetMapping("/get-all-slots-by-doctorId")
-    public ResponseEntity getAllSlotsByDoctorId(@PathVariable long doctorId) {
+
+
+    @GetMapping("/get-slot-by-clinicid")
+    public ResponseEntity getSlotsByClinicId(@RequestParam long clinicId)  {
         try {
-            Slot slot = slotService.getAllSlotsByDoctorId(doctorId);
-            return ResponseEntity.ok().body(slot);
+            return ResponseEntity.status(HttpStatus.CREATED).body(slotService.getAllSlotsByClinicId(clinicId));
+        }catch (Exception e){
+            log.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/get-all-slots-by-doctorId/{doctorId}")
+    public ResponseEntity getAllSlotsByDoctorId(@PathVariable("doctorId") long doctorId) {
+        try {
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(slotService.getAllSlotsByDoctorId(doctorId));
         } catch (Exception e) {
+            log.warn(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -54,6 +74,7 @@ public class SlotController {
             return ResponseEntity.ok().body(slot);
 
         } catch (Exception e) {
+
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

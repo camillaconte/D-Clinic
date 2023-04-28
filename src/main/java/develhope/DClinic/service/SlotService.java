@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -55,6 +56,15 @@ public class SlotService {
         List<Slot> newList = slotRepository.findAll();
         logger.info("List of all slots");
         return newList;
+
+    }
+    public List<Slot>getAllSlotsByClinicId( long clinicId)throws Exception{
+        List<Slot>slot= clinicRepository.findById(clinicId).get().getSlots();
+        if (slot.isEmpty()){
+            throw new Exception("slot not found");
+        }
+        logger.info("Slot found");
+        return slot;
 
     }
 

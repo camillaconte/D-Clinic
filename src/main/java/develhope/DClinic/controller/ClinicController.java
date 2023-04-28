@@ -1,6 +1,8 @@
 package develhope.DClinic.controller;
 
+import develhope.DClinic.domain.Clinic;
 import develhope.DClinic.domain.ClinicDTO;
+import develhope.DClinic.exceptions.DoctorNotFoundException;
 import develhope.DClinic.service.CheckEmptyField;
 import develhope.DClinic.service.ClinicService;
 import org.slf4j.Logger;
@@ -8,12 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/dclinic/clinic")
@@ -43,5 +43,24 @@ public class ClinicController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+    @GetMapping("/{clinicId}")
+    public ResponseEntity getClinicById(@PathVariable("clinicId") long clinicId)  {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body( clinicService.getClinic(clinicId));
+        }  catch (Exception e){
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+    }
+    @GetMapping
+    public ResponseEntity getClinicByCity(@RequestParam String city)  {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body( clinicService.getClinicByCity(city));
+        }  catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
 
 }

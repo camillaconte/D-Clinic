@@ -6,6 +6,8 @@ import develhope.DClinic.repository.ClinicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ClinicService {
 
@@ -20,6 +22,24 @@ public class ClinicService {
         clinicRepository.save(clinic);
         return clinic;
     }
+
+    public Optional<Clinic> getClinic(long clinicId)throws Exception{
+
+        Optional<Clinic> clinic = clinicRepository.findById(clinicId);
+         if (clinic.isEmpty()){
+             throw new Exception("Clinic whit id: " + clinicId + "not found in database");
+         }
+         return clinic;
+    }
+    public Optional<Clinic> getClinicByCity(String city)throws Exception{
+
+        Optional<Clinic> clinic = clinicRepository.findBycity(city);
+        if (clinic.isEmpty()){
+            throw new Exception("Clinics in: " + city + "not found in database");
+        }
+        return clinic;
+    }
+
 
 
 
