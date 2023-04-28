@@ -18,33 +18,37 @@ import java.util.Optional;
 @Service
 public class SlotService {
     @Autowired
-    private SlotRepository slotRepository;
+     SlotRepository slotRepository;
     @Autowired
-    private DoctorRepository doctorRepository;
+     DoctorRepository doctorRepository;
     @Autowired
-    private ClinicRepository clinicRepository;
+     ClinicRepository clinicRepository;
 
     Logger logger = LoggerFactory.getLogger(SlotService.class);
 
-    public void createSlot(SlotDTO slotDTO) throws Exception {
+
+
+    public Slot createSlot(SlotDTO slotDTO) throws Exception {
 
         Optional<Clinic> optionalClinic=clinicRepository.findById(slotDTO.getClinicId());
+        Optional<Doctor> optionalDoctor = doctorRepository.findById(slotDTO.getDoctorId());
         if (optionalClinic.isEmpty()){
             throw new Exception("The clinic with id:" + slotDTO.getClinicId() + "does not exist");
         }
-        Optional<Doctor> optionalDoctor = doctorRepository.findById(slotDTO.getDoctorId());
         if (optionalDoctor.isEmpty()){
             throw new Exception("The doctor with id:" + slotDTO.getDoctorId() + "does not exist");
         }
         Clinic clinic= optionalClinic.get();
         Doctor doctor=optionalDoctor.get();
-        Slot newSlot = new Slot(slotDTO.getDateAndTime(), doctor, clinic);
+        Slot newSlot = new Slot(slotDTO.getDateAndTime(), doctor,
+                clinic);
         slotRepository.save(newSlot);
         clinic.getSlots().add(newSlot);
         clinicRepository.save(clinic);
         doctor.getSlots().add(newSlot);
         doctorRepository.save(doctor);
-        logger.info("Slot" + slotDTO.getDateAndTime() + "created with id:" + newSlot.getId());
+        logger.info("Slot" +newSlot.getDateAndTime()  + "created with id:" + newSlot.getId());
+        return slotRepository.save(newSlot);
     }
 
     public List<Slot> getAllSlots() {
@@ -72,7 +76,6 @@ public class SlotService {
         slot.setDoctor(slot.getDoctor());
         slot.setClinic(slot.getClinic());
         slot.setDateAndTime(slot.getDateAndTime());
-        slot.setPatient(slot.getPatient());
         slot.setOccupied(slot.getOccupied());
 
         Slot newSlot = slotRepository.saveAndFlush(slot);

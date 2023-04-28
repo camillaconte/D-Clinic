@@ -1,19 +1,24 @@
 package develhope.DClinic.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 
 public class SlotDTO {
-    private LocalDateTime dateAndTime;
-    private long clinicId;
-    private long doctorId;
+
+     long clinicId;
+     long doctorId;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+     LocalDateTime dateAndTime;
 
     public SlotDTO() {
     }
 
-    public SlotDTO(LocalDateTime dateAndTime, long clinicId, long doctorId) {
-        this.dateAndTime = dateAndTime;
+    public SlotDTO( long clinicId, long doctorId, LocalDateTime dateAndTime) {
+
         this.clinicId = clinicId;
         this.doctorId = doctorId;
+        this.dateAndTime = dateAndTime;
     }
 
     public LocalDateTime getDateAndTime() {
@@ -21,7 +26,7 @@ public class SlotDTO {
     }
 
     public void setDateAndTime(LocalDateTime dateAndTime) {
-        this.dateAndTime = dateAndTime;
+       this.dateAndTime = dateAndTime;
     }
 
     public long getClinicId() {

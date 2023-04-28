@@ -4,7 +4,7 @@ import develhope.DClinic.domain.Slot;
 import develhope.DClinic.domain.SlotDTO;
 import develhope.DClinic.repository.SlotRepository;
 import develhope.DClinic.service.SlotService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+//import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
