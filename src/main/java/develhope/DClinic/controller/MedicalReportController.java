@@ -80,20 +80,46 @@ public class MedicalReportController {
     }
 
     //-----------------------------------------------------------------------------------------------------//
+     @PutMapping ("/update-history-by-reportId/{medicalReportId}")
+     public ResponseEntity updateHistory(@PathVariable long medicalReportId, @RequestParam String updatedHistory){
+         try {
+             return ResponseEntity.ok(medicalReportService.updateHistory(medicalReportId, updatedHistory));
+         } catch (MedicalReportsNotFoundException e) {
+             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+         }
+     }
 
-     /**
-     * TODO prevedere delete --> CASCADE???
-     */
+    //-----------------------------------------------------------------------------------------------------//
 
     /**
-     * TODO prevedere funzione che permetta di risalire all'ultima history (anamnesi remota) del paziente
+     * Funzione che permetta di risalire all'ultima history (anamnesi remota) del paziente
      * così il medico che fa una nuova visita può copiarla nel nuovo referto senza stare a riscrivere tutto!
+     *
+     * Fa uso di una CUSTOM QUERY nel MedicalReportRepository: TODO sistemare la Custom Query
      */
 
+    /*
+    @GetMapping("/find-last-patient-history/{{patientId}")
+    public ResponseEntity getLastPatientHistory(@PathVariable long patientId){
+        try {
+            return ResponseEntity.ok(medicalReportService.getLastPatientHistory(patientId));
+        } catch (MedicalReportsNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (PatientNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }*/
+
+    //-----------------------------------------------------------------------------------------------------//
     /**
      * TODO prevedere funzioni che permettano di aggiornare un MedicalReport già esistente
      */
 
+    //-----------------------------------------------------------------------------------------------------//
+    /**
+     * TODO prevedere delete --> CASCADE???
+    */
 
+    //-----------------------------------------------------------------------------------------------------//
 
 }
