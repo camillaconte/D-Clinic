@@ -1142,3 +1142,6 @@ Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve roo
 2023-04-30T16:39:08.883+02:00  INFO 3037 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
 2023-04-30T16:39:08.895+02:00  INFO 3037 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
 2023-04-30T16:39:08.901+02:00  INFO 3037 --- [restartedMain] develhope.DClinic.DClinicApplication     : Started DClinicApplication in 2.502 seconds (process running for 2.761)
+2023-04-30T16:40:21.765+02:00  INFO 3037 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-04-30T16:40:21.768+02:00  INFO 3037 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-04-30T16:40:21.771+02:00  INFO 3037 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
