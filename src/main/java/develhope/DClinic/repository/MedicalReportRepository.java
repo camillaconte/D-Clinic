@@ -17,11 +17,16 @@ public interface MedicalReportRepository extends D_ClinicRepository<MedicalRepor
     Optional<Set<MedicalReport>> findAllByPatientId(long patientId);
     Optional<Set<MedicalReport>> findAllByPatientFiscalCode(String patientFiscalCode);
 
+    /*@Query("SELECT max(history) FROM clinicdb.medical_reports WHERE patient_id=?1")
+    String findLastHistoryByPatientId(long patientId);*/
 
-    //Optional<Set<MedicalReport>> findByName(String reportName);
+    //SELECT * FROM clinicdb.medical_reports
+    //WHERE patient_id  = 1
+    //ORDER BY creation_date ASC
+    //LIMIT 1;
 
-    @Query(value = "SELECT * FROM clinicdb.medical_reports WHERE id=(SELECT max(id) FROM dClinic.medical_reports);", nativeQuery = true)
-    Optional<MedicalReport> findLast();
+
+
 
 
 
