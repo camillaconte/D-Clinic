@@ -23,6 +23,7 @@ public class PatientController {
     CheckEmptyField checkEmptyField;
 
     private Logger LOGGER = LoggerFactory.getLogger(PatientController.class);
+
     @PostMapping("/insert-patient")
     public ResponseEntity insertPatient(@RequestBody PatientDTO dto) {
         HashSet<String> error = checkEmptyField.checkEmptyFieldPatient(dto);
@@ -40,40 +41,42 @@ public class PatientController {
 
     @GetMapping("/get-all-patients")
     public ResponseEntity getAllPatient() {
-                try {
-                    List<Patient> responseList = patientService.findAll();
-                    return ResponseEntity.ok(responseList);
-                } catch (Exception e) {
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-                }
-            }
+        try {
+            List<Patient> responseList = patientService.findAll();
+            return ResponseEntity.ok(responseList);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
     @GetMapping("/{patientId}")
-    public ResponseEntity getDoctorById(@PathVariable long patientId){
-        try{
-           PatientDTO output = patientService.getById(patientId);
+    public ResponseEntity getPatientById(@PathVariable long patientId) {
+        try {
+            PatientDTO output = patientService.getById(patientId);
             return ResponseEntity.ok(output);
-        }catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error("The patient does not exist");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-                @DeleteMapping("/delete-patient-by-id/{patientId}")
-                public ResponseEntity deleteById (@PathVariable Integer patientId) {
-                    try {
-                        patientService.deletePatientById(patientId);
-                        return ResponseEntity.status(HttpStatus.OK).build();
-                    } catch (Exception e) {
-                        LOGGER.error("The patient does not exist");
-                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-                    }
-                }
+    @DeleteMapping("/delete-patient-by-id/{patientId}")
+    public ResponseEntity deleteById(@PathVariable Integer patientId) {
+        try {
+            patientService.deletePatientById(patientId);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e) {
+            LOGGER.error("The patient does not exist");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
     @PutMapping("/{patientId}")
-    public ResponseEntity update(@PathVariable long patientId, @RequestBody PatientDTO dto){
-        try{
+    public ResponseEntity update(@PathVariable long patientId, @RequestBody PatientDTO dto) {
+        try {
             Patient update = patientService.updatePatient(patientId, dto);
             return ResponseEntity.ok(update);
-        }catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error("The patient to be modified does not exist");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
