@@ -111,7 +111,7 @@ public class MedicalReportService {
 
     //-----------------------------------------------------------------------------------------------------//
 
-    /*public String getLastPatientHistory(long patientId) throws MedicalReportsNotFoundException, PatientNotFoundException {
+    public String getLastPatientHistory(long patientId) throws MedicalReportsNotFoundException, PatientNotFoundException {
         Optional<Patient> patient = patientRepository.findById(patientId);
         if (patient.isEmpty()) {
             throw new PatientNotFoundException("No patients with id " + patientId + " found");
@@ -121,7 +121,7 @@ public class MedicalReportService {
             throw new MedicalReportsNotFoundException("No reports for patient with id " + patientId);
         }
         return medicalReportRepository.findLastHistoryByPatientId(patientId);
-    }*/
+    }
 
     /*
     //prendo tutti i MedicalRecord (grazie al medicalRecordsRepository)

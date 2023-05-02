@@ -34,7 +34,7 @@ public class UserController {
     /**
      * TODO inserisci controllo: se[] dim 0 (vuoto) lancia eccezione
      */
-    @PostMapping("/{id}/upload-profile")
+    @PostMapping("/upload-profile/{userId}")
     public ResponseEntity uploadProfilePicture(@PathVariable Integer userId, @RequestParam MultipartFile[] profilePicture) {
         if(profilePicture.length == 0){
             return ResponseEntity.noContent().build();
@@ -62,7 +62,7 @@ public class UserController {
      * I have to set png type to ResponseEntity
      * TODO find a way to set multiple MediaType (GIF, PNG...PDF!)
      */
-    @RequestMapping(value = "/{id}/profile-picture-download/{userId}", method = RequestMethod.GET,
+    @RequestMapping(value = "/profile-picture-download/{userId}", method = RequestMethod.GET,
             produces = MediaType.IMAGE_PNG_VALUE)
     public @ResponseBody byte[] downloadProfileImage(@PathVariable long userId, HttpServletResponse response) throws Exception {
         DownLoadProfilePictureDTO downLoadProfileDTO = userService.downLoadProfilePicture(userId);

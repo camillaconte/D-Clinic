@@ -64,7 +64,6 @@ public class MedicalReportController {
     }
 
     //-----------------------------------------------------------------------------------------------------//
-
     @GetMapping("/get-all-reports-doctor/{doctorId}")
     public ResponseEntity getAllDoctorReportsByDoctorId(@PathVariable ("doctorId") long doctorId) {
         try {
@@ -98,8 +97,7 @@ public class MedicalReportController {
      * Fa uso di una CUSTOM QUERY nel MedicalReportRepository: TODO sistemare la Custom Query
      */
 
-    /*
-    @GetMapping("/find-last-patient-history/{{patientId}")
+    @GetMapping("/find-last-patient-history/{patientId}")
     public ResponseEntity getLastPatientHistory(@PathVariable long patientId){
         try {
             return ResponseEntity.ok(medicalReportService.getLastPatientHistory(patientId));
@@ -108,7 +106,7 @@ public class MedicalReportController {
         } catch (PatientNotFoundException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-    }*/
+    }
 
     //-----------------------------------------------------------------------------------------------------//
     /**
