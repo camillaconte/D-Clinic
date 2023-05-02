@@ -21,7 +21,7 @@ public class PatientDTO {
                 ", address='" + address + '\'' +
                 '}';
     }
-
+public PatientDTO(){}
     public PatientDTO(String name, String surname, String fiscalCode, Integer age, String email, String phoneNumber, String address) {
         this.name = name;
         this.surname = surname;

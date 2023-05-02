@@ -2,10 +2,7 @@ package develhope.DClinic.service;
 
 
 
-import develhope.DClinic.domain.AppointmentDTo;
-import develhope.DClinic.domain.ClinicDTO;
-import develhope.DClinic.domain.DoctorRequestDTO;
-import develhope.DClinic.domain.LabTestRequestDTO;
+import develhope.DClinic.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -72,6 +69,17 @@ public class CheckEmptyField {
         if (dto.getTelephoneNumber() == null) MESSAGE_ERROR.add("TELEPHONE NUMBER IS NOT INSERT");
         if (dto.getPassword() == null) MESSAGE_ERROR.add("PASSWORD IS NOT INSERT");
         if (dto.getSpecialization() == null) MESSAGE_ERROR.add("SPECIALIZATION NOT INSERT");
+        return MESSAGE_ERROR;
+    }
+    public HashSet<String> checkEmptyFieldPatient(PatientDTO dto) {
+        HashSet<String> MESSAGE_ERROR = new HashSet<>();
+        if(dto.getName() == null) MESSAGE_ERROR.add("NAME IS NOT INSERT");
+        if (dto.getSurname() == null) MESSAGE_ERROR.add("SURNAME IS NOT INSERT");
+        if (dto.getFiscalCode() == null) MESSAGE_ERROR.add("FISCAL CODE IS NOT INSERT");
+        if (dto.getEmail() == null) MESSAGE_ERROR.add("EMAIL IS NOT INSERT");
+        if (dto.getPhoneNumber() == null) MESSAGE_ERROR.add("TELEPHONE NUMBER IS NOT INSERT");
+        if (dto.getAddress() == null) MESSAGE_ERROR.add("ADDRESS IS NOT INSERT");
+        if (dto.getAge() == null) MESSAGE_ERROR.add("AGE NOT INSERT");
         return MESSAGE_ERROR;
     }
    

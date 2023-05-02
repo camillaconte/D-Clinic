@@ -1,42 +1,88 @@
 package develhope.DClinic.controller;
 
-import develhope.DClinic.domain.Patient;
+import develhope.DClinic.domain.*;
+import develhope.DClinic.service.CheckEmptyField;
 import develhope.DClinic.service.PatientService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
 @RequestMapping("/patient")
 public class PatientController {
 
-    PatientService patientService;
-
     @Autowired
-    public PatientController (PatientService patientService){
-        this.patientService = patientService;
+    PatientService patientService;
+    @Autowired
+    CheckEmptyField checkEmptyField;
+
+    private Logger LOGGER = LoggerFactory.getLogger(PatientController.class);
+
+    @PostMapping("/insert-patient")
+    public ResponseEntity insertPatient(@RequestBody PatientDTO dto) {
+        HashSet<String> error = checkEmptyField.checkEmptyFieldPatient(dto);
+        if (error.isEmpty()) {
+            try {
+                Patient patient = patientService.insertPatient(dto);
+                return ResponseEntity.ok(patient);
+            } catch (Exception ex) {
+                LOGGER.error(ex.getMessage());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
     @GetMapping("/get-all-patients")
-    public List<Patient> getAllPatients (){
-        //return List.of(); --> lista vuota
-        return patientService.findAll();
+    public ResponseEntity getAllPatient() {
+        try {
+            List<Patient> responseList = patientService.findAll();
+            return ResponseEntity.ok(responseList);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
-    @PostMapping("/insert-patient")
-    public void insertNewPatient(@RequestBody Patient patient){
-        patientService.insertNewPatient(patient);
+    @GetMapping("/{patientId}")
+    public ResponseEntity getPatientById(@PathVariable long patientId) {
+        try {
+            PatientDTO output = patientService.getById(patientId);
+            return ResponseEntity.ok(output);
+        } catch (Exception e) {
+            LOGGER.error("The patient does not exist");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/delete-patient-by-id/{patientId}")
-    public void deletePatientById(@PathVariable ("patientId") Integer patientId){
-        patientService.deletePatientById(patientId);
+    public ResponseEntity deleteById(@PathVariable Integer patientId) {
+        try {
+            patientService.deletePatientById(patientId);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e) {
+            LOGGER.error("The patient does not exist");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
-    @PutMapping("/update-patient/{patientId}")
-    public void updatePatient(@PathVariable Integer patientId,@RequestParam String newEmail, String newName){
-        patientService.updatePatient(patientId, newEmail, newName);
+    @PutMapping("/{patientId}")
+    public ResponseEntity update(@PathVariable long patientId, @RequestBody PatientDTO dto) {
+        try {
+            Patient update = patientService.updatePatient(patientId, dto);
+            return ResponseEntity.ok(update);
+        } catch (Exception e) {
+            LOGGER.error("The patient to be modified does not exist");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
-
 }
+
+
+
+
