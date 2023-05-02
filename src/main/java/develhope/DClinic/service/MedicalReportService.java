@@ -35,7 +35,7 @@ public class MedicalReportService {
 
     public MedicalReport createNewReport(MedicalReportDTO medicalReportDTO) throws PatientNotFoundException,
             MedicalReportNameNotInsertedException, DoctorNotFoundException {
-        log.info("Trying to crate new report by doctor with id " + medicalReportDTO.getDoctorId() +
+        log.info("Trying to create new report by doctor with id " + medicalReportDTO.getDoctorId() +
                 "for patient with id " + medicalReportDTO.getPatientId());
         Optional<Patient> patient = patientRepository.findById(medicalReportDTO.getPatientId());
         Optional<Doctor> doctor = doctorRepository.findById(medicalReportDTO.getDoctorId());
@@ -98,9 +98,30 @@ public class MedicalReportService {
         return doctorReportsList.get();
     }
 
+    //-----------------------------------------------------------------------------------------------------//
+
+    public MedicalReport updateHistory (long medicalReportId, String newHistory) throws MedicalReportsNotFoundException {
+        Optional<MedicalReport> medicalReport = medicalReportRepository.findById(medicalReportId);
+        if(medicalReport.isEmpty()) {
+            throw new MedicalReportsNotFoundException("Medical Report with id " + medicalReportId + "not found");
+        }
+        medicalReport.get().setHistory(newHistory);
+        return medicalReportRepository.save(medicalReport.get());
+    }
 
     //-----------------------------------------------------------------------------------------------------//
 
+    /*public String getLastPatientHistory(long patientId) throws MedicalReportsNotFoundException, PatientNotFoundException {
+        Optional<Patient> patient = patientRepository.findById(patientId);
+        if (patient.isEmpty()) {
+            throw new PatientNotFoundException("No patients with id " + patientId + " found");
+        }
+        Optional<Set<MedicalReport>> medicalReports = medicalReportRepository.findAllByPatientId(patientId);
+        if (medicalReports.isEmpty()) {
+            throw new MedicalReportsNotFoundException("No reports for patient with id " + patientId);
+        }
+        return medicalReportRepository.findLastHistoryByPatientId(patientId);
+    }*/
 
     /*
     //prendo tutti i MedicalRecord (grazie al medicalRecordsRepository)
@@ -147,48 +168,7 @@ public class MedicalReportService {
         } else {
             throw new IllegalStateException("there are no records with this name");
         }
-    }
-
-
-
-    //domanda: il nuovo record viene salvato nella tabella medicalRecords
-    //e gli viene assegnato il paziente che ho dato in ingresso
-    //a quel punto automaticamente quel record sarò anche nella lista di record del paziente?
-    public MedicalReport createNewRecordForPatient (String name, Patient patient){
-        MedicalReport medicalReport = new MedicalReport(name, patient);
-        medicalReport.setCreationDate(LocalDateTime.now());
-        medicalReport.setReportName(name);
-        medicalReport.setPatient(patient);
-        return medicalReportRepository.save(medicalReport);
-    }
-
-    //Come faccio a dire in quale record voglio aggiungere history?
-    //Mi faccio dare la lista dei records dal DB tramite la classe repo
-    //La restituisco al front end (il medico vede tutti i record? possibilmente in ordine di tempo?)
-    //Il medico clicca sul nome del record da aggiornare: getRecordbyName?
-    //...
-    public void setHistory(String name, String history) throws Exception {
-        List<MedicalReport> records = medicalReportRepository.findAll();
-        for (MedicalReport record : records){
-            if (record.getReportName() == name){
-                record.setHistory(history);
-            } else {
-                throw new Exception("No records with this name!");
-            }
-        }
-    }
-
-    //cliccando sul nome del record nella lista
-    //voglio che mi restituisca il record
-    //getRecordByName
-    /*public MedicalReport getRecordByName(String reportName) throws Exception {
-        Optional<MedicalReport> optionalMedicalRecord = medicalReportRepository.findByName(reportName);
-        if(optionalMedicalRecord.isPresent()){
-           MedicalReport record = optionalMedicalRecord.get();
-           return record;
-        } else {
-            throw new Exception("No records with this name!");
-        }
     }*/
+
 
 }

@@ -38,10 +38,10 @@ public class MedicalReport {
      */
 
     //tolto FetchType.LAZY perché dava errore nella creazione del bean
-    @ManyToOne //(fetch = FetchType.LAZY)
+    @ManyToOne (fetch = FetchType.LAZY)
     private Patient patient;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY)
     private Doctor doctor;
 
     /**

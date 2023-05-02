@@ -35,13 +35,13 @@ public class LabParameter {
      */
     private String parameterName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private LabTest labTest;
 
     /**
      * private Patient patient: inserirlo comunque oppure ricavarlo dal LabTest?
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Patient patient;
 
     /**
@@ -185,4 +185,6 @@ public class LabParameter {
     public void setNotInRange(boolean notInRange) {
         isNotInRange = notInRange;
     }
+
+
 }

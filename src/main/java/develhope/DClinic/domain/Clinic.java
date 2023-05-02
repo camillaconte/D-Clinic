@@ -32,13 +32,30 @@ public class Clinic {
     @Enumerated(EnumType.STRING)
     private Room room;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "clinic")
+    @OneToMany(
+            mappedBy = "clinic",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     @JsonIgnore
     private List<Slot> slots;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "clinic")
+    @OneToMany(
+            mappedBy = "clinic",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     @JsonIgnore
     private List<Doctor> doctors;
+
+
+    @OneToMany(
+            mappedBy = "clinic",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonIgnore
+    private List<Appointment> appointmentList;
 
     public Clinic(){}
 
@@ -107,4 +124,12 @@ public class Clinic {
     public List<Doctor> getDoctors() { return doctors; }
 
     public void setDoctors(List<Doctor> doctors) { this.doctors = doctors; }
+
+    public List<Appointment> getAppointmentList() {
+        return appointmentList;
+    }
+
+    public void setAppointmentList(List<Appointment> appointmentList) {
+        this.appointmentList = appointmentList;
+    }
 }

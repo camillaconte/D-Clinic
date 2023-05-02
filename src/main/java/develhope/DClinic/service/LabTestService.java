@@ -53,7 +53,7 @@ public class LabTestService   {
             patientRepository.save(patient);
         }
         labTestRepository.save(test);
-        patient.getLabTest().add(test);
+        patient.getLabTests().add(test);
         patientRepository.save(patient);
         return test;
     }
@@ -91,7 +91,7 @@ public class LabTestService   {
             patientToFind.get().getLabParametersList().add(newLabParameter);
             patientRepository.save(patientToFind.get());
         }
-        patientToFind.get().getLabTest().add(newLabTest);
+        patientToFind.get().getLabTests().add(newLabTest);
         patientRepository.save(patientToFind.get());
         return newLabTest;
     }

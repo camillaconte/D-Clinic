@@ -1,5 +1,6 @@
 package develhope.DClinic.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -14,23 +15,26 @@ public class Appointment {
     @Column(name = "appointment_id")
     private long id;
 
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "clinic_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "clinic_id") <--- capire se va messo
     private Clinic clinic;
 
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    //@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY) <--- Carlo consiglia CascadeType.ALL
+    //@JoinColumn(name = "patient_id") <--- capire se va messo
     private Patient patient;
 
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "doctor_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "doctor_id") <--- capire se va messo
     private Doctor doctor;
+
+    @OneToOne
+    private Slot slot;
 
     @Column(name = "appointment_date")
     private LocalDate date;
     @OneToOne
     private Slot slot;
-
 
     @Column(name = "status")
     private String status;
@@ -97,11 +101,4 @@ public class Appointment {
     public void setSlot(Slot slot) {
         this.slot = slot;
     }
-    //public List<String> getTypology() {
-   //     return typology;
-   // }
-
-//    public void setTypology(List<String> typology) {
-  //      this.typology = typology;
-    //}
 }
