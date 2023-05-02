@@ -1,5 +1,6 @@
 package develhope.DClinic.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -8,13 +9,15 @@ import java.time.LocalDateTime;
 public class Slot {
     @Id
     @SequenceGenerator(
-            name = "slot_is_sequence",
-            sequenceName = "slot_id_sequence"
+            name = "slot_id_sequence",
+            sequenceName = "slot_id_sequence",
+            allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "slot_id_sequence")
     private long id;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dateAndTime;
     @ManyToOne(fetch = FetchType.LAZY)
     private Doctor doctor;
@@ -30,6 +33,9 @@ public class Slot {
     private Boolean occupied;
 
     public Slot() {
+    }
+
+    public Slot(Clinic clinic, Doctor doctor) {
     }
 
     public Slot(LocalDateTime dateAndTime, Doctor doctor, Clinic clinic) {

@@ -1,8 +1,12 @@
 package develhope.DClinic.service;
 
+import develhope.DClinic.domain.Appointment;
+import develhope.DClinic.domain.BookingDTO;
+import develhope.DClinic.domain.Slot;
 import develhope.DClinic.mapper.AppointmentMapper;
 import develhope.DClinic.repository.AppointmentRepository;
 import develhope.DClinic.repository.DoctorRepository;
+import develhope.DClinic.repository.SlotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +15,36 @@ public class AppointmentService {
     @Autowired
     private AppointmentRepository appointmentRepository;
     @Autowired
-    private DoctorRepository doctorRepository;
-    @Autowired
-    private AppointmentMapper appointmentMapper;
-    @Autowired
-    private CheckEmptyField checkEmptyField;
+    private SlotRepository slotRepository;
 
-   /* @Autowired
+
+    public Appointment bookAppointment(BookingDTO bookingDTO){
+        Appointment appointment =new Appointment();
+        Slot slot=slotRepository.findById(bookingDTO.getSlotId());
+        appointment.setSlot(slotRepository.findById(bookingDTO.getSlotId()));
+        appointment.setClinic(slot.getClinic());
+        appointment.setDoctor(slot.getDoctor());
+        appointment.setPatient(slot.getPatient());
+        slot.setOccupied(true);
+        slot.getMedicalService();
+        slotRepository.save(slot);
+        return appointmentRepository.save(appointment);
+    }
+
+
+
+   /* @Autowired public Appointment bookAppointment(BookingDTO bookingDTO){
+        Appointment appointment =new Appointment();
+        Slot slot=slotRepository.findById(bookingDTO.getSlotId());
+        appointment.setSlot(slotRepository.findById(bookingDTO.getSlotId()));
+        appointment.setClinic(slot.getClinic());
+        appointment.setDoctor(slot.getDoctor());
+        appointment.setPatient(slot.getPatient());
+        slot.setOccupied(true);
+        slot.getMedicalService();
+        slotRepository.save(slot);
+        return appointmentRepository.save(appointment);
+    }
     public AppointmentService (AppointmentRepository appointmentRepository,DoctorRepository doctorRepository){
         this.appointmentRepository=appointmentRepository;
         this.doctorRepository=doctorRepository;
