@@ -79,10 +79,10 @@ public class SlotController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable long slotId) {
+    @DeleteMapping("/{Id}")
+    public ResponseEntity delete(@PathVariable ("Id") long Id) {
         try {
-            slotService.deleteSlotById(slotId);
+            slotService.deleteSlotById(Id);
             return ResponseEntity.ok("ok");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
