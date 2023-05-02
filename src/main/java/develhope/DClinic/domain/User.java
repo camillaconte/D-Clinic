@@ -40,7 +40,7 @@ public class User {
      * a profile picture,
      * especially Doctors, since people like to see the face of the person who will visit them!
      */
-    private String profilePicture;
+    private String profilePictureFileName;
 
     /**
      * The User Patient should have the opportunity
@@ -58,11 +58,11 @@ public class User {
         this.email = email;
     }
 
-    public User(String firstName, String lastName, String email, String profilePicture, List<String> documents) {
+    public User(String firstName, String lastName, String email, String profilePictureFileName, List<String> documents) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.profilePicture = profilePicture;
+        this.profilePictureFileName = profilePictureFileName;
         this.documents = documents;
     }
 
@@ -98,12 +98,12 @@ public class User {
         this.email = email;
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
+    public String getProfilePictureFileName() {
+        return profilePictureFileName;
     }
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setProfilePictureFileName(String profilePictureFileName) {
+        this.profilePictureFileName = profilePictureFileName;
     }
 
     public List<String> getDocuments() {

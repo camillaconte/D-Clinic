@@ -11,5 +11,4 @@ public class DClinicApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DClinicApplication.class, args);
 	}
-
 }

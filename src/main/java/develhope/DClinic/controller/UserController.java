@@ -35,10 +35,18 @@ public class UserController {
      * TODO inserisci controllo: se[] dim 0 (vuoto) lancia eccezione
      */
     @PostMapping("/{id}/upload-profile")
-    public ResponseEntity uploadProfilePicture(@PathVariable Integer id, @RequestParam MultipartFile[] profilePicture) {
+    public ResponseEntity uploadProfilePicture(@PathVariable Integer userId, @RequestParam MultipartFile[] profilePicture) {
+        if(profilePicture.length == 0){
+            return ResponseEntity.noContent().build();
+        }
+        else if (profilePicture.length > 1) {
+            return ResponseEntity.badRequest().body("Too much profile pitcures, please upload only one!");
+        }
         try {
-            log.info("Uploading profile picture for user " + id);
-            return ResponseEntity.status(HttpStatus.OK).body(userService.uploadProfilePicture(id, profilePicture[0]));
+            log.info("Uploading profile picture for user " + userId);
+            //upload the single profile picture into the hard disk
+            //and write its partial path into correspondent user entity
+            return ResponseEntity.status(HttpStatus.OK).body(userService.uploadProfilePicture(userId, profilePicture[0]));
         } catch (UserNotFoundException e) {
             log.warn(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -48,19 +56,20 @@ public class UserController {
         }
     }
 
-    /* METODO VECCHIO, di Lorenzo
-    @PostMapping("/{userId}/profile-pic-upload")
-    public User uploadProfileImage(@PathVariable long userId, @RequestParam MultipartFile profilePicture) throws Exception {
-        return userService.uploadProfilePicture(userId, profilePicture);
-    }*/
 
-    @GetMapping("{userId}/profile-pic-download")
+    /**
+     * To set the correct content type nell'header
+     * I have to set png type to ResponseEntity
+     * TODO find a way to set multiple MediaType (GIF, PNG...PDF!)
+     */
+    @RequestMapping(value = "/{id}/profile-picture-download/{userId}", method = RequestMethod.GET,
+            produces = MediaType.IMAGE_PNG_VALUE)
     public @ResponseBody byte[] downloadProfileImage(@PathVariable long userId, HttpServletResponse response) throws Exception {
         DownLoadProfilePictureDTO downLoadProfileDTO = userService.downLoadProfilePicture(userId);
         //System.out.println("Downloading " + profilePictureName);
         //cosa da fare nel Controller: dire qual'è l'ESTENSIONE
         //qui il profilePictureName lo prendo dal DTO!!!
-        String fileName = downLoadProfileDTO.getUser().getProfilePicture();
+        String fileName = downLoadProfileDTO.getUser().getProfilePictureFileName();
         if(fileName == null) throw new Exception ("User does not have a profile picture!");
         String extension = FilenameUtils.getExtension(fileName);
         switch (extension){

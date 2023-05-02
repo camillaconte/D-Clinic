@@ -19,11 +19,14 @@ public class FileStorageService {
     private Logger log = LoggerFactory.getLogger(FileStorageService.class);
 
     @Value("${fileRepositoryFolderProfilePictures}")
-    private String folderNameProfilePictures;
+    private String profilePicturesRepositoryFolder;
 
+    /**
+     * @return: String with the name of the Folder
+     */
     private String getFileRepositoryFolderForProfilePictures(){
         String path = System.getProperty("user.home") + File.separator + "Desktop"+
-                File.separator + folderNameProfilePictures;
+                File.separator + profilePicturesRepositoryFolder;
         log.info(path);
         return path;
     }
@@ -31,7 +34,7 @@ public class FileStorageService {
 
     /**
      * @param file: file from upload Controller
-     * @return new file name with extension
+     * @return new file NAME with extension
      * @throws IOException if folder is not writable
      */
 
@@ -42,10 +45,9 @@ public class FileStorageService {
         //ci viene in aiuto commons-io
         //con una libreria che estrae l'estensione del file dal nome del file
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-        //però devo CAMBIARE IL NOME DEL FILE
-        //perché se due utenti caricano due file con lo stesso nome
-        //si creerà un conflitto, si rompe tutto
-        //quindi devo sempre fare UPLOAD DI NUOVI FILE, non rischiare di sovrascriverli
+        //però devo CAMBIARE IL NOME DEL FILE, perché se due utenti caricano due file con lo stesso nome
+        //si creerà un conflitto, si rompe tutto, quindi devo sempre fare UPLOAD DI NUOVI FILE, non rischiare di sovrascriverli
+        //assigns a random name to the file, so it is unique!
         String newFileName = UUID.randomUUID().toString();
         String completeFileName = newFileName + "." + extension;
 

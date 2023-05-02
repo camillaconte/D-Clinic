@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.Optional;
 
 @Service
@@ -27,12 +26,15 @@ public class UserService {
 
     // vedi uso di @SneakyThrows ma richiede Lombok!!!
     public User uploadProfilePicture(long userId, MultipartFile profilePicture) throws Exception {
+        //TODO usare Optional per lo user
         User user = getUser(userId);
-        if(user.getProfilePicture() != null){
-            fileStorageService.remove(user.getProfilePicture());
+        if(user.getProfilePictureFileName() != null){
+            fileStorageService.remove(user.getProfilePictureFileName());
         }
+        //fileStorageService.upload() assigns the file a name, saves it into hard disk
+        // and return the name
         String fileName = fileStorageService.upload(profilePicture);
-        user.setProfilePicture(fileName);
+        user.setProfilePictureFileName(fileName);
         return userRepository.save(user);
     }
 
@@ -42,19 +44,26 @@ public class UserService {
         //creiamo il nostro "DTO di uscita" e ci mettiamo dentro l'utente
         DownLoadProfilePictureDTO dto = new DownLoadProfilePictureDTO();
         dto.setUser(user);
-        if(user.getProfilePicture() == null){
+        if(user.getProfilePictureFileName() == null){
             return dto;
         }
-        byte[] profilePictureBytes = fileStorageService.download(user.getProfilePicture());
+        byte[] profilePictureBytes = fileStorageService.download(user.getProfilePictureFileName());
         dto.setProfileImage(profilePictureBytes);
         return dto;
+    }
+
+    public byte[] viewProfilePicture(long userId) throws Exception {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(optionalUser.isEmpty()) throw new Exception("Cannot find user " + userId);
+        String profilePictureFileName = optionalUser.get().getProfilePictureFileName();
+        return fileStorageService.download(profilePictureFileName);
     }
 
     public void removeUser(long userId) throws Exception {
         //DEVO ANCHE CANCELLARE il file dal DB
         User user = getUser(userId); //vabbé dovrei controllare se esiste!
-        if(user.getProfilePicture() != null) {
-            fileStorageService.remove(user.getProfilePicture());
+        if(user.getProfilePictureFileName() != null) {
+            fileStorageService.remove(user.getProfilePictureFileName());
         }
         userRepository.deleteById(userId);
     }

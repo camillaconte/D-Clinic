@@ -1,0 +1,86 @@
+2023-05-02T10:56:26.663+02:00  INFO 2552 --- [main] d.DClinic.DClinicApplicationTests        : Starting DClinicApplicationTests using Java 19 with PID 2552 (started by camillaconte in /Users/camillaconte/Projects/DClinic)
+2023-05-02T10:56:26.664+02:00  INFO 2552 --- [main] d.DClinic.DClinicApplicationTests        : No active profile set, falling back to 1 default profile: "default"
+2023-05-02T10:56:27.088+02:00  INFO 2552 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-02T10:56:27.124+02:00  INFO 2552 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32 ms. Found 8 JPA repository interfaces.
+2023-05-02T10:56:27.354+02:00  INFO 2552 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-02T10:56:27.385+02:00  INFO 2552 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-05-02T10:56:27.537+02:00  INFO 2552 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-02T10:56:27.748+02:00  INFO 2552 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@ce561cc
+2023-05-02T10:56:27.749+02:00  INFO 2552 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-02T10:56:27.787+02:00  INFO 2552 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-05-02T10:56:28.405+02:00  INFO 2552 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-02T10:56:28.409+02:00  INFO 2552 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-02T10:56:28.794+02:00  WARN 2552 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-02T10:56:28.996+02:00  INFO 2552 --- [main] d.DClinic.DClinicApplicationTests        : Started DClinicApplicationTests in 2.502 seconds (process running for 3.027)
+2023-05-02T10:56:29.084+02:00  INFO 2552 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-02T10:56:29.085+02:00  INFO 2552 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-02T10:56:29.089+02:00  INFO 2552 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-02T10:56:45.479+02:00  INFO 2563 --- [restartedMain] develhope.DClinic.DClinicApplication     : Starting DClinicApplication using Java 19 with PID 2563 (/Users/camillaconte/Projects/DClinic/target/classes started by camillaconte in /Users/camillaconte/Projects/DClinic)
+2023-05-02T10:56:45.481+02:00  INFO 2563 --- [restartedMain] develhope.DClinic.DClinicApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-02T10:56:45.516+02:00  INFO 2563 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-02T10:56:45.516+02:00  INFO 2563 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-02T10:56:46.010+02:00  INFO 2563 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-02T10:56:46.060+02:00  INFO 2563 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 8 JPA repository interfaces.
+2023-05-02T10:56:46.469+02:00  INFO 2563 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-02T10:56:46.475+02:00  INFO 2563 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-02T10:56:46.475+02:00  INFO 2563 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-05-02T10:56:46.505+02:00  INFO 2563 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-02T10:56:46.505+02:00  INFO 2563 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 989 ms
+2023-05-02T10:56:46.521+02:00  INFO 2563 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-02T10:56:46.680+02:00  INFO 2563 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@196826a0
+2023-05-02T10:56:46.681+02:00  INFO 2563 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-02T10:56:46.686+02:00  INFO 2563 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/clinicdb'
+2023-05-02T10:56:46.768+02:00  INFO 2563 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-02T10:56:46.791+02:00  INFO 2563 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-05-02T10:56:46.947+02:00  INFO 2563 --- [restartedMain] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-05-02T10:56:47.567+02:00  INFO 2563 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-02T10:56:47.571+02:00  INFO 2563 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-02T10:56:47.913+02:00  WARN 2563 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-02T10:56:48.111+02:00  INFO 2563 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-02T10:56:48.134+02:00  INFO 2563 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-02T10:56:48.146+02:00  INFO 2563 --- [restartedMain] develhope.DClinic.DClinicApplication     : Started DClinicApplication in 2.893 seconds (process running for 3.123)
+2023-05-02T10:57:21.955+02:00  INFO 2563 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-02T10:57:21.955+02:00  INFO 2563 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-02T10:57:21.956+02:00  INFO 2563 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-05-02T10:58:07.857+02:00  INFO 2563 --- [http-nio-8080-exec-4] d.DClinic.controller.UserController      : Uploading profile picture for user 1
+2023-05-02T10:58:07.868+02:00  INFO 2563 --- [http-nio-8080-exec-4] d.DClinic.service.FileStorageService     : Saving new file with name 9443d0cc-bb6e-4840-b8e1-0b37b0037cc2 and extension jpeg
+2023-05-02T10:58:07.868+02:00  INFO 2563 --- [http-nio-8080-exec-4] d.DClinic.service.FileStorageService     : Complete file name: 9443d0cc-bb6e-4840-b8e1-0b37b0037cc2.jpeg
+2023-05-02T10:58:07.868+02:00  INFO 2563 --- [http-nio-8080-exec-4] d.DClinic.service.FileStorageService     : /Users/camillaconte/Desktop/ProfilePicturesRepository
+2023-05-02T10:58:07.868+02:00  INFO 2563 --- [http-nio-8080-exec-4] d.DClinic.service.FileStorageService     : /Users/camillaconte/Desktop/ProfilePicturesRepository
+2023-05-02T10:58:07.871+02:00  INFO 2563 --- [http-nio-8080-exec-4] d.DClinic.service.FileStorageService     : File correctly saved
+2023-05-02T10:58:15.898+02:00  INFO 2563 --- [http-nio-8080-exec-5] d.DClinic.service.FileStorageService     : /Users/camillaconte/Desktop/ProfilePicturesRepository
+2023-05-02T11:00:47.945+02:00  INFO 2563 --- [http-nio-8080-exec-7] d.DClinic.controller.UserController      : Uploading profile picture for user 1
+2023-05-02T11:00:47.951+02:00  INFO 2563 --- [http-nio-8080-exec-7] d.DClinic.service.FileStorageService     : /Users/camillaconte/Desktop/ProfilePicturesRepository
+2023-05-02T11:00:47.952+02:00  INFO 2563 --- [http-nio-8080-exec-7] d.DClinic.service.FileStorageService     : Saving new file with name cd7a937f-60fa-438f-97d9-4ea6ee172357 and extension png
+2023-05-02T11:00:47.952+02:00  INFO 2563 --- [http-nio-8080-exec-7] d.DClinic.service.FileStorageService     : Complete file name: cd7a937f-60fa-438f-97d9-4ea6ee172357.png
+2023-05-02T11:00:47.952+02:00  INFO 2563 --- [http-nio-8080-exec-7] d.DClinic.service.FileStorageService     : /Users/camillaconte/Desktop/ProfilePicturesRepository
+2023-05-02T11:00:47.952+02:00  INFO 2563 --- [http-nio-8080-exec-7] d.DClinic.service.FileStorageService     : /Users/camillaconte/Desktop/ProfilePicturesRepository
+2023-05-02T11:00:47.953+02:00  INFO 2563 --- [http-nio-8080-exec-7] d.DClinic.service.FileStorageService     : File correctly saved
+2023-05-02T11:00:52.518+02:00  INFO 2563 --- [http-nio-8080-exec-9] d.DClinic.service.FileStorageService     : /Users/camillaconte/Desktop/ProfilePicturesRepository
+2023-05-02T11:07:10.682+02:00  INFO 2563 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-02T11:07:10.684+02:00  INFO 2563 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-02T11:07:10.688+02:00  INFO 2563 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-02T13:55:26.612+02:00  INFO 3335 --- [restartedMain] develhope.DClinic.DClinicApplication     : Starting DClinicApplication using Java 19 with PID 3335 (/Users/camillaconte/Projects/DClinic/target/classes started by camillaconte in /Users/camillaconte/Projects/DClinic)
+2023-05-02T13:55:26.614+02:00  INFO 3335 --- [restartedMain] develhope.DClinic.DClinicApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-02T13:55:26.638+02:00  INFO 3335 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-02T13:55:26.639+02:00  INFO 3335 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-02T13:55:27.006+02:00  INFO 3335 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-02T13:55:27.040+02:00  INFO 3335 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30 ms. Found 8 JPA repository interfaces.
+2023-05-02T13:55:27.332+02:00  INFO 3335 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-02T13:55:27.338+02:00  INFO 3335 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-02T13:55:27.338+02:00  INFO 3335 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-05-02T13:55:27.364+02:00  INFO 3335 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-02T13:55:27.364+02:00  INFO 3335 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 725 ms
+2023-05-02T13:55:27.381+02:00  INFO 3335 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-02T13:55:27.556+02:00  INFO 3335 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6b91f228
+2023-05-02T13:55:27.557+02:00  INFO 3335 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-02T13:55:27.563+02:00  INFO 3335 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/clinicdb'
+2023-05-02T13:55:27.623+02:00  INFO 3335 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-02T13:55:27.648+02:00  INFO 3335 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-05-02T13:55:27.800+02:00  INFO 3335 --- [restartedMain] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-05-02T13:55:28.367+02:00  INFO 3335 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-02T13:55:28.371+02:00  INFO 3335 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-02T13:55:28.699+02:00  WARN 3335 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-02T13:55:28.856+02:00  INFO 3335 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-02T13:55:28.870+02:00  INFO 3335 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-02T13:55:28.876+02:00  INFO 3335 --- [restartedMain] develhope.DClinic.DClinicApplication     : Started DClinicApplication in 2.527 seconds (process running for 2.779)
