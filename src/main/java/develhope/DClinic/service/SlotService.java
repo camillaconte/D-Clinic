@@ -59,6 +59,7 @@ public class SlotService {
 
     }
     public List<Slot>getAllSlotsByClinicId( long clinicId)throws Exception{
+
         List<Slot>slot= clinicRepository.findById(clinicId).get().getSlots();
         if (slot.isEmpty()){
             throw new Exception("slot not found");
@@ -69,13 +70,13 @@ public class SlotService {
     }
 
 
-    public Slot getAllSlotsByDoctorId(long doctorId) throws Exception {
-        Optional<Slot> optionalSlot = slotRepository.findAllSlotsByDoctorId(doctorId);
+    public List<Slot> getAllSlotsByDoctorId(long doctorId) throws Exception {
+        List<Slot> optionalSlot = slotRepository.findAllSlotsByDoctorId(doctorId);
         if (optionalSlot.isEmpty()) {
             throw new Exception("slot not found");
         }
-        logger.info("Slot found" + optionalSlot.get());
-        return optionalSlot.get();
+        logger.info("Slot found");
+        return optionalSlot;
     }
 
     public Slot updateSlot(long slotId, Slot slot) throws Exception {
@@ -95,12 +96,12 @@ public class SlotService {
 
     }
 
-    public void deleteSlotById(long slotId) throws Exception {
-        boolean slotExists = slotRepository.existsById(slotId);
+    public void deleteSlotById(long Id) throws Exception {
+        boolean slotExists = slotRepository.existsById(Id);
         if (!slotExists) {
             throw new Exception("slot does not exist");
         }
-        slotRepository.deleteById(slotId);
+        slotRepository.deleteById(Id);
         logger.info("Deleted slot");
     }
 }

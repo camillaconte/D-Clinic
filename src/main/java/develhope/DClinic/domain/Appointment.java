@@ -33,8 +33,6 @@ public class Appointment {
 
     @Column(name = "appointment_date")
     private LocalDate date;
-    @OneToOne
-    private Slot slot;
 
     @Column(name = "status")
     private String status;
