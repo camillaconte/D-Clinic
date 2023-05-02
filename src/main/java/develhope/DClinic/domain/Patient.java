@@ -24,12 +24,8 @@ public class Patient {
     @Column(nullable = false)
     private String firstName;
     @Column(nullable = false)
-
     private String lastName;
-
-    @Column(name = "fiscalCode")
     private String fiscalCode;
-
     @Column(nullable = false)
     private String email;
     private String phoneNumber;

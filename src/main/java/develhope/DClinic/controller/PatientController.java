@@ -1,8 +1,10 @@
 package develhope.DClinic.controller;
 
-import develhope.DClinic.domain.Patient;
+import develhope.DClinic.domain.*;
+import develhope.DClinic.service.CheckEmptyField;
 import develhope.DClinic.service.PatientService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,31 +14,47 @@ import java.util.List;
 public class PatientController {
 
     PatientService patientService;
+    private CheckEmptyField checkEmptyField;
 
-    @Autowired
     public PatientController (PatientService patientService){
         this.patientService = patientService;
+        //this.checkEmptyField = checkEmptyField;
     }
 
-    @GetMapping("/get-all-patients")
-    public List<Patient> getAllPatients (){
-        //return List.of(); --> lista vuota
-        return patientService.findAll();
+
+    @PostMapping
+    public ResponseEntity insetNewPatient(@RequestBody PatientDTO dto){
+                Patient patient = patientService.insertNewPatient(dto);
+                return ResponseEntity.status(HttpStatus.OK).body(patient);
     }
 
-    @PostMapping("/insert-patient")
-    public void insertNewPatient(@RequestBody Patient patient){
-        patientService.insertNewPatient(patient);
+
+    @DeleteMapping("/{fiscalCode}")
+    public ResponseEntity deleteByFiscalCode(@PathVariable String fiscalCode){
+            return ResponseEntity.status(HttpStatus.OK).body(patientService.deletePatientById(fiscalCode); );
     }
 
-    @DeleteMapping("/delete-patient-by-id/{patientId}")
-    public void deletePatientById(@PathVariable ("patientId") Integer patientId){
-        patientService.deletePatientById(patientId);
+    @PutMapping("/{fiscalCode}")
+    public ResponseEntity update(@PathVariable String fiscalCode, @RequestBody PatientDTO dto){
+            Patient update = patientService.updatePatient(fiscalCode, dto);
+            return ResponseEntity.ok(update);
     }
 
-    @PutMapping("/update-patient/{patientId}")
-    public void updatePatient(@PathVariable Integer patientId,@RequestParam String newEmail, String newName){
-        patientService.updatePatient(patientId, newEmail, newName);
+    @GetMapping("/{fiscalCode}")
+    public ResponseEntity getPatientByFiscalCode(@PathVariable String fiscalCode){
+            PatientDTO patient = patientService.getByFiscalCode(fiscalCode);
+            return ResponseEntity.ok(patient);
+
+    }
+
+    @GetMapping("/")
+    public ResponseEntity getAllDoctors(){
+        try{
+            List<DoctorResponseDTO> responseDTOList = patientService.getAllPatient();
+            return ResponseEntity.ok(responseDTOList);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
 }

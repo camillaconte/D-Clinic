@@ -1,8 +1,8 @@
 package develhope.DClinic.service;
 
 import develhope.DClinic.domain.Patient;
+import develhope.DClinic.domain.PatientDTO;
 import develhope.DClinic.repository.PatientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +13,26 @@ public class PatientService {
 
     PatientRepository patientRepository;
 
-    @Autowired
     public PatientService(PatientRepository patientRepository){
         this.patientRepository = patientRepository;
     }
+
+    public Patient insertNewPatient(PatientDTO dto){
+        Patient entity = new Patient();
+        entity.setFirstName(dto.getName());
+        entity.setLastName(dto.getSurname());
+        entity.setFiscalCode(dto.getFiscalCode());
+        entity.setEmail(dto.getEmail());
+        entity.setPhoneNumber(dto.getPhoneNumber());
+        patientRepository.save(entity);
+        return entity;
+    }
+
+    public void deletePatientByFiscalCode(String fiscalCode){
+        long id = patientRepository.getByFiscalCode(fiscalCode).getId();
+        patientRepository.deleteById(id);
+    }
+
     public List<Patient> findAll() {
         return patientRepository.findAll();
     }
@@ -38,13 +54,12 @@ public class PatientService {
         patientRepository.deleteById(patientId);
     }
 
-    public void updatePatient(long patientId, String newEmail, String newName) {
-        Optional<Patient> patientToFind = patientRepository.findById(patientId);
+    public Patient updatePatient(String fiscalCode, PatientDTO patient) {
+        Optional<Patient> patientToFind = patientRepository.findPatientByFiscalCode(fiscalCode);
+
         if (patientToFind.isPresent()){
-            Patient patient = patientToFind.get();
-            patient.setEmail(newEmail);
-            patient.setFirstName(newName);
-            patientRepository.save(patient);
-        } else throw new IllegalStateException("patient with this id not found");
+            patientRepository.save(patientToFind.get());
+        } else throw new IllegalStateException("patient with this is not found");
+        return patientToFind.get();
     }
 }

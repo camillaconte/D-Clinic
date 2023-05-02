@@ -11,9 +11,7 @@ import java.util.List;
 @Repository
 public interface DoctorRepository extends D_ClinicRepository<Doctor> {
     List<Doctor> findByLastname(String lastname);
-
     Doctor deleteByFiscalCode(String fiscalCode);
-
     Doctor getByFiscalCode(String fiscalCode);
 
 }
