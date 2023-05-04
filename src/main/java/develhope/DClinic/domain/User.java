@@ -16,7 +16,7 @@ import java.util.List;
 //TODO better undestand the use of "indexes"
 @Table(name = "users", indexes = {
         @Index(unique = true, name = "email_idx", columnList = "email")})
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @SequenceGenerator(
@@ -48,6 +48,10 @@ public class User {
      * (e.g. medicalReports and labTests effectuated in other clinics)
      */
     private List<String> documents;
+
+    @OneToOne
+    private Patient patient;
+
 
     public User() {
     }
