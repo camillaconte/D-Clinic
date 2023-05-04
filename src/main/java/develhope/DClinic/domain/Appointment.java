@@ -13,7 +13,11 @@ import java.util.List;
 public class Appointment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(   name = "appointment_id_sequence",
+            sequenceName = "appointment_id_sequence",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO,
+            generator = "appointment_id_sequence")
     @Column(name = "appointment_id")
     private long id;
 

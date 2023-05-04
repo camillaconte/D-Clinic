@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface SlotRepository extends D_ClinicRepository <Slot>{
     List<Slot> findAllSlotsByDoctorId(long doctorId);
 
-    Slot findById(long slotId);
+    Optional<Slot> findById(long slotId);
     Optional<Slot> findSlotByOccupied(boolean occupied);
 
 }
