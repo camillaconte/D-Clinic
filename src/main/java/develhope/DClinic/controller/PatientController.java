@@ -64,7 +64,7 @@ public class PatientController {
     public ResponseEntity deleteById(@PathVariable Integer patientId) {
         try {
             patientService.deletePatientById(patientId);
-            return ResponseEntity.status(HttpStatus.OK).build();
+            return ResponseEntity.ok("Patient with id " + patientId + " has been successfully deleted");
         } catch (Exception e) {
             LOGGER.error("The patient does not exist");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
