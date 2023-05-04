@@ -35,6 +35,13 @@ public class Patient {
     private String phoneNumber;
     private String address;
     private Integer age;
+    @OneToMany(
+            mappedBy = "patient",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonIgnore
+    private List<Appointment> appointments;
 
     /**
      * Qui settiamo la REFERENCING SIDE
@@ -69,7 +76,8 @@ public class Patient {
 
     public Patient(String firstName, String lastName, String fiscalCode, String email, String phoneNumber,
                    String address, Integer age, Set<MedicalReport> medicalReportsList,
-                   List<LabParameter> labParametersList, Set<LabTest> labTests) {
+                   List<LabParameter> labParametersList, Set<LabTest> labTests,
+                   List<Appointment> appointments ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.fiscalCode = fiscalCode;
@@ -80,6 +88,7 @@ public class Patient {
         this.medicalReportsList = medicalReportsList;
         this.labParametersList = labParametersList;
         this.labTests = labTests;
+        this.appointments=appointments;
     }
 
     public long getId() {
@@ -170,4 +179,11 @@ public class Patient {
         this.labTests = labTests;
     }
 
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }
 }
