@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +34,8 @@ public class UserController {
     private UserService userService;
 
     /**
-     * TODO inserisci controllo: se[] dim 0 (vuoto) lancia eccezione
+     * TODO valutare se ha senso dare la possibilità di caricare più file
+     * (visto che alla fine gliene facciamo caricare uno solo!)
      */
     @PostMapping("/upload-profile/{userId}")
     public ResponseEntity uploadProfilePicture(@PathVariable Integer userId, @RequestParam MultipartFile[] profilePicture) {
@@ -40,7 +43,7 @@ public class UserController {
             return ResponseEntity.noContent().build();
         }
         else if (profilePicture.length > 1) {
-            return ResponseEntity.badRequest().body("Too much profile pitcures, please upload only one!");
+            return ResponseEntity.badRequest().body("Too much profile pictures, please upload only one!");
         }
         try {
             log.info("Uploading profile picture for user " + userId);
@@ -56,37 +59,39 @@ public class UserController {
         }
     }
 
+    @RequestMapping (value = "/profile-picture-any/{userId}", method = RequestMethod.GET,
+            produces = { MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_GIF_VALUE})
+    public ResponseEntity viewAnyProfilePicture(@PathVariable long userId){
+        try {
+            log.info("Requested profile picture for user: " + userId);
+            return ResponseEntity.ok(userService.viewProfilePicture(userId));
+        }catch (UserNotFoundException e){
+            log.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (IOException e) {
+            log.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 
     /**
-     * To set the correct content type nell'header
-     * I have to set png type to ResponseEntity
-     * TODO find a way to set multiple MediaType (GIF, PNG...PDF!)
+     * TODO Change MediaType to PDF (it says "Attribute value must be constant" when I set MediaType.APPLICATION_PDF)
      */
-    @RequestMapping(value = "/profile-picture-download/{userId}", method = RequestMethod.GET,
-            produces = MediaType.IMAGE_PNG_VALUE)
-    public @ResponseBody byte[] downloadProfileImage(@PathVariable long userId, HttpServletResponse response) throws Exception {
-        DownLoadProfilePictureDTO downLoadProfileDTO = userService.downLoadProfilePicture(userId);
-        //System.out.println("Downloading " + profilePictureName);
-        //cosa da fare nel Controller: dire qual'è l'ESTENSIONE
-        //qui il profilePictureName lo prendo dal DTO!!!
-        String fileName = downLoadProfileDTO.getUser().getProfilePictureFileName();
-        if(fileName == null) throw new Exception ("User does not have a profile picture!");
-        String extension = FilenameUtils.getExtension(fileName);
-        switch (extension){
-            case "gif":
-                response.setContentType(MediaType.IMAGE_GIF_VALUE);
-                break;
-            case "jpg":
-            case "jpeg":
-                response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-                break;
-            case "png":
-                response.setContentType(MediaType.IMAGE_PNG_VALUE);
-                break;
+
+    @RequestMapping(value = "/view-PDF/{userId}", method = RequestMethod.GET, produces = MediaType.IMAGE_GIF_VALUE)
+    public ResponseEntity viewPDF(@PathVariable long userId){
+        try {
+            log.info("Requested PDF for user: " + userId);
+            return ResponseEntity.ok(userService.viewProfilePicture(userId));
+        }catch (UserNotFoundException e){
+            log.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (IOException e) {
+            log.warn(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"" );
-        return downLoadProfileDTO.getProfileImage();
     }
+
 
     @PostMapping("/create-user")
     public User create(@RequestBody UserDTO userDTO){
