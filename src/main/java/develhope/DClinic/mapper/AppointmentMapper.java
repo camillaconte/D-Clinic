@@ -14,7 +14,7 @@ public class AppointmentMapper {
                 appointmentDto.getClinicId(),
                 new Clinic(
                         appointmentDto.getClinic().getClinicId(),
-                        appointmentDto.getClinic().getName(),
+                        appointmentDto.getClinic().getFirstName(),
                         appointmentDto.getClinic().getCity(),
                         appointmentDto.getClinic().getDescription()),
                 new Patient(
@@ -35,7 +35,7 @@ public class AppointmentMapper {
                 .setClinicId(appointment.getClinicId())
                 .setClinic(new Clinic(
                         appointment.getClinic().getClinicId(),
-                        appointment.getClinic().getName(),
+                        appointment.getClinic().getFirstName(),
                         appointment.getClinic().getCity(),
                         appointment.getClinic().getDescription()))
                 .setPatient(new Patient(
@@ -43,7 +43,7 @@ public class AppointmentMapper {
                         appointment.getPatient().getLastName()))
                 .setDoctor(new Doctor(
                         appointment.getDoctor().getClinicId(),
-                        appointment.getDoctor().getName(),
+                        appointment.getDoctor().getFirstName(),
                         appointment.getDoctor().getLastname(),
                         appointment.getDoctor().getSpecialisation(),
                         appointment.getDoctor().getReview()))
@@ -58,7 +58,7 @@ public class AppointmentMapper {
                         .setClinicId(a.getClinicId())
                         .setClinic(new Clinic(
                                 a.getClinic().getClinicId(),
-                                a.getClinic().getName(),
+                                a.getClinic().getFirstName(),
                                 a.getClinic().getCity(),
                                 a.getClinic().getDescription()))
                         .setPatient(new Patient(

@@ -42,9 +42,9 @@ public class PatientService {
     }
     public PatientDTO getById(long patientId){
        PatientDTO responseDTO = new PatientDTO();
-        Patient entity =patientRepository.getById(patientId);
-        responseDTO.setName(entity.getFirstName());
-        responseDTO.setSurname(entity.getLastName());
+        Patient entity = patientRepository.getById(patientId);
+        responseDTO.setFirstName(entity.getFirstName());
+        responseDTO.setLastName(entity.getLastName());
         responseDTO.setFiscalCode(entity.getFiscalCode());
         responseDTO.setEmail(entity.getEmail());
         responseDTO.setPhoneNumber(entity.getPhoneNumber());
@@ -54,8 +54,8 @@ public class PatientService {
     }
     public Patient insertPatient(PatientDTO dto){
         Patient entity = new Patient();
-        entity.setFirstName(dto.getName());
-        entity.setLastName(dto.getSurname());
+        entity.setFirstName(dto.getFirstName());
+        entity.setLastName(dto.getLastName());
         entity.setFiscalCode(dto.getFiscalCode());
         entity.setEmail(dto.getEmail());
         entity.setAge(dto.getAge());
@@ -66,8 +66,8 @@ public class PatientService {
     }
     public Patient updatePatient(long patientId, PatientDTO dto){
         Patient update = patientRepository.getById(patientId);
-        if(dto.getName() != null) update.setFirstName(dto.getName());
-        if(dto.getSurname() != null) update.setLastName(dto.getSurname());
+        if(dto.getFirstName() != null) update.setFirstName(dto.getFirstName());
+        if(dto.getLastName() != null) update.setLastName(dto.getLastName());
         if(dto.getFiscalCode() != null) update.setFiscalCode(dto.getFiscalCode());
         if(dto.getEmail() != null) update.setEmail(dto.getEmail());
         if (dto.getAge() != null) update.setAge(dto.getAge());
