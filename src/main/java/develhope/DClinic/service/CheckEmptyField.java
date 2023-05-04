@@ -5,9 +5,6 @@ package develhope.DClinic.service;
 import develhope.DClinic.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
-import java.time.LocalDate;
 import java.util.HashSet;
 
 /**
@@ -73,8 +70,8 @@ public class CheckEmptyField {
     }
     public HashSet<String> checkEmptyFieldPatient(PatientDTO dto) {
         HashSet<String> MESSAGE_ERROR = new HashSet<>();
-        if(dto.getName() == null) MESSAGE_ERROR.add("NAME IS NOT INSERT");
-        if (dto.getSurname() == null) MESSAGE_ERROR.add("SURNAME IS NOT INSERT");
+        if(dto.getFirstName() == null) MESSAGE_ERROR.add("FIRST NAME IS NOT INSERT");
+        if (dto.getLastName() == null) MESSAGE_ERROR.add("LAST NAME IS NOT INSERT");
         if (dto.getFiscalCode() == null) MESSAGE_ERROR.add("FISCAL CODE IS NOT INSERT");
         if (dto.getEmail() == null) MESSAGE_ERROR.add("EMAIL IS NOT INSERT");
         if (dto.getPhoneNumber() == null) MESSAGE_ERROR.add("TELEPHONE NUMBER IS NOT INSERT");

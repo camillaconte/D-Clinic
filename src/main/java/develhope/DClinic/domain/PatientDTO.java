@@ -1,8 +1,8 @@
 package develhope.DClinic.domain;
 
 public class PatientDTO {
-    private String name;
-    private String surname;
+    private String firstName;
+    private String lastName;
     private String fiscalCode;
     private Integer age;
     private String email;
@@ -12,8 +12,8 @@ public class PatientDTO {
     @Override
     public String toString() {
         return "PatientDTO{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", fiscalCode='" + fiscalCode + '\'' +
                 ", age=" + age +
                 ", email='" + email + '\'' +
@@ -22,9 +22,9 @@ public class PatientDTO {
                 '}';
     }
 public PatientDTO(){}
-    public PatientDTO(String name, String surname, String fiscalCode, Integer age, String email, String phoneNumber, String address) {
-        this.name = name;
-        this.surname = surname;
+    public PatientDTO(String firstName, String lastName, String fiscalCode, Integer age, String email, String phoneNumber, String address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.fiscalCode = fiscalCode;
         this.age = age;
         this.email = email;
@@ -32,20 +32,20 @@ public PatientDTO(){}
         this.address = address;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getFiscalCode() {
