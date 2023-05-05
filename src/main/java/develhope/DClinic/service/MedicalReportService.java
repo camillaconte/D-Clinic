@@ -1,7 +1,7 @@
 package develhope.DClinic.service;
 
-import develhope.DClinic.domain.Doctor;
-import develhope.DClinic.domain.MedicalReportDTO;
+import develhope.DClinic.domain.Entities.Doctor;
+import develhope.DClinic.domain.DTO.MedicalReportDTO;
 import develhope.DClinic.exceptions.DoctorNotFoundException;
 import develhope.DClinic.exceptions.MedicalReportNameNotInsertedException;
 import develhope.DClinic.exceptions.MedicalReportsNotFoundException;
@@ -10,7 +10,7 @@ import develhope.DClinic.repository.DoctorRepository;
 import develhope.DClinic.repository.MedicalReportRepository;
 import develhope.DClinic.repository.PatientRepository;
 import develhope.DClinic.domain.MedicalReport;
-import develhope.DClinic.domain.Patient;
+import develhope.DClinic.domain.Entities.Patient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,7 @@
 package develhope.DClinic.controller;
 
-import develhope.DClinic.domain.Clinic;
 import develhope.DClinic.domain.Slot;
-import develhope.DClinic.domain.SlotDTO;
-import develhope.DClinic.repository.ClinicRepository;
+import develhope.DClinic.domain.DTO.SlotDTO;
 import develhope.DClinic.repository.SlotRepository;
 import develhope.DClinic.service.SlotService;
 //import io.swagger.v3.oas.annotations.parameters.RequestBody;

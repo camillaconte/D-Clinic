@@ -1,6 +1,6 @@
 package develhope.DClinic.controller;
 
-import develhope.DClinic.domain.MedicalReportDTO;
+import develhope.DClinic.domain.DTO.MedicalReportDTO;
 import develhope.DClinic.exceptions.DoctorNotFoundException;
 import develhope.DClinic.exceptions.MedicalReportNameNotInsertedException;
 import develhope.DClinic.exceptions.MedicalReportsNotFoundException;

@@ -1,11 +1,9 @@
 package develhope.DClinic.service;
 
 import develhope.DClinic.domain.Appointment;
-import develhope.DClinic.domain.BookingDTO;
+import develhope.DClinic.domain.DTO.BookingDTO;
 import develhope.DClinic.domain.Slot;
-import develhope.DClinic.mapper.AppointmentMapper;
 import develhope.DClinic.repository.AppointmentRepository;
-import develhope.DClinic.repository.DoctorRepository;
 import develhope.DClinic.repository.SlotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

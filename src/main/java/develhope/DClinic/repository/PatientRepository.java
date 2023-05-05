@@ -1,6 +1,6 @@
 package develhope.DClinic.repository;
 
-import develhope.DClinic.domain.Patient;
+import develhope.DClinic.domain.Entities.Patient;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

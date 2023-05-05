@@ -1,4 +1,6 @@
-package develhope.DClinic.domain;
+package develhope.DClinic.domain.DTO;
+
+import develhope.DClinic.domain.LabParameter;
 
 import java.io.Serializable;
 import java.time.LocalDate;

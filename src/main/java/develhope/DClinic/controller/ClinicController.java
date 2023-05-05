@@ -1,8 +1,6 @@
 package develhope.DClinic.controller;
 
-import develhope.DClinic.domain.Clinic;
-import develhope.DClinic.domain.ClinicDTO;
-import develhope.DClinic.exceptions.DoctorNotFoundException;
+import develhope.DClinic.domain.DTO.ClinicDTO;
 import develhope.DClinic.service.CheckEmptyField;
 import develhope.DClinic.service.ClinicService;
 import org.slf4j.Logger;
@@ -13,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/dclinic/clinic")

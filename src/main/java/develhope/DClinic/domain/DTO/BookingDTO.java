@@ -1,4 +1,4 @@
-package develhope.DClinic.domain;
+package develhope.DClinic.domain.DTO;
 
 public class BookingDTO {
     private long patientId;

@@ -1,9 +1,9 @@
 package develhope.DClinic.service;
 
 import develhope.DClinic.domain.Clinic;
-import develhope.DClinic.domain.Doctor;
+import develhope.DClinic.domain.Entities.Doctor;
 import develhope.DClinic.domain.Slot;
-import develhope.DClinic.domain.SlotDTO;
+import develhope.DClinic.domain.DTO.SlotDTO;
 import develhope.DClinic.repository.ClinicRepository;
 import develhope.DClinic.repository.DoctorRepository;
 import develhope.DClinic.repository.SlotRepository;
@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;

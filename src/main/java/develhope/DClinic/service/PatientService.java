@@ -1,6 +1,7 @@
 package develhope.DClinic.service;
 
-import develhope.DClinic.domain.*;
+import develhope.DClinic.domain.DTO.PatientDTO;
+import develhope.DClinic.domain.Entities.Patient;
 import develhope.DClinic.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,7 @@ public class PatientService {
         responseDTO.setFiscalCode(entity.getFiscalCode());
         responseDTO.setEmail(entity.getEmail());
         responseDTO.setPhoneNumber(entity.getPhoneNumber());
-        responseDTO.setAge(entity.getAge());
+        responseDTO.setDateOfBirth(entity.getDateOfBirth());
         responseDTO.setAddress(entity.getAddress());
         return responseDTO;
     }
@@ -58,7 +59,7 @@ public class PatientService {
         entity.setLastName(dto.getLastName());
         entity.setFiscalCode(dto.getFiscalCode());
         entity.setEmail(dto.getEmail());
-        entity.setAge(dto.getAge());
+        entity.setDateOfBirth(dto.getDateOfBirth());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setAddress(dto.getAddress());
         patientRepository.save(entity);
@@ -70,7 +71,7 @@ public class PatientService {
         if(dto.getLastName() != null) update.setLastName(dto.getLastName());
         if(dto.getFiscalCode() != null) update.setFiscalCode(dto.getFiscalCode());
         if(dto.getEmail() != null) update.setEmail(dto.getEmail());
-        if (dto.getAge() != null) update.setAge(dto.getAge());
+        if (dto.getDateOfBirth() != null) update.setDateOfBirth(dto.getDateOfBirth());
         if (dto.getPhoneNumber() != null) update.setPhoneNumber(dto.getPhoneNumber());
         if (dto.getAddress() != null) update.setAddress(dto.getAddress());
         patientRepository.saveAndFlush(update);

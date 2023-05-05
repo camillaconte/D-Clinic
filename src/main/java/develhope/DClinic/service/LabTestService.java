@@ -1,6 +1,10 @@
 package develhope.DClinic.service;
 
 import develhope.DClinic.domain.*;
+import develhope.DClinic.domain.DTO.LabTestDTOCami;
+import develhope.DClinic.domain.DTO.LabTestRequestDTO;
+import develhope.DClinic.domain.DTO.LabTestResponseDTO;
+import develhope.DClinic.domain.Entities.Patient;
 import develhope.DClinic.exceptions.PatientNotFoundException;
 import develhope.DClinic.repository.LabParameterRepository;
 import develhope.DClinic.repository.LabTestRepository;

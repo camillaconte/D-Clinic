@@ -1,9 +1,9 @@
 package develhope.DClinic.controller;
 
 import develhope.DClinic.domain.LabTest;
-import develhope.DClinic.domain.LabTestDTOCami;
-import develhope.DClinic.domain.LabTestRequestDTO;
-import develhope.DClinic.domain.LabTestResponseDTO;
+import develhope.DClinic.domain.DTO.LabTestDTOCami;
+import develhope.DClinic.domain.DTO.LabTestRequestDTO;
+import develhope.DClinic.domain.DTO.LabTestResponseDTO;
 import develhope.DClinic.service.CheckEmptyField;
 import develhope.DClinic.service.LabTestService;
 import org.slf4j.Logger;

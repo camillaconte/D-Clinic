@@ -2,7 +2,10 @@ package develhope.DClinic.service;
 
 
 
-import develhope.DClinic.domain.*;
+import develhope.DClinic.domain.DTO.ClinicDTO;
+import develhope.DClinic.domain.DTO.DoctorRequestDTO;
+import develhope.DClinic.domain.DTO.LabTestRequestDTO;
+import develhope.DClinic.domain.DTO.PatientDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -76,7 +79,7 @@ public class CheckEmptyField {
         if (dto.getEmail() == null) MESSAGE_ERROR.add("EMAIL IS NOT INSERT");
         if (dto.getPhoneNumber() == null) MESSAGE_ERROR.add("TELEPHONE NUMBER IS NOT INSERT");
         if (dto.getAddress() == null) MESSAGE_ERROR.add("ADDRESS IS NOT INSERT");
-        if (dto.getAge() == null) MESSAGE_ERROR.add("AGE NOT INSERT");
+        if (dto.getDateOfBirth() == null) MESSAGE_ERROR.add("DATE OF BIRTH NOT INSERT");
         return MESSAGE_ERROR;
     }
    

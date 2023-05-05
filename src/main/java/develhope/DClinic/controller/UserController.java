@@ -1,8 +1,7 @@
 package develhope.DClinic.controller;
 
-import develhope.DClinic.domain.DownLoadProfilePictureDTO;
-import develhope.DClinic.domain.User;
-import develhope.DClinic.domain.UserDTO;
+import develhope.DClinic.domain.Entities.User;
+import develhope.DClinic.domain.DTO.UserDTO;
 import develhope.DClinic.exceptions.UserNotFoundException;
 import develhope.DClinic.repository.UserRepository;
 import develhope.DClinic.service.UserService;
@@ -11,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import jakarta.servlet.http.HttpServletResponse;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -96,7 +93,9 @@ public class UserController {
     @PostMapping("/create-user")
     public User create(@RequestBody UserDTO userDTO){
         //user.setId(null); <-- ma perché Lorenzo lo fa?
-        User newUser = new User(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail());
+        User newUser = new User();
+        newUser.setFiscalCode(userDTO.getEmail());
+        newUser.setPassword(newUser.getPassword());
         return userRepository.save(newUser);
     }
 

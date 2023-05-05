@@ -1,8 +1,8 @@
 package develhope.DClinic.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import develhope.DClinic.domain.Entities.Doctor;
 import jakarta.persistence.*;
-import org.aspectj.weaver.patterns.ConcreteCflowPointcut;
 
 import java.util.List;
 

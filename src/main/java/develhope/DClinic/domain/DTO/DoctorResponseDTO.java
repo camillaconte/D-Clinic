@@ -1,4 +1,4 @@
-package develhope.DClinic.domain;
+package develhope.DClinic.domain.DTO;
 
 /**
  * @author Luca Giorgi

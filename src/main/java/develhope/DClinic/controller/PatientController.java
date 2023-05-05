@@ -1,6 +1,7 @@
 package develhope.DClinic.controller;
 
-import develhope.DClinic.domain.*;
+import develhope.DClinic.domain.DTO.PatientDTO;
+import develhope.DClinic.domain.Entities.Patient;
 import develhope.DClinic.service.CheckEmptyField;
 import develhope.DClinic.service.PatientService;
 import org.slf4j.Logger;

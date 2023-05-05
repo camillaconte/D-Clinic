@@ -1,4 +1,8 @@
-package develhope.DClinic.domain;
+package develhope.DClinic.domain.DTO;
+
+import develhope.DClinic.domain.Clinic;
+import develhope.DClinic.domain.Entities.Doctor;
+import develhope.DClinic.domain.Entities.Patient;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package develhope.DClinic.service;
 
-import develhope.DClinic.domain.DownLoadProfilePictureDTO;
-import develhope.DClinic.domain.User;
+import develhope.DClinic.domain.DTO.DownLoadProfilePictureDTO;
+import develhope.DClinic.domain.Entities.User;
 import develhope.DClinic.exceptions.UserNotFoundException;
 import develhope.DClinic.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

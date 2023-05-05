@@ -1,6 +1,8 @@
 package develhope.DClinic.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import develhope.DClinic.domain.Entities.Doctor;
+import develhope.DClinic.domain.Entities.Patient;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

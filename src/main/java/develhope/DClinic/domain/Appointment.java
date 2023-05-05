@@ -1,10 +1,10 @@
 package develhope.DClinic.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import develhope.DClinic.domain.Entities.Doctor;
+import develhope.DClinic.domain.Entities.Patient;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "appointments")

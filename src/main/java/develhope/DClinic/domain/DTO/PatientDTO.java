@@ -1,36 +1,17 @@
-package develhope.DClinic.domain;
+package develhope.DClinic.domain.DTO;
+
+import java.time.LocalDate;
 
 public class PatientDTO {
     private String firstName;
     private String lastName;
     private String fiscalCode;
-    private Integer age;
+    private LocalDate DateOfBirth;
     private String email;
     private String phoneNumber;
     private String address;
 
-    @Override
-    public String toString() {
-        return "PatientDTO{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", fiscalCode='" + fiscalCode + '\'' +
-                ", age=" + age +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
-public PatientDTO(){}
-    public PatientDTO(String firstName, String lastName, String fiscalCode, Integer age, String email, String phoneNumber, String address) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.fiscalCode = fiscalCode;
-        this.age = age;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-    }
+    public PatientDTO(){}
 
     public String getFirstName() {
         return firstName;
@@ -56,12 +37,12 @@ public PatientDTO(){}
         this.fiscalCode = fiscalCode;
     }
 
-    public Integer getAge() {
-        return age;
+    public LocalDate getDateOfBirth() {
+        return DateOfBirth;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        DateOfBirth = dateOfBirth;
     }
 
     public String getEmail() {

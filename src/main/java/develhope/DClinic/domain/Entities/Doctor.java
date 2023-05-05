@@ -1,6 +1,10 @@
-package develhope.DClinic.domain;
+package develhope.DClinic.domain.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import develhope.DClinic.domain.Clinic;
+import develhope.DClinic.domain.Entities.Employee;
+import develhope.DClinic.domain.MedicalReport;
+import develhope.DClinic.domain.Slot;
 import jakarta.persistence.*;
 
 import java.util.List;

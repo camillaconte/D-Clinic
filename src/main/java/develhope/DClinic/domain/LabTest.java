@@ -1,6 +1,7 @@
 package develhope.DClinic.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import develhope.DClinic.domain.Entities.Patient;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

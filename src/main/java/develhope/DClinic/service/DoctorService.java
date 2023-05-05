@@ -1,6 +1,8 @@
 package develhope.DClinic.service;
 
-import develhope.DClinic.domain.*;
+import develhope.DClinic.domain.DTO.DoctorRequestDTO;
+import develhope.DClinic.domain.DTO.DoctorResponseDTO;
+import develhope.DClinic.domain.Entities.Doctor;
 import develhope.DClinic.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +22,12 @@ public class DoctorService {
 
     public Doctor insertNewDoctorSV(DoctorRequestDTO dto){
         Doctor entity = new Doctor();
-        entity.setFirstname(dto.getFirstName());
-        entity.setLastname(dto.getLastName());
+        entity.setFirstName(dto.getFirstName());
+        entity.setLastName(dto.getLastName());
         entity.setFiscalCode(dto.getFiscalCode());
         entity.setEmail(dto.getEmail());
         entity.setPassword(dto.getPassword());
-        entity.setTelephoneNumber(dto.getTelephoneNumber());
+        entity.setPhoneNumber(dto.getTelephoneNumber());
         entity.setSpecialization(dto.getSpecialization());
         doctorRepository.save(entity);
         return entity;
@@ -40,23 +42,23 @@ public class DoctorService {
         DoctorResponseDTO responseDTO = new DoctorResponseDTO();
         Doctor entity =doctorRepository.getByFiscalCode(fiscalCode);
         responseDTO.setId(entity.getId());
-        responseDTO.setFirstName(entity.getFirstname());
-        responseDTO.setLastName(entity.getLastname());
+        responseDTO.setFirstName(entity.getFirstName());
+        responseDTO.setLastName(entity.getLastName());
         responseDTO.setFiscalCode(entity.getFiscalCode());
         responseDTO.setEmail(entity.getEmail());
-        responseDTO.setTelephoneNumber(entity.getTelephoneNumber());
+        responseDTO.setTelephoneNumber(entity.getPhoneNumber());
         responseDTO.setSpecialization(entity.getSpecialization());
         return responseDTO;
     }
 
     public Doctor updateDoctorSV(String fiscalCode, DoctorRequestDTO dto){
         Doctor update = doctorRepository.getByFiscalCode(fiscalCode);
-        if(dto.getFirstName() != null) update.setFirstname(dto.getFirstName());
-        if(dto.getLastName() != null) update.setLastname(dto.getLastName());
+        if(dto.getFirstName() != null) update.setFirstName(dto.getFirstName());
+        if(dto.getLastName() != null) update.setLastName(dto.getLastName());
         if(dto.getFiscalCode() != null) update.setFiscalCode(dto.getFiscalCode());
         if(dto.getEmail() != null) update.setEmail(dto.getEmail());
         if (dto.getPassword() != null) update.setPassword(dto.getPassword());
-        if (dto.getTelephoneNumber() != null) update.setTelephoneNumber(dto.getTelephoneNumber());
+        if (dto.getTelephoneNumber() != null) update.setPhoneNumber(dto.getTelephoneNumber());
         if (dto.getSpecialization() != null) update.setSpecialization(dto.getSpecialization());
         doctorRepository.saveAndFlush(update);
         return update;
@@ -67,11 +69,11 @@ public class DoctorService {
         List<DoctorResponseDTO> listOutput = new ArrayList<>();
         for(Doctor x : listEntities){
             DoctorResponseDTO dto = new DoctorResponseDTO();
-            dto.setFirstName(x.getFirstname());
-            dto.setLastName(x.getLastname());;
+            dto.setFirstName(x.getFirstName());
+            dto.setLastName(x.getLastName());;
             dto.setFiscalCode(x.getFiscalCode());
             dto.setEmail(x.getEmail());
-            dto.setTelephoneNumber(x.getTelephoneNumber());
+            dto.setTelephoneNumber(x.getPhoneNumber());
             dto.setSpecialization(x.getSpecialization());
             listOutput.add(dto);
         }

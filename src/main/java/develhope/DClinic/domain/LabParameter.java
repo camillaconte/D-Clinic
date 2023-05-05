@@ -1,5 +1,6 @@
 package develhope.DClinic.domain;
 
+import develhope.DClinic.domain.Entities.Patient;
 import jakarta.persistence.*;
 
 /**

@@ -1,5 +1,7 @@
-package develhope.DClinic.domain;
+package develhope.DClinic.domain.DTO;
 
+
+import develhope.DClinic.domain.Entities.User;
 
 public class DownLoadProfilePictureDTO {
 

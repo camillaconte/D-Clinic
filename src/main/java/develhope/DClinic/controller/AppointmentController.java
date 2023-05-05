@@ -1,6 +1,6 @@
 package develhope.DClinic.controller;
 
-import develhope.DClinic.domain.BookingDTO;
+import develhope.DClinic.domain.DTO.BookingDTO;
 import develhope.DClinic.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

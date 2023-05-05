@@ -1,4 +1,4 @@
-package develhope.DClinic.domain;
+package develhope.DClinic.domain.Entities;
 
 import jakarta.persistence.*;
 
@@ -16,7 +16,7 @@ import java.util.List;
 //TODO better undestand the use of "indexes"
 @Table(name = "users", indexes = {
         @Index(unique = true, name = "email_idx", columnList = "email")})
-public class User {
+public class User extends BaseEntity{
 
     @Id
     @SequenceGenerator(
@@ -28,12 +28,13 @@ public class User {
             strategy = GenerationType.SEQUENCE,
             generator = "users_id_sequence")
     private long id;
-    private String firstName;
-    private String lastName;
 
     /** N.B. creo un vincolo unico per le mail */
     @Column(unique = true)
-    private String email;
+    private String fiscalCode;
+    private String password;
+    @OneToOne(mappedBy = "user")
+    private Person person;
 
     /**
      * All users should have the opportunity to upload
@@ -52,20 +53,6 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
-
-    public User(String firstName, String lastName, String email, String profilePictureFileName, List<String> documents) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.profilePictureFileName = profilePictureFileName;
-        this.documents = documents;
-    }
-
     public long getId() {
         return id;
     }
@@ -74,28 +61,20 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFiscalCode() {
+        return fiscalCode;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFiscalCode(String fiscalCode) {
+        this.fiscalCode = fiscalCode;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getProfilePictureFileName() {
@@ -113,5 +92,6 @@ public class User {
     public void setDocuments(List<String> documents) {
         this.documents = documents;
     }
+
 }
 
