@@ -38,7 +38,9 @@ class DoctorController {
                 Doctor doctor = doctorService.insertNewDoctorSV(dto);
                 return ResponseEntity.ok(doctor);
             }catch (Exception ex) {
-                LOGGER.error(ex.getMessage());
+                LOGGER.warn("----   ----    ----    ----    ----");
+                LOGGER.warn("IT IS NOT POSSIBLE TO CREATE THE DOCTOR");
+                LOGGER.warn("----   ----    ----    ----    ----");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
             }
         }
@@ -52,7 +54,9 @@ class DoctorController {
             doctorService.deleteDoctorByFiscalCodeSV(fiscalCode);
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (Exception e){
-            LOGGER.error("The doctor does not exist");
+            LOGGER.warn("----   ----    ----    ----    ----");
+            LOGGER.warn("IT IS NOT POSSIBLE TO DELETE THE DOCTOR WITH THE FISCAL CODE: " + fiscalCode);
+            LOGGER.warn("----   ----    ----    ----    ----");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
@@ -63,7 +67,9 @@ class DoctorController {
             Doctor update = doctorService.updateDoctorSV(fiscalCode, dto);
             return ResponseEntity.ok(update);
         }catch (Exception e){
-            LOGGER.error("The doctor to be modified does not exist");
+            LOGGER.warn("----   ----    ----    ----    ----");
+            LOGGER.warn("IT IS NOT POSSIBLE TO MODIFIED THE DOCTOR WITH THE FISCAL CODE: " + fiscalCode);
+            LOGGER.warn("----   ----    ----    ----    ----");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
@@ -74,7 +80,9 @@ class DoctorController {
             DoctorResponseDTO output = doctorService.getByFiscalCodeSV(fiscalCode);
             return ResponseEntity.ok(output);
         }catch (Exception e){
-            LOGGER.error("The doctor does not exist");
+            LOGGER.warn("----   ----    ----    ----    ----");
+            LOGGER.warn("IT IS NOT POSSIBLE TO GET THE DOCTOR WITH THE FISCAL CODE: " + fiscalCode);
+            LOGGER.warn("----   ----    ----    ----    ----");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
@@ -85,6 +93,9 @@ class DoctorController {
             List<DoctorResponseDTO> responseDTOList = doctorService.getAllDoctorSV();
             return ResponseEntity.ok(responseDTOList);
         }catch (Exception e){
+            LOGGER.warn("----   ----    ----    ----    ----");
+            LOGGER.warn("IT IS NOT POSSIBLE TO OBTAIN THE LIST OF DOCTORS");
+            LOGGER.warn("----   ----    ----    ----    ----");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }

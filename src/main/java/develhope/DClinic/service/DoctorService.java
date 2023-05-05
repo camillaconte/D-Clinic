@@ -2,6 +2,8 @@ package develhope.DClinic.service;
 
 import develhope.DClinic.domain.*;
 import develhope.DClinic.repository.DoctorRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ public class DoctorService {
 
     @Autowired
     DoctorRepository doctorRepository;
+
+    private Logger LOGGER = LoggerFactory.getLogger(DoctorService.class);
 
     public Doctor insertNewDoctorSV(DoctorRequestDTO dto){
         Doctor entity = new Doctor();
