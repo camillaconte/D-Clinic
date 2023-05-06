@@ -45,7 +45,9 @@ public class LabTestController {
                 LabTest newEntity = labTestService.insertNewTest(labTestRequestDTO);
                 return ResponseEntity.ok(newEntity);
             }catch (Exception ex) {
-                LOGGER.warn(ex.getMessage());
+                LOGGER.warn("----   ----    ----    ----    ----");
+                LOGGER.warn("IT IS NOT POSSIBLE TO CREATE THE LABORATORY TEST");
+                LOGGER.warn("----   ----    ----    ----    ----");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
             }
         }
@@ -79,7 +81,9 @@ public class LabTestController {
             labTestService.deleteByID(id);
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (Exception e){
-            LOGGER.error("The test does not exist");
+            LOGGER.warn("----   ----    ----    ----    ----");
+            LOGGER.warn("IT IS NOT POSSIBLE TO DELETE THE LABORATORY TEST WITH ID: " + id);
+            LOGGER.warn("----   ----    ----    ----    ----");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
@@ -90,7 +94,9 @@ public class LabTestController {
             LabTest update = labTestService.update(id,labTest);
             return ResponseEntity.ok(update);
         }catch (Exception e){
-            LOGGER.error("The test to be modified does not exist");
+            LOGGER.warn("----   ----    ----    ----    ----");
+            LOGGER.warn("IT IS NOT POSSIBLE TO MODIFIED THE LABORATORY TEST WITH ID: " + id);
+            LOGGER.warn("----   ----    ----    ----    ----");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
@@ -101,7 +107,9 @@ public class LabTestController {
             LabTestResponseDTO getByID = labTestService.getByID(id);
             return ResponseEntity.ok(getByID);
         }catch (Exception e){
-            LOGGER.error("The test does not exist");
+            LOGGER.warn("----   ----    ----    ----    ----");
+            LOGGER.warn("IT IS NOT POSSIBLE TO GET THE LABORATORY TEST WITH ID: " + id);
+            LOGGER.warn("----   ----    ----    ----    ----");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
@@ -112,7 +120,9 @@ public class LabTestController {
             List<LabTestResponseDTO> responseDTOList = labTestService.getAllTestOfPatientSV(fiscalCode);
             return ResponseEntity.ok(responseDTOList);
         }catch (Exception e){
-            LOGGER.error("The patient has no test to display");
+            LOGGER.warn("----   ----    ----    ----    ----");
+            LOGGER.warn("IT IS NOT POSSIBLE TO OBTAIN A LIST OF ALL THE PATIENT'S LABORATORY TESTS WITH FISCAL CODE: " + fiscalCode);
+            LOGGER.warn("----   ----    ----    ----    ----");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
