@@ -1,6 +1,7 @@
 package develhope.DClinic.medicalstuff.domain.entities;
 
 import develhope.DClinic.user.domain.entities.Patient;
+import develhope.DClinic.user.utils.BaseEntity;
 import jakarta.persistence.*;
 
 /**
@@ -15,7 +16,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table (name = "labParameters")
-public class LabParameter {
+public class LabParameter extends BaseEntity {
     @Id
     @SequenceGenerator(
             name = "labParameter_id_sequence",

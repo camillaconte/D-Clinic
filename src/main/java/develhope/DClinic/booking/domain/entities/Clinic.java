@@ -2,6 +2,7 @@ package develhope.DClinic.booking.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import develhope.DClinic.user.domain.entities.Doctor;
+import develhope.DClinic.user.utils.BaseEntity;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @Table(name="Clinics")
 @Entity
-public class Clinic {
+public class Clinic extends BaseEntity {
 
     @Id
     @SequenceGenerator(

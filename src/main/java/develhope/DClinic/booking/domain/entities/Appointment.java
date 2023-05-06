@@ -2,13 +2,14 @@ package develhope.DClinic.booking.domain.entities;
 
 import develhope.DClinic.user.domain.entities.Doctor;
 import develhope.DClinic.user.domain.entities.Patient;
+import develhope.DClinic.user.utils.BaseEntity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "appointments")
-public class Appointment {
+public class Appointment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

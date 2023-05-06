@@ -2,6 +2,7 @@ package develhope.DClinic.medicalstuff.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import develhope.DClinic.user.domain.entities.Patient;
+import develhope.DClinic.user.utils.BaseEntity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table
-public class LabTest {
+public class LabTest extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)

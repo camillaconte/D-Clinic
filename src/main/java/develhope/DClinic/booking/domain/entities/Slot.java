@@ -3,12 +3,13 @@ package develhope.DClinic.booking.domain.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import develhope.DClinic.user.domain.entities.Doctor;
 import develhope.DClinic.user.domain.entities.Patient;
+import develhope.DClinic.user.utils.BaseEntity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 @Entity
 @Table(name="slots")
-public class Slot {
+public class Slot extends BaseEntity {
     @Id
     @SequenceGenerator(
             name = "slot_id_sequence",

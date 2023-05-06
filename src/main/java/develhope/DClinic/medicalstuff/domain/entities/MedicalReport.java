@@ -3,6 +3,7 @@ package develhope.DClinic.medicalstuff.domain.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import develhope.DClinic.user.domain.entities.Doctor;
 import develhope.DClinic.user.domain.entities.Patient;
+import develhope.DClinic.user.utils.BaseEntity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "medical_reports")
-public class MedicalReport {
+public class MedicalReport extends BaseEntity {
 
     @Id
     @SequenceGenerator(
