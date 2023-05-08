@@ -35,6 +35,9 @@ public class Doctor extends Employee {
     @ManyToOne(fetch = FetchType.LAZY)
     private Clinic clinic;
 
+    @OneToOne
+    private User user;
+
     public Doctor() {
     }
 

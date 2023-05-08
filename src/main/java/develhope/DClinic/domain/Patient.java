@@ -54,6 +54,11 @@ public class Patient {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+
+    // i labtest contengono i labparameters
+    // i pazienti hanno i labtest
+    // quindi i labparameters sono associati ai pazienti, però non è necessario che questa ass. sia diretta
+
     @JsonIgnore
     private List<LabParameter> labParametersList;
 
@@ -64,6 +69,9 @@ public class Patient {
     )
     @JsonIgnore
     private Set<LabTest> labTests;
+
+    @OneToOne
+    private User user;
 
     public Patient() {}
 

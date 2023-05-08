@@ -32,8 +32,11 @@ public class User {
     private String lastName;
 
     /** N.B. creo un vincolo unico per le mail */
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(nullable = false)
+    private String password;
 
     /**
      * All users should have the opportunity to upload
@@ -48,6 +51,23 @@ public class User {
      * (e.g. medicalReports and labTests effectuated in other clinics)
      */
     private List<String> documents;
+
+    @OneToOne
+    private Patient patient;
+
+    @OneToOne
+    private Doctor doctor;
+
+    /*
+
+    posso essere sia paziente che dottore oppure solo uno dei due
+
+    id      username    password     id_paziente        id_dottore
+    1       carlo       rnefwerfk    12
+    2       mirko       nakn                            65
+    3       luca        jfnakjf      34                 45
+
+     */
 
     public User() {
     }
@@ -112,6 +132,14 @@ public class User {
 
     public void setDocuments(List<String> documents) {
         this.documents = documents;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 
