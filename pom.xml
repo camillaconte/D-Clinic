@@ -75,7 +75,9 @@
 		<artifactId>h2</artifactId>
 		<scope>runtime</scope>
 		</dependency>
+
 		<!--- SWAGGER VERS. 3.0 -->
+
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
