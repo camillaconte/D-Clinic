@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 //TODO better undestand the use of "indexes"
 @Table(name = "users", indexes = {
-        @Index(unique = true, name = "email_idx", columnList = "email")})
+        @Index(unique = true, name = "fiscalCode_idx", columnList = "fiscalCode")})
 public class User extends BaseEntity {
 
     @Id
@@ -37,7 +37,9 @@ public class User extends BaseEntity {
     private String password;
 
     @OneToOne(mappedBy = "user")
-    private Person person;
+    private Patient patient;
+    @OneToOne(mappedBy = "user")
+    private Doctor doctor;
 
     /**
      * All users should have the opportunity to upload

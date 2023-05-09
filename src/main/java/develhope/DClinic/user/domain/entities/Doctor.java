@@ -17,6 +17,8 @@ import java.util.Set;
 @Table
 public class Doctor extends Employee {
 
+    @OneToOne
+    private User user;
     private String review;
 
     @OneToMany(
@@ -79,4 +81,11 @@ public class Doctor extends Employee {
         this.clinic = clinic;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

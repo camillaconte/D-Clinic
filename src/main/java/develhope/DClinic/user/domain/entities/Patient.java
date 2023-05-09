@@ -14,6 +14,9 @@ import java.util.Set;
 @Table
 public class Patient extends Person {
 
+    @OneToOne
+    private User user;
+
     /**
      * Qui settiamo la REFERENCING SIDE
      * della ASSOCIAZIONE BIDIREZIONALE tra l'entità Paziente e i suoi MedicalReports
@@ -69,4 +72,11 @@ public class Patient extends Person {
         this.labTests = labTests;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

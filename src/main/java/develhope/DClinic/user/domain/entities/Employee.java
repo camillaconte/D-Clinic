@@ -9,7 +9,7 @@ import java.util.UUID;
  * Classe comune per i lavoratori della clinica
  */
 @MappedSuperclass
-public class Employee extends Person {
+public abstract class Employee extends Person {
 
     private String specialization;
     private String Badge;
