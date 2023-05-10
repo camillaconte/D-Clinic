@@ -1,7 +1,5 @@
 package develhope.DClinic.security.auth;
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import develhope.DClinic.security.config.JwtService;
 import develhope.DClinic.security.token.Token;
 import develhope.DClinic.security.token.TokenRepository;
@@ -13,8 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
