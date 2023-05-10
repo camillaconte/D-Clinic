@@ -1,7 +1,7 @@
 package develhope.DClinic.user.domain.entities;
 
-import develhope.DClinic.security.entity.Role;
 import develhope.DClinic.security.token.Token;
+import develhope.DClinic.security.user.Role;
 import develhope.DClinic.user.utils.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package develhope.DClinic.security.entity;
+package develhope.DClinic.security.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

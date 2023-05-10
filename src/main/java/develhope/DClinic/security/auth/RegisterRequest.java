@@ -1,11 +1,10 @@
 package develhope.DClinic.security.auth;
 
-import develhope.DClinic.security.entity.Role;
+import develhope.DClinic.security.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Data
 @Builder
@@ -13,9 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RegisterRequest {
 
-    private String firstname;
-    private String lastname;
-    private String fiscalCode;
-    private String password;
-    private Role role;
+  private String firstname;
+  private String lastname;
+  private String fiscalCode;
+  private String password;
+  private Role role;
 }
