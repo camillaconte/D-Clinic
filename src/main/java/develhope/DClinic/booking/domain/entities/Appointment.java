@@ -1,18 +1,23 @@
-package develhope.DClinic.booking.domain.entities;
+package develhope.DClinic.domain;
 
-import develhope.DClinic.user.domain.entities.Doctor;
-import develhope.DClinic.user.domain.entities.Patient;
-import develhope.DClinic.user.utils.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "appointments")
-public class Appointment extends BaseEntity {
+public class Appointment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(   name = "appointment_id_sequence",
+            sequenceName = "appointment_id_sequence",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO,
+            generator = "appointment_id_sequence")
     @Column(name = "appointment_id")
     private long id;
 
@@ -32,17 +37,23 @@ public class Appointment extends BaseEntity {
     @OneToOne
     private Slot slot;
 
-    @Column(name = "appointment_date")
-    private LocalDate date;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime dateAndTime;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "notes")
+    private String notes;
 
    // @Column(name = "typology")
     //@ElementCollection
     //private List<String> typology;
 
     public Appointment() {
+    }
+
+
+    public Appointment(Patient patient,Slot slot) {
+        this.patient = patient;
+        this.slot=slot;
     }
 
     public long getId() {
@@ -77,20 +88,20 @@ public class Appointment extends BaseEntity {
         this.doctor = doctor;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDateTime getDateAndTime() {
+        return dateAndTime;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDateAndTime(LocalDateTime dateAndTime) {
+        this.dateAndTime = dateAndTime;
     }
 
-    public String getStatus() {
-        return status;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public Slot getSlot() {
