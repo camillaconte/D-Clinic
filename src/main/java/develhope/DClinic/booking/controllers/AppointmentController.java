@@ -1,8 +1,9 @@
-package develhope.DClinic.controller;
+package develhope.DClinic.booking.controllers;
 
-import develhope.DClinic.domain.Appointment;
-import develhope.DClinic.domain.BookingDTO;
-import develhope.DClinic.service.AppointmentService;
+import develhope.DClinic.booking.domain.dto.BookingDTO;
+import develhope.DClinic.booking.domain.entities.Appointment;
+import develhope.DClinic.booking.services.AppointmentService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

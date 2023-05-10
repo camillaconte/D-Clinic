@@ -1,14 +1,13 @@
-package develhope.DClinic.service;
+package develhope.DClinic.booking.services;
 
-import develhope.DClinic.domain.Appointment;
-import develhope.DClinic.domain.BookingDTO;
-import develhope.DClinic.domain.Patient;
-import develhope.DClinic.domain.Slot;
-import develhope.DClinic.mapper.AppointmentMapper;
-import develhope.DClinic.repository.AppointmentRepository;
-import develhope.DClinic.repository.DoctorRepository;
-import develhope.DClinic.repository.PatientRepository;
-import develhope.DClinic.repository.SlotRepository;
+import develhope.DClinic.booking.domain.dto.BookingDTO;
+import develhope.DClinic.booking.domain.entities.Appointment;
+import develhope.DClinic.booking.domain.entities.Slot;
+import develhope.DClinic.booking.repositories.AppointmentRepository;
+import develhope.DClinic.booking.repositories.SlotRepository;
+
+import develhope.DClinic.user.domain.entities.Patient;
+import develhope.DClinic.user.repositories.PatientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

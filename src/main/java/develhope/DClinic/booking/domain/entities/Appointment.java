@@ -1,7 +1,11 @@
-package develhope.DClinic.domain;
+package develhope.DClinic.booking.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import develhope.DClinic.booking.domain.entities.Clinic;
+import develhope.DClinic.booking.domain.entities.Slot;
+import develhope.DClinic.user.domain.entities.Doctor;
+import develhope.DClinic.user.domain.entities.Patient;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
