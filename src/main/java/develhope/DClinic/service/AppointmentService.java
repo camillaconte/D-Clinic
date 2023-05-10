@@ -88,8 +88,9 @@ public class AppointmentService {
 
 
         Appointment newApp = appointmentRepository.saveAndFlush(appointment);
-        logger.info("Updated appointment" + newApp.getSlot() + newApp.getPatient() +
-                newApp.getDateAndTime() + newApp.getDoctor() + newApp.getNotes() );
+        logger.info("Updated appointment " + newApp.getSlot() + newApp.getPatient() +
+                newApp.getDateAndTime() + newApp.getDoctor() + newApp.
+                getNotes() );
         return newApp;
     }
     public void deleteAppById(long appointmentId) throws Exception {
