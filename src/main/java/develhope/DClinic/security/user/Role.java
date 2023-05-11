@@ -35,7 +35,9 @@ public enum Role {
                   MANAGER_DELETE,
                   MANAGER_CREATE
           )
-  )
+  ),
+  DOCTOR(Collections.emptySet()),
+  PATIENT(Collections.emptySet())
 
   ;
 

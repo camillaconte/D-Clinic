@@ -3,13 +3,16 @@ package develhope.DClinic.user.controllers;
 import develhope.DClinic.user.domain.dto.DoctorRequestDTO;
 import develhope.DClinic.user.domain.dto.DoctorResponseDTO;
 import develhope.DClinic.user.domain.entities.Doctor;
+import develhope.DClinic.user.domain.entities.User;
 import develhope.DClinic.utils.CheckEmptyField;
 import develhope.DClinic.user.service.DoctorService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -22,9 +25,9 @@ import java.util.List;
  */
 
 @RestController
+@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("d_clinic/doctor")
 class DoctorController {
-
     @Autowired
     DoctorService doctorService;
     @Autowired
@@ -33,11 +36,11 @@ class DoctorController {
     private Logger LOGGER = LoggerFactory.getLogger(DoctorController.class);
 
     @PostMapping
-    public ResponseEntity insetNewDoctor(@RequestBody DoctorRequestDTO dto){
+    public ResponseEntity insetNewDoctor(@RequestBody DoctorRequestDTO dto/*HttpServletRequest request*/){
         HashSet<String> error = checkEmptyField.checkEmptyFieldNewDoctor(dto);
         if(error.isEmpty()){
             try{
-                Doctor doctor = doctorService.insertNewDoctorSV(dto);
+                Doctor doctor = doctorService.insertNewDoctorSV(dto/*request*/);
                 return ResponseEntity.ok(doctor);
             }catch (Exception ex) {
                 LOGGER.warn("----   ----    ----    ----    ----");

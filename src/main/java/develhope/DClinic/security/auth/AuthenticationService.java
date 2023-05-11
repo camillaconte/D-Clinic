@@ -10,6 +10,9 @@ import develhope.DClinic.user.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,11 +24,19 @@ import java.io.IOException;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
+  @Autowired
   private final UserRepository repository;
+  @Autowired
   private final TokenRepository tokenRepository;
+  @Autowired
   private final PasswordEncoder passwordEncoder;
+  @Autowired
   private final JwtService jwtService;
+  @Autowired
   private final AuthenticationManager authenticationManager;
+
+  private Logger LOGGER = LoggerFactory.getLogger(AuthenticationService.class);
+
 
   public AuthenticationResponse register(RegisterRequest request) {
     var user = User.builder()
@@ -47,10 +58,10 @@ public class AuthenticationService {
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
     authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(
-            request.getFiscalCode(),
-            request.getPassword()
-        )
+            new UsernamePasswordAuthenticationToken(
+                    request.getFiscalCode(),
+                    request.getPassword()
+            )
     );
     var user = repository.findByFiscalCode(request.getFiscalCode())
         .orElseThrow();
@@ -113,4 +124,18 @@ public class AuthenticationService {
       }
     }
   }
+
+  /*public User userByToken(HttpServletRequest request){
+    if(HttpHeaders.AUTHORIZATION == null) {
+      LOGGER.error("----   ----    ----    ----    ----");
+      LOGGER.error("THE USER HAS NOT BEEN AUTHENTICATED");
+      LOGGER.error("----   ----    ----    ----    ----");
+    }
+    String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+    final String token = authHeader.substring(7);
+    final String userFiscalCode = jwtService.extractUsername(token);
+    var user = this.repository.findByFiscalCode(userFiscalCode)
+            .orElseThrow();
+    return user;
+  }*/
 }

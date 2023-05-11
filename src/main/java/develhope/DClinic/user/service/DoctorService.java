@@ -1,9 +1,12 @@
 package develhope.DClinic.user.service;
 
+import develhope.DClinic.security.auth.AuthenticationService;
 import develhope.DClinic.user.domain.dto.DoctorRequestDTO;
 import develhope.DClinic.user.domain.dto.DoctorResponseDTO;
 import develhope.DClinic.user.domain.entities.Doctor;
+import develhope.DClinic.user.domain.entities.User;
 import develhope.DClinic.user.repositories.DoctorRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +22,10 @@ public class DoctorService {
 
     @Autowired
     DoctorRepository doctorRepository;
+    @Autowired
+    AuthenticationService authenticationService;
 
-    public Doctor insertNewDoctorSV(DoctorRequestDTO dto){
+    public Doctor insertNewDoctorSV(DoctorRequestDTO dto /*HttpServletRequest request*/){
         Doctor entity = new Doctor();
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
@@ -29,6 +34,8 @@ public class DoctorService {
         entity.setPassword(dto.getPassword());
         entity.setPhoneNumber(dto.getTelephoneNumber());
         entity.setSpecialization(dto.getSpecialization());
+        /*User user = authenticationService.userByToken(request);
+        entity.setUser(user);*/
         doctorRepository.save(entity);
         return entity;
     }
