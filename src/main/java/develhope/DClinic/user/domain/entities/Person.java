@@ -1,5 +1,6 @@
 package develhope.DClinic.user.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import develhope.DClinic.user.utils.BaseEntity;
 import jakarta.persistence.*;
 
@@ -22,7 +23,8 @@ public abstract class Person extends BaseEntity {
     private String email;
     private String password;
     private String address;
-    private LocalDate DateOfBirth;
+    @JsonFormat(pattern="dd-MM-yyyy")
+    private LocalDate dateOfBirth;
 
     @OneToOne
     private User user;
@@ -96,10 +98,10 @@ public abstract class Person extends BaseEntity {
     }
 
     public LocalDate getDateOfBirth() {
-        return DateOfBirth;
+        return dateOfBirth;
     }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
-        DateOfBirth = dateOfBirth;
+        this.dateOfBirth = dateOfBirth;
     }
 }

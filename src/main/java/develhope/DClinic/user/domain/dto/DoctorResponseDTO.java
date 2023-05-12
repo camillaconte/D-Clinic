@@ -1,5 +1,7 @@
 package develhope.DClinic.user.domain.dto;
 
+import java.time.LocalDate;
+
 /**
  * @author Luca Giorgi
  * Classe Doctor dedicate per le risposte
@@ -12,6 +14,8 @@ public class DoctorResponseDTO {
     private String fiscalCode;
     private String telephoneNumber;
     private String email;
+    private String address;
+    private LocalDate dateOfBirth;
     private String specialization;
 
     public DoctorResponseDTO() {
@@ -63,6 +67,22 @@ public class DoctorResponseDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getSpecialization() {

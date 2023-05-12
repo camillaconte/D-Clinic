@@ -34,6 +34,8 @@ public class DoctorService {
         entity.setPassword(dto.getPassword());
         entity.setPhoneNumber(dto.getTelephoneNumber());
         entity.setSpecialization(dto.getSpecialization());
+        entity.setAddress(dto.getAddress());
+        entity.setDateOfBirth(dto.getDateOfBirth());
         /*User user = authenticationService.userByToken(request);
         entity.setUser(user);*/
         doctorRepository.save(entity);
@@ -53,6 +55,8 @@ public class DoctorService {
         responseDTO.setLastName(entity.getLastName());
         responseDTO.setFiscalCode(entity.getFiscalCode());
         responseDTO.setEmail(entity.getEmail());
+        responseDTO.setAddress(entity.getAddress());
+        responseDTO.setDateOfBirth(entity.getDateOfBirth());
         responseDTO.setTelephoneNumber(entity.getPhoneNumber());
         responseDTO.setSpecialization(entity.getSpecialization());
         return responseDTO;
@@ -64,7 +68,8 @@ public class DoctorService {
         if(dto.getLastName() != null) update.setLastName(dto.getLastName());
         if(dto.getFiscalCode() != null) update.setFiscalCode(dto.getFiscalCode());
         if(dto.getEmail() != null) update.setEmail(dto.getEmail());
-        if (dto.getPassword() != null) update.setPassword(dto.getPassword());
+        if(dto.getAddress() != null) update.setAddress(dto.getAddress());
+        if(dto.getDateOfBirth() != null) update.setDateOfBirth(dto.getDateOfBirth());
         if (dto.getTelephoneNumber() != null) update.setPhoneNumber(dto.getTelephoneNumber());
         if (dto.getSpecialization() != null) update.setSpecialization(dto.getSpecialization());
         doctorRepository.saveAndFlush(update);
@@ -80,6 +85,8 @@ public class DoctorService {
             dto.setLastName(x.getLastName());;
             dto.setFiscalCode(x.getFiscalCode());
             dto.setEmail(x.getEmail());
+            dto.setAddress(x.getAddress());
+            dto.setDateOfBirth(x.getDateOfBirth());
             dto.setTelephoneNumber(x.getPhoneNumber());
             dto.setSpecialization(x.getSpecialization());
             listOutput.add(dto);
