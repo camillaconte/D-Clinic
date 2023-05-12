@@ -1,6 +1,7 @@
 package develhope.DClinic.user.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import develhope.DClinic.booking.domain.entities.Appointment;
 import develhope.DClinic.medicalstuff.domain.entities.LabParameter;
 import develhope.DClinic.medicalstuff.domain.entities.LabTest;
 import develhope.DClinic.medicalstuff.domain.entities.MedicalReport;
@@ -45,6 +46,13 @@ public class Patient extends Person {
     )
     @JsonIgnore
     private Set<LabTest> labTests;
+    @OneToMany(
+            mappedBy = "patient",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonIgnore
+    private List<Appointment> appointments;
 
     public Patient() {}
 
@@ -78,5 +86,13 @@ public class Patient extends Person {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 }

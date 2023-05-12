@@ -1,11 +1,14 @@
 package develhope.DClinic.user.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 
 public class PatientDTO {
     private String firstName;
     private String lastName;
     private String fiscalCode;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate DateOfBirth;
     private String email;
     private String phoneNumber;
