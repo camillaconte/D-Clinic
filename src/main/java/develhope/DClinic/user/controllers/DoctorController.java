@@ -25,7 +25,6 @@ import java.util.List;
  */
 
 @RestController
-@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("d_clinic/doctor")
 class DoctorController {
     @Autowired

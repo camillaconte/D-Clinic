@@ -16,7 +16,6 @@ import java.util.HashSet;
 import java.util.List;
 
 @RestController
-@PreAuthorize("hasRole('USER')")
 @RequestMapping("/patient")
 public class PatientController {
 
