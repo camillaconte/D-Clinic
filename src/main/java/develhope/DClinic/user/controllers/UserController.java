@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@PreAuthorize("hasRole('USER')")
+//@PreAuthorize("hasRole('USER')")
 @RequestMapping("/user")
 public class UserController {
 

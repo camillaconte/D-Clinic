@@ -1,5 +1,6 @@
 package develhope.DClinic.user.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import develhope.DClinic.security.token.Token;
 import develhope.DClinic.security.user.Role;
 import develhope.DClinic.user.utils.BaseEntity;
@@ -50,14 +51,17 @@ public class User extends BaseEntity implements UserDetails {
     private String password;
 
     @OneToOne(mappedBy = "user")
+    @JsonIgnore
     private Patient patient;
     @OneToOne(mappedBy = "user")
+    @JsonIgnore
     private Doctor doctor;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Token> tokens;
 
     /**
