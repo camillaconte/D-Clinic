@@ -35,13 +35,12 @@ public class AppointmentService {
             throw new Exception("The patient with id:" + bookingDTO.getPatientId() +
                     "does not exist");
         }
-        if(optionalPatient.isEmpty()){
+        if(optionalSlot.isEmpty()){
             throw new Exception("The slot with id:" + bookingDTO.getSlotId() +
                     "does not exist");
         }
         Patient patient = optionalPatient.get();
         Slot slot =optionalSlot.get();
-
         Appointment appointment =new Appointment(patient, slot);
         appointmentRepository.save(appointment);
         patient.getAppointments().add(appointment);
@@ -52,6 +51,8 @@ public class AppointmentService {
         appointment.setDateAndTime(slot.getDateAndTime());
         appointment.setNotes(bookingDTO.getNotes());
         slot.setOccupied(true);
+        slot.setPatient(patient);
+        slot.setAppointment(appointment);
         //slot.getMedicalService();
         slotRepository.save(slot);
         Appointment app= appointmentRepository.save(appointment);
